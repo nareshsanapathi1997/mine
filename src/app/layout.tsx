@@ -24,7 +24,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const title = `${siteConfig.name} — Business systems built around how you operate`;
+const title = `${siteConfig.name} | AI, Software & Business Automation`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f8fafc",
+  themeColor: "#070b14",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -70,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
+      data-theme="dark"
       data-scroll-behavior="smooth"
       className={`${manrope.variable} ${inter.variable} h-full antialiased`}
     >

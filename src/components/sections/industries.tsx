@@ -42,15 +42,29 @@ export function Industries() {
         <SectionHeading
           id="industries-heading"
           eyebrow="Industries"
-          title="The same idea, shaped around the work."
+          title="The same technology, shaped around the work."
           description="Select an industry to see the problems, the systems, and a workflow we would actually build."
         />
         <div className="stack grid-12 items-start">
+          <label className="col-span-12 text-sm font-semibold text-ink lg:hidden">
+            Industry
+            <select
+              className="field mt-2 h-11 w-full bg-surface px-3"
+              value={industry.slug}
+              onChange={(event) => setActive(event.target.value)}
+            >
+              {industries.map((item) => (
+                <option key={item.slug} value={item.slug}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
+          </label>
           <div
             role="tablist"
             aria-label="Industries"
             aria-orientation="vertical"
-            className="col-span-12 flex gap-2 overflow-x-auto lg:col-span-4 lg:flex-col lg:overflow-visible"
+            className="col-span-12 hidden gap-2 lg:col-span-4 lg:flex lg:flex-col"
             onKeyDown={onKeyDown}
           >
             {industries.map((item) => {

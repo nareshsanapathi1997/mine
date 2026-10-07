@@ -16,13 +16,18 @@ export function CaseStudies({
   return (
     <section id="case-studies" className="section scroll-mt-28 bg-canvas" aria-labelledby="cases-heading">
       <Container>
-        <SectionHeading id="cases-heading" eyebrow="Case studies" title={heading} description={intro} />
+        <SectionHeading
+          id="cases-heading"
+          eyebrow="Solution patterns"
+          title={heading}
+          description={intro}
+        />
         <ul className="stack grid gap-[var(--gutter)]">
           {caseStudies.map((study) => (
             <li key={study.slug} id={study.slug} className="scroll-mt-28">
               <article className="card">
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent-ink">
-                  {study.industry} · Solution in practice
+                  {study.industry} · Solution pattern
                 </p>
                 <h3 className="text-h3 mt-2 text-ink">{study.title}</h3>
                 <dl className="mt-5 grid gap-4 text-sm leading-relaxed md:grid-cols-2">
@@ -60,7 +65,7 @@ export function CaseStudies({
                   </div>
                 )}
                 <Link href={detailed ? "/contact" : `/case-studies#${study.slug}`} className="text-link mt-4">
-                  {detailed ? "Talk to an Expert" : "View this pattern"}
+                  {detailed ? "Talk to an Expert" : "View pattern"}
                   <span className="text-link-arrow" aria-hidden="true">→</span>
                   <span className="sr-only"> {study.title}</span>
                 </Link>

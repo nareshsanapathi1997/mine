@@ -722,6 +722,11 @@ export const systemNodes = [
     label: "Business Data",
     detail: "The shared records — students, guests, orders, tickets — that every channel reads and writes.",
   },
+  {
+    id: "action",
+    label: "Action",
+    detail: "The result a person can see: a reply, a booking, a status, or a handoff to someone who can decide.",
+  },
 ] as const;
 
 export const comparisonRows = [

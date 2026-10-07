@@ -8,9 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  BUDGETS,
   ENQUIRY_FIELDS,
-  INDUSTRIES,
   emptyEnquiry,
   validateEnquiry,
   type Enquiry,
@@ -22,24 +20,36 @@ import { cn } from "@/lib/cn";
 const labels: Record<EnquiryField, string> = {
   name: "Name",
   company: "Company",
-  email: "Work Email",
-  phone: "Phone",
+  email: "Email",
+  phone: "Phone / WhatsApp",
   industry: "Industry",
-  need: "What are you trying to improve?",
+  need: "What do you need?",
   budget: "Budget",
-  message: "Message",
+  message: "Tell us about your workflow.",
 };
 
 const hints: Record<EnquiryField, string> = {
   name: "The person we should reply to.",
   company: "Organisation or institution.",
   email: "Where the reply is sent.",
-  phone: "Include the country code.",
+  phone: "A mobile number is enough.",
   industry: "The sector this work is for.",
-  need: "The workflow or system you want to change.",
+  need: "The system you want to talk about.",
   budget: "A range is enough.",
-  message: "Add the context and constraints that do not fit in the line above.",
+  message: "The workflow, the tools you already use, and what a good outcome looks like.",
 };
+
+const needOptions = [
+  "AI Agent",
+  "Voice AI",
+  "WhatsApp Automation",
+  "Business Automation",
+  "Business Software",
+  "Website",
+  "Mobile App",
+  "Cloud & DevOps",
+  "Other",
+] as const;
 
 export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
   const formId = useId();
@@ -140,7 +150,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
       <div className="mb-5">
         <h2 className="text-h3 text-ink">Send an enquiry</h2>
         <p className="mt-1 text-small text-muted">
-          Name, work email, industry, budget, what you want to improve, and a message are required.
+          Name, email, what you need, and the workflow are required.
         </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
@@ -189,30 +199,6 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           onChange={(value) => update("phone", value)}
         />
         <SelectField
-          id={`${formId}-industry`}
-          name="industry"
-          required
-          label={labels.industry}
-          hint={hints.industry}
-          error={errors.industry}
-          value={values.industry}
-          placeholder="Select an industry"
-          options={INDUSTRIES}
-          onChange={(value) => update("industry", value)}
-        />
-        <SelectField
-          id={`${formId}-budget`}
-          name="budget"
-          required
-          label={labels.budget}
-          hint={hints.budget}
-          error={errors.budget}
-          value={values.budget}
-          placeholder="Select a budget range"
-          options={BUDGETS}
-          onChange={(value) => update("budget", value)}
-        />
-        <Field
           id={`${formId}-need`}
           name="need"
           required
@@ -220,6 +206,12 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           hint={hints.need}
           error={errors.need}
           value={values.need}
+          placeholder="Select what you need"
+          options={
+            values.need && !needOptions.includes(values.need as (typeof needOptions)[number])
+              ? [values.need, ...needOptions]
+              : needOptions
+          }
           onChange={(value) => update("need", value)}
           className="sm:col-span-2"
         />
@@ -261,7 +253,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
       </div>
 
       <p className="mt-5 text-small text-muted">
-        By sending this enquiry you agree that we may use these details to reply.{" "}
+        We review your requirement and get back to you. By sending this enquiry you agree that we may use these details to reply.{" "}
         <Link href="/privacy" className="inline-flex min-h-11 items-center font-medium text-accent-ink underline decoration-accent-ink/30 underline-offset-4">
           Privacy Policy
         </Link>
@@ -274,7 +266,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
       ) : null}
 
       <Button type="submit" size="lg" className="mt-4 w-full" loading={pending} arrow>
-        {pending ? "Sending…" : "Send Enquiry"}
+        {pending ? "Sending…" : "Start a Conversation"}
       </Button>
     </form>
   );

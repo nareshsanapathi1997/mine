@@ -7,13 +7,14 @@ import { systemNodes } from "@/content/stories";
 import { cn } from "@/lib/cn";
 
 const positions: Record<string, string> = {
-  website: "left-[4%] top-[8%]",
-  mobile: "left-1/2 top-[2%] -translate-x-1/2",
-  whatsapp: "right-[4%] top-[8%]",
-  agent: "left-1/2 top-[38%] -translate-x-1/2",
-  crm: "left-[6%] top-[68%]",
-  automation: "right-[6%] top-[68%]",
-  data: "left-1/2 bottom-[6%] -translate-x-1/2",
+  website: "left-[6%] top-[8%]",
+  mobile: "left-1/2 top-[6%] -translate-x-1/2",
+  whatsapp: "right-[6%] top-[8%]",
+  agent: "left-[18%] top-[34%]",
+  data: "right-[6%] top-[34%]",
+  crm: "left-1/2 top-[54%] -translate-x-1/2",
+  automation: "left-1/2 top-[72%] -translate-x-1/2",
+  action: "left-1/2 bottom-[4%] -translate-x-1/2",
 };
 
 export function ConnectedSystems() {
@@ -28,7 +29,7 @@ export function ConnectedSystems() {
             id="connected-heading"
             eyebrow="Connected systems"
             title="One connected system. Not a collection of tools."
-            description="Website, mobile, WhatsApp, AI and automation should read and write the same business records."
+            description="Website, mobile, WhatsApp, AI and automation should read and write the same business records. We connect the tools you already use. We do not replace them by default."
           />
           <p className="mt-6 min-h-16 text-body text-ink" aria-live="polite">
             <span className="font-semibold">{current.label}. </span>
@@ -36,7 +37,7 @@ export function ConnectedSystems() {
           </p>
         </div>
         <div className="col-span-12 lg:col-span-7">
-          <div className="relative hidden h-[28rem] rounded-xl border border-line bg-canvas lg:block">
+          <div className="relative hidden h-[34rem] rounded-xl border border-line bg-canvas lg:block">
             <svg className="absolute inset-0 h-full w-full text-slate-300" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
               <Connections />
             </svg>
@@ -83,13 +84,13 @@ export function ConnectedSystems() {
 
 function Connections() {
   const lines = [
-    [18, 16, 50, 44],
-    [50, 12, 50, 44],
-    [82, 16, 50, 44],
-    [50, 50, 22, 74],
-    [50, 50, 78, 74],
-    [22, 78, 50, 84],
-    [78, 78, 50, 84],
+    [18, 14, 28, 38],
+    [50, 12, 32, 38],
+    [82, 14, 36, 40],
+    [40, 40, 78, 40],
+    [32, 46, 50, 58],
+    [50, 64, 50, 76],
+    [50, 80, 50, 90],
   ];
   return (
     <>

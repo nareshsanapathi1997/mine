@@ -46,7 +46,17 @@ export function Footer() {
               <a href={`mailto:${siteConfig.email}`} className="footer-link w-fit break-all">
                 {siteConfig.email}
               </a>
+              <span className="text-mist">{siteConfig.location}</span>
             </p>
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              {siteConfig.social.map((item) => (
+                <li key={item.label}>
+                  <a href={item.href} className="footer-link" target="_blank" rel="noopener noreferrer">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="col-span-6 sm:col-span-3 lg:col-span-2">
             <FooterColumn title="Solutions">

@@ -56,6 +56,7 @@ export const services: Service[] = [
   {
     slug: "voice-ai",
     title: "Voice AI",
+    showInFooter: true,
     description:
       "AI-powered voice assistants for customer support, admissions, bookings and business operations.",
     details:
@@ -65,6 +66,7 @@ export const services: Service[] = [
   {
     slug: "whatsapp-automation",
     title: "WhatsApp Automation",
+    showInFooter: true,
     description:
       "Automated conversations, lead capture, notifications, reminders and customer support.",
     details:
@@ -97,6 +99,8 @@ export const services: Service[] = [
 
 const footerOrder = [
   "ai-agents",
+  "voice-ai",
+  "whatsapp-automation",
   "business-automation",
   "web-development",
   "mobile-applications",

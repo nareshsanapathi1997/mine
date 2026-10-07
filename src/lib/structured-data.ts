@@ -82,6 +82,7 @@ export function organizationJsonLd() {
     email: siteConfig.email,
     ...(siteConfig.phoneHref ? { telephone: siteConfig.phoneHref.replace(/^tel:/, "") } : {}),
     ...(siteConfig.location ? { address: siteConfig.location } : {}),
+    sameAs: siteConfig.social.map((item) => item.href),
     logo: new URL("/kyntriq-solutions-logo.jpg", siteConfig.url).toString(),
     description: siteConfig.description,
   };

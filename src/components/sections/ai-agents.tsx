@@ -51,6 +51,21 @@ export function AiAgents() {
               </li>
             ))}
           </ol>
+          <div className="mt-6 rounded-xl border border-line bg-canvas p-4 text-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">Example</p>
+            <p className="mt-3 text-ink">
+              <span className="font-semibold">User. </span>
+              Check my application status
+            </p>
+            <ul className="mt-3 space-y-1 text-muted">
+              <li>Customer identified</li>
+              <li>Application found</li>
+              <li>Status checked</li>
+            </ul>
+            <p className="mt-3 font-semibold text-ink">Application status</p>
+            <p className="mt-1 text-muted">Documents verified. Interview scheduled.</p>
+            <p className="mt-3 text-ink">Would you like me to send the details?</p>
+          </div>
         </div>
       </Container>
     </section>

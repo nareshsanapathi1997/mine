@@ -6,8 +6,11 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { Faq } from "@/components/sections/faq";
 import { Hero } from "@/components/sections/hero";
 import { Industries } from "@/components/sections/industries";
+import { Integrations } from "@/components/sections/integrations";
+import { Problems } from "@/components/sections/problems";
 import { Process } from "@/components/sections/process";
 import { Services } from "@/components/sections/services";
+import { TechStrip } from "@/components/sections/tech-strip";
 import { WhyUs } from "@/components/sections/why-us";
 import { JsonLd } from "@/components/seo/json-ld";
 import { servicesJsonLd } from "@/lib/structured-data";
@@ -21,17 +24,25 @@ export default function HomePage() {
     <>
       <JsonLd data={servicesJsonLd()} />
       <Hero />
+      <TechStrip />
+      <Problems />
       <ConnectedSystems />
       <Services />
       <AiAgents />
       <Industries />
+      <Integrations />
       <Process />
       <WhyUs />
-      <CaseStudies />
+      <CaseStudies
+        heading="How we solve real business problems."
+        intro="These are solution patterns for real operating problems. They are not verified client engagements, and they do not include invented results."
+      />
       <Faq />
       <CtaBand
         title="Tell us which operation you want to change."
-        description="We build connected software, AI and automation around the way a business already works."
+        description="We build connected software, AI and automation around the way your business already works."
+        primaryLabel="Start a Conversation"
+        showWhatsapp
       />
     </>
   );

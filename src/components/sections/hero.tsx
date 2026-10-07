@@ -12,7 +12,7 @@ const architecture = [
   "Action",
 ];
 
-const trustLine = ["Web", "Mobile", "AI", "Automation", "Cloud"];
+const trustLine = ["AI Agents", "Automation", "Business Software", "Web & Mobile", "Cloud"];
 
 export function Hero() {
   return (
@@ -24,17 +24,17 @@ export function Hero() {
             AI · Software · Automation · Business Systems
           </p>
           <h1 className="text-display cluster text-balance text-ink">
-            Business systems built around how you operate.
+            Build smarter. Automate faster. Operate better.
           </h1>
           <p className="text-body measure cluster text-muted">
-            We build websites, business software and AI-powered systems that connect your people, processes and data.
+            We build custom software, AI agents and business automation systems that connect your people, processes and data.
           </p>
           <div className="cluster-lg flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg" arrow className="w-full sm:w-auto">
               <Link href="/contact">Talk to an Expert</Link>
             </Button>
             <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
-              <Link href="/#solutions">Explore Solutions</Link>
+              <Link href="/#solutions">See What We Build</Link>
             </Button>
           </div>
           <ul className="cluster-lg flex flex-wrap gap-2" aria-label={trustLine.join(", ")}>

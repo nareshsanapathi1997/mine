@@ -102,6 +102,7 @@ export const industries: Industry[] = [
   {
     slug: "professional-services",
     title: "Professional Services",
+    showInFooter: true,
     audience: "Consultancies, Agencies, Service businesses",
     summary:
       "Leads, client work and reporting in a system your team can actually run.",

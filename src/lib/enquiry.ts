@@ -92,20 +92,20 @@ export function validateEnquiry(input: unknown):
     }
   }
 
-  if (!INDUSTRIES.includes(data.industry as (typeof INDUSTRIES)[number])) {
+  if (data.industry && !INDUSTRIES.includes(data.industry as (typeof INDUSTRIES)[number])) {
     errors.industry = "Select an industry.";
   }
 
   if (data.need.length < 3 || data.need.length > 160) {
-    errors.need = "Tell us what you are trying to improve.";
+    errors.need = "Tell us what you need.";
   }
 
-  if (!BUDGETS.includes(data.budget as (typeof BUDGETS)[number])) {
+  if (data.budget && !BUDGETS.includes(data.budget as (typeof BUDGETS)[number])) {
     errors.budget = "Select a budget range.";
   }
 
   if (data.message.length < 20 || data.message.length > 2000) {
-    errors.message = "Add a short description of the problem (at least 20 characters).";
+    errors.message = "Tell us about the workflow (at least 20 characters).";
   }
 
   if (Object.keys(errors).length > 0) {

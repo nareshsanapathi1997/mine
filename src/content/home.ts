@@ -127,27 +127,27 @@ export const processSteps: { number: string; title: string; description: string 
   {
     number: "01",
     title: "Discover",
-    description: "Map who receives the request, which record is trusted, and which step is repeated every day.",
+    description: "Understand how the business operates before choosing what to build.",
   },
   {
     number: "02",
     title: "Specify",
-    description: "Write the experience, the data, and the actions a person or an agent is allowed to take.",
+    description: "Define the workflow, the data, and the system that is actually required.",
   },
   {
     number: "03",
     title: "Build",
-    description: "Deliver the website, app, or internal system against that specification — not a generic template.",
+    description: "Build the website, application, AI agent, or automation against that specification.",
   },
   {
     number: "04",
     title: "Connect",
-    description: "Join WhatsApp, payments, and the systems of record so nobody copies the same update twice.",
+    description: "Connect the systems, APIs, and business records so the same fact is not copied twice.",
   },
   {
     number: "05",
     title: "Stay",
-    description: "Deploy, monitor, and remain for the next improvement after the first release.",
+    description: "Monitor, improve, and support the system after the first release.",
   },
 ];
 
