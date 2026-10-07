@@ -65,8 +65,13 @@ export function Navbar() {
       onMouseLeave={() => setMenu(null)}
     >
       <Container className="nav-shell flex items-center justify-between gap-4">
-        <Link href="/" aria-label="Kyntriq home" className="inline-flex min-h-11 items-center rounded-md" onClick={closeAll}>
-          <Logo priority />
+        <Link href="/" aria-label="Kyntriq Solutions home" className="inline-flex min-h-11 items-center rounded-md" onClick={closeAll}>
+          <span className="sm:hidden">
+            <Logo compact priority />
+          </span>
+          <span className="hidden sm:inline-flex">
+            <Logo priority />
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">

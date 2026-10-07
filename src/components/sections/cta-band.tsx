@@ -5,9 +5,13 @@ import { Button } from "@/components/ui/button";
 export function CtaBand({
   title = "Have a workflow you want to improve?",
   description = "Tell us how the work happens today. We will reply with whether it is a fit and what a first version would cover.",
+  primaryLabel = "Talk to an Expert",
+  primaryHref = "/contact",
 }: {
   title?: string;
   description?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
 }) {
   return (
     <section className="band-dark relative text-white" aria-labelledby="cta-heading">
@@ -20,7 +24,7 @@ export function CtaBand({
         </div>
         <div className="cluster-lg flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:mt-0 lg:justify-end">
           <Button asChild size="lg" variant="quiet" arrow className="w-full sm:w-auto">
-            <Link href="/contact">Talk to an Expert</Link>
+            <Link href={primaryHref}>{primaryLabel}</Link>
           </Button>
           <Button asChild size="lg" variant="inverse" className="w-full sm:w-auto">
             <Link href="/solutions">Explore Solutions</Link>

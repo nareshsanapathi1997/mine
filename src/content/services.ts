@@ -14,7 +14,7 @@ export const services: Service[] = [
   {
     slug: "web-development",
     title: "Web Development",
-    footerLabel: "Web",
+    footerLabel: "Web Development",
     showInFooter: true,
     description:
       "Corporate websites, education portals, business portals and custom web applications.",
@@ -25,7 +25,7 @@ export const services: Service[] = [
   {
     slug: "mobile-applications",
     title: "Mobile Applications",
-    footerLabel: "Mobile",
+    footerLabel: "Mobile Apps",
     showInFooter: true,
     description:
       "Android and iOS applications for customers, employees, students and businesses.",
@@ -85,7 +85,7 @@ export const services: Service[] = [
   {
     slug: "cloud-devops",
     title: "Cloud & DevOps",
-    footerLabel: "Cloud",
+    footerLabel: "Cloud & DevOps",
     showInFooter: true,
     description:
       "Cloud deployment, CI/CD, monitoring, backups, security and infrastructure management.",

@@ -25,9 +25,9 @@ const labels: Record<EnquiryField, string> = {
   email: "Work Email",
   phone: "Phone",
   industry: "Industry",
-  need: "Topic",
+  need: "What are you trying to improve?",
   budget: "Budget",
-  message: "What are you trying to improve?",
+  message: "Message",
 };
 
 const hints: Record<EnquiryField, string> = {
@@ -38,7 +38,7 @@ const hints: Record<EnquiryField, string> = {
   industry: "The sector this work is for.",
   need: "The workflow or system you want to change.",
   budget: "A range is enough.",
-  message: "Context, constraints, and what a good outcome looks like.",
+  message: "Add the context and constraints that do not fit in the line above.",
 };
 
 export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
@@ -139,8 +139,9 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
     <form onSubmit={onSubmit} noValidate aria-describedby={formError ? `${formId}-form-error` : undefined}>
       <div className="mb-5">
         <h2 className="text-h3 text-ink">Send an enquiry</h2>
-        <p className="mt-1 text-small text-muted">Name, work email and the workflow are required.</p>
-        {values.need ? <p className="mt-2 text-sm font-medium text-ink">About: {values.need}</p> : null}
+        <p className="mt-1 text-small text-muted">
+          Name, work email, industry, budget, what you want to improve, and a message are required.
+        </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field
@@ -190,6 +191,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
         <SelectField
           id={`${formId}-industry`}
           name="industry"
+          required
           label={labels.industry}
           hint={hints.industry}
           error={errors.industry}
@@ -201,6 +203,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
         <SelectField
           id={`${formId}-budget`}
           name="budget"
+          required
           label={labels.budget}
           hint={hints.budget}
           error={errors.budget}
@@ -208,6 +211,17 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           placeholder="Select a budget range"
           options={BUDGETS}
           onChange={(value) => update("budget", value)}
+        />
+        <Field
+          id={`${formId}-need`}
+          name="need"
+          required
+          label={labels.need}
+          hint={hints.need}
+          error={errors.need}
+          value={values.need}
+          onChange={(value) => update("need", value)}
+          className="sm:col-span-2"
         />
         <div className="sm:col-span-2">
           <Label htmlFor={`${formId}-message`}>
@@ -333,6 +347,7 @@ function SelectField({
   options,
   placeholder,
   className,
+  required = false,
 }: {
   id: string;
   name: string;
@@ -344,10 +359,14 @@ function SelectField({
   options: readonly string[];
   placeholder: string;
   className?: string;
+  required?: boolean;
 }) {
   return (
     <div className={className}>
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id}>
+        {label}
+        {required ? <span className="text-danger"> *</span> : null}
+      </Label>
       <p id={`${id}-hint`} className="mt-1 text-small text-muted">
         {hint}
       </p>
@@ -358,6 +377,8 @@ function SelectField({
           value={value}
           onChange={(event) => onChange(event.target.value)}
           aria-invalid={error ? true : undefined}
+          aria-required={required || undefined}
+          required={required}
           aria-describedby={error ? `${id}-error` : `${id}-hint`}
           className={cn("field h-11 appearance-none bg-surface px-3 pr-10 outline-none", !value && "is-placeholder")}
         >

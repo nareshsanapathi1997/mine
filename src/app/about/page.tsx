@@ -62,7 +62,7 @@ export default function AboutPage() {
           <ol className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {processSteps.map((step) => (
               <li key={step.number} className="rounded-lg border border-line bg-canvas p-4">
-                <p className="font-mono text-xs font-semibold text-accent">{step.number}</p>
+                <p className="font-mono text-xs font-semibold text-accent-ink">{step.number}</p>
                 <h3 className="mt-2 text-base font-semibold text-ink">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{step.description}</p>
               </li>
@@ -106,6 +106,27 @@ export default function AboutPage() {
               Access, deployment, backups and monitoring are part of the build. Environments stay separate, so a test does not write into live student, guest or customer data. Who can reach production is an explicit decision, not an accident of whoever set up the server.
             </p>
           </div>
+        </Container>
+      </section>
+
+      <section className="section bg-surface" aria-labelledby="team-heading">
+        <Container className="max-w-3xl">
+          <h2 id="team-heading" className="text-h2 text-ink">
+            Team
+          </h2>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            <li className="rounded-lg border border-line bg-canvas p-4">
+              <h3 className="text-h3 text-ink">Naresh Sanapathi</h3>
+              <p className="mt-1 text-sm font-medium text-accent-ink">Founder</p>
+            </li>
+            <li className="rounded-lg border border-line bg-canvas p-4">
+              <h3 className="text-h3 text-ink">Nageswara Rao</h3>
+              <p className="mt-1 text-sm font-medium text-accent-ink">Co-founder</p>
+            </li>
+          </ul>
+          <p className="text-body mt-4 text-muted">
+            They stay on the workflow, the build, and the next improvement. Reach them at {siteConfig.phoneDisplay} or {siteConfig.email}.
+          </p>
         </Container>
       </section>
 

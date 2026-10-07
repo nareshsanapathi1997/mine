@@ -80,7 +80,7 @@ export function organizationJsonLd() {
     name: siteConfig.name,
     url: siteConfig.url,
     email: siteConfig.email,
-    ...(siteConfig.phoneDisplay ? { telephone: siteConfig.phoneDisplay } : {}),
+    ...(siteConfig.phoneHref ? { telephone: siteConfig.phoneHref.replace(/^tel:/, "") } : {}),
     ...(siteConfig.location ? { address: siteConfig.location } : {}),
     logo: new URL("/kyntriq-solutions-logo.jpg", siteConfig.url).toString(),
     description: siteConfig.description,

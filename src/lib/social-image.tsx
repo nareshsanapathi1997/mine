@@ -3,7 +3,7 @@ import { siteConfig } from "@/content/site";
 
 export const socialImageSize = { width: 1200, height: 630 };
 export const socialImageContentType = "image/png";
-export const socialImageAlt = `${siteConfig.name} — Build Smarter. Automate Faster. Grow Better.`;
+export const socialImageAlt = `${siteConfig.name} — Business systems built around how you operate.`;
 
 function titleLines(title: string) {
   const words = title.trim().split(/\s+/);

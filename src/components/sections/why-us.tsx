@@ -15,7 +15,7 @@ export function WhyUs() {
         <div className="stack overflow-hidden rounded-xl border border-line" data-reveal>
           <div className="grid grid-cols-2 bg-navy text-white">
             <p className="px-4 py-3 text-sm font-semibold sm:px-6">Typical agency</p>
-            <p className="border-l border-white/15 px-4 py-3 text-sm font-semibold sm:px-6">Kyntriq</p>
+            <p className="border-l border-white/15 px-4 py-3 text-sm font-semibold sm:px-6">Kyntriq Solutions</p>
           </div>
           <ul>
             {comparisonRows.map(([typical, kyntriq]) => (

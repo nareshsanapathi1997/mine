@@ -6,10 +6,25 @@ const frame = "h-12 w-auto sm:h-16";
 export function Logo({
   variant = "default",
   priority = false,
+  compact = false,
 }: {
   variant?: "default" | "inverse";
   priority?: boolean;
+  compact?: boolean;
 }) {
+  if (compact) {
+    return (
+      <Image
+        src="/kyntriq-mark.png"
+        alt="Kyntriq Solutions"
+        width={180}
+        height={180}
+        priority={priority}
+        className="size-10"
+      />
+    );
+  }
+
   if (variant === "inverse") {
     return (
       <Image

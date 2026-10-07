@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const architecture = [
   "Customer",
+  "Website / WhatsApp",
   "AI Agent",
   "Business Logic",
   "CRM / Database",
@@ -20,7 +21,7 @@ export function Hero() {
         <div className="col-span-12 lg:col-span-7">
           <p className="eyebrow">
             <span className="eyebrow-mark" aria-hidden="true" />
-            Software · AI · Automation
+            AI · Software · Automation · Business Systems
           </p>
           <h1 className="text-display cluster text-balance text-ink">
             Business systems built around how you operate.
@@ -51,7 +52,7 @@ export function Hero() {
               {architecture.map((step, index) => (
                 <li key={step}>
                   <div className="flex items-center gap-3 rounded-lg border border-line bg-canvas px-3 py-2.5">
-                    <span className="font-mono text-xs font-semibold text-accent">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="font-mono text-xs font-semibold text-accent-ink">{String(index + 1).padStart(2, "0")}</span>
                     <span className="text-sm font-semibold text-ink">{step}</span>
                   </div>
                   {index < architecture.length - 1 ? (

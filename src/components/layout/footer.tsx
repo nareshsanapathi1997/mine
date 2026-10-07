@@ -35,7 +35,18 @@ export function Footer() {
         <div className="grid-12">
           <div className="col-span-12 max-w-sm lg:col-span-4">
             <Logo variant="inverse" />
-            <p className="mt-4 text-sm leading-relaxed text-mist">{siteConfig.tagline}</p>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-accent-glow">
+              {siteConfig.positioning}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-mist">{siteConfig.tagline}</p>
+            <p className="mt-4 flex flex-col gap-1 text-sm">
+              <a href={siteConfig.phoneHref} className="footer-link w-fit">
+                {siteConfig.phoneDisplay}
+              </a>
+              <a href={`mailto:${siteConfig.email}`} className="footer-link w-fit break-all">
+                {siteConfig.email}
+              </a>
+            </p>
           </div>
           <div className="col-span-6 sm:col-span-3 lg:col-span-2">
             <FooterColumn title="Solutions">

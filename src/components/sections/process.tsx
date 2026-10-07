@@ -20,12 +20,12 @@ export function Process() {
           title="Discover, specify, build, connect, stay."
           description="One workflow first. The next channel or product sits on the same foundation."
         />
-        <div className="stack" role="tablist" aria-label="Process" data-reveal>
-          <ol className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="stack" data-reveal>
+          <ol className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5" role="tablist" aria-label="Process">
             {processSteps.map((item, index) => {
               const selected = index === active;
               return (
-                <li key={item.number}>
+                <li key={item.number} role="presentation">
                   <button
                     id={`${baseId}-${item.number}`}
                     type="button"
@@ -40,7 +40,7 @@ export function Process() {
                     onFocus={() => setActive(index)}
                     onClick={() => setActive(index)}
                   >
-                    <span className="font-mono text-xs font-semibold text-accent">{item.number}</span>
+                    <span className="font-mono text-xs font-semibold text-accent-ink">{item.number}</span>
                     <span className="mt-1 block text-base font-semibold text-ink">{item.title}</span>
                   </button>
                 </li>

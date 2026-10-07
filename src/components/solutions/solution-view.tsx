@@ -147,7 +147,7 @@ export function SolutionView({
           <ol className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {deliverySteps.map((step, index) => (
               <li key={step.title} className="rounded-lg border border-line bg-surface p-4">
-                <p className="font-mono text-xs font-semibold text-accent">{String(index + 1).padStart(2, "0")}</p>
+                <p className="font-mono text-xs font-semibold text-accent-ink">{String(index + 1).padStart(2, "0")}</p>
                 <h3 className="mt-2 text-base font-semibold text-ink">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{step.body}</p>
               </li>

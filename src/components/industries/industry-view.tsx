@@ -35,7 +35,9 @@ export function IndustryView({
             <h1 className="text-h1 cluster text-balance text-ink">{story?.hero ?? page.title}</h1>
             <p className="text-body measure cluster text-muted">{page.lede}</p>
             <Button asChild size="lg" arrow className="cluster w-full sm:w-auto">
-              <Link href={`/contact?need=${encodeURIComponent(page.title)}`}>Talk to an Expert</Link>
+              <Link href={`/contact?need=${encodeURIComponent(page.title)}`}>
+                Build Your {page.title} System
+              </Link>
             </Button>
           </div>
         </Container>
@@ -149,7 +151,11 @@ export function IndustryView({
         </section>
       ) : null}
 
-      <CtaBand title={story?.cta ?? "Tell us about the workflow."} />
+      <CtaBand
+        title={story?.cta ?? "Tell us about the workflow."}
+        primaryLabel={`Build Your ${page.title} System`}
+        primaryHref={`/contact?need=${encodeURIComponent(page.title)}`}
+      />
     </>
   );
 }

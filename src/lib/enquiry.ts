@@ -92,19 +92,15 @@ export function validateEnquiry(input: unknown):
     }
   }
 
-  if (data.industry && !INDUSTRIES.includes(data.industry as (typeof INDUSTRIES)[number])) {
+  if (!INDUSTRIES.includes(data.industry as (typeof INDUSTRIES)[number])) {
     errors.industry = "Select an industry.";
-  }
-
-  if (data.need.length < 3 && data.message.length >= 3) {
-    data.need = data.message.slice(0, 160);
   }
 
   if (data.need.length < 3 || data.need.length > 160) {
     errors.need = "Tell us what you are trying to improve.";
   }
 
-  if (data.budget && !BUDGETS.includes(data.budget as (typeof BUDGETS)[number])) {
+  if (!BUDGETS.includes(data.budget as (typeof BUDGETS)[number])) {
     errors.budget = "Select a budget range.";
   }
 
