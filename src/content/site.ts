@@ -12,16 +12,16 @@
 export const siteConfig = {
   name: "Kyntriq",
   email: "hello@kyntriq.com",
-  phoneDisplay: "+91 XXXXX XXXXX",
-  /** Placeholder dial link. Not a live number. */
-  phoneHref: "tel:+91XXXXXXXXXX",
-  location: "City, India",
-  hours: "[Business hours]",
+  /** Empty until a public phone number is confirmed. Do not show a placeholder. */
+  phoneDisplay: "",
+  phoneHref: "",
+  location: "",
+  hours: "",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kyntriq.com",
   description:
-    "Kyntriq designs websites, business software, and AI agents for schools, hotels, manufacturers, and growing companies — connected to the records your team already trusts.",
+    "Kyntriq builds websites, business software and AI-powered systems that connect your people, processes and data.",
   tagline:
-    "Business systems for organizations that have outgrown a stack of separate tools.",
+    "Business systems for organizations that have outgrown separate tools.",
   locale: "en_IN",
 } as const;
 

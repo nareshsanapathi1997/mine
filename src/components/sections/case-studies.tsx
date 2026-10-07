@@ -1,67 +1,69 @@
+import Link from "next/link";
 import { Container } from "@/components/layout/container";
-import { TextLink } from "@/components/ui/text-link";
 import { SectionHeading } from "@/components/layout/section-heading";
+import { WorkflowDiagram } from "@/components/ui/workflow";
 import { caseStudies } from "@/content/case-studies";
 
 export function CaseStudies({
-  heading = "Built for real business problems.",
-  intro = "Illustrative engagements, not verified client results.",
-  withAnchors = false,
-  surface = "canvas",
+  heading = "Solution in practice",
+  intro = "These are system patterns for real operating problems. They are not verified client engagements, and they do not include invented results.",
+  detailed = false,
 }: {
   heading?: string;
   intro?: string;
-  withAnchors?: boolean;
-  surface?: "canvas" | "white";
+  detailed?: boolean;
 }) {
   return (
-    <section
-      id="case-studies"
-      className={`section scroll-mt-28 ${surface === "white" ? "bg-surface" : "bg-canvas"}`}
-      aria-labelledby="cases-heading"
-    >
+    <section id="case-studies" className="section scroll-mt-28 bg-canvas" aria-labelledby="cases-heading">
       <Container>
-        <div data-reveal>
-          <SectionHeading id="cases-heading" eyebrow="Case studies" title={heading} description={intro} />
-        </div>
-        <ul className="grid-12 stack" data-reveal-stagger>
+        <SectionHeading id="cases-heading" eyebrow="Case studies" title={heading} description={intro} />
+        <ul className="stack grid gap-[var(--gutter)]">
           {caseStudies.map((study) => (
-            <li
-              key={study.slug}
-              id={withAnchors ? study.slug : undefined}
-              data-reveal-child
-              className="col-span-12 scroll-mt-28 lg:col-span-4"
-            >
-              <article className="card card-accent flex flex-col">
-                <p className="font-mono text-sm font-medium text-accent-ink">
-                  {String(caseStudies.indexOf(study) + 1).padStart(2, "0")}
+            <li key={study.slug} id={study.slug} className="scroll-mt-28">
+              <article className="card">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent-ink">
+                  {study.industry} · Solution in practice
                 </p>
-                {study.placeholder ? (
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-                    Placeholder
-                  </p>
-                ) : null}
-                <h3 className="text-h3 mt-3 text-ink">{study.title}</h3>
-                <dl className="mt-5 space-y-4 text-sm leading-relaxed">
+                <h3 className="text-h3 mt-2 text-ink">{study.title}</h3>
+                <dl className="mt-5 grid gap-4 text-sm leading-relaxed md:grid-cols-2">
                   <div>
-                    <dt className="font-semibold text-ink">Challenge</dt>
-                    <dd className="mt-1 text-muted">{study.challenge}</dd>
+                    <dt className="font-semibold text-ink">Problem</dt>
+                    <dd className="mt-1 text-muted">{study.problem}</dd>
                   </div>
                   <div>
-                    <dt className="font-semibold text-ink">Solution</dt>
+                    <dt className="font-semibold text-ink">Existing workflow</dt>
+                    <dd className="mt-1 text-muted">{study.existingWorkflow}</dd>
+                  </div>
+                  <div className="md:col-span-2">
+                    <dt className="font-semibold text-ink">Kyntriq solution</dt>
                     <dd className="mt-1 text-muted">{study.solution}</dd>
                   </div>
-                  {study.result ? (
-                    <div>
-                      <dt className="font-semibold text-ink">Result</dt>
-                      <dd className="mt-1 text-muted">{study.result}</dd>
-                    </div>
-                  ) : null}
                 </dl>
-                <TextLink href={`/case-studies#${study.slug}`} className="mt-4">
-                  View case study
+                {detailed ? (
+                  <>
+                    <h4 className="mt-5 text-sm font-semibold text-ink">Architecture</h4>
+                    <div className="mt-3">
+                      <WorkflowDiagram steps={study.architecture} label={`${study.title} architecture`} />
+                    </div>
+                    <h4 className="mt-5 text-sm font-semibold text-ink">Technology</h4>
+                    <ul className="mt-2 flex flex-wrap gap-2">
+                      {study.technology.map((item) => (
+                        <li key={item} className="chip">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <div className="mt-4">
+                    <WorkflowDiagram steps={study.architecture} label={`${study.title} architecture`} />
+                  </div>
+                )}
+                <Link href={detailed ? "/contact" : `/case-studies#${study.slug}`} className="text-link mt-4">
+                  {detailed ? "Talk to an Expert" : "View this pattern"}
+                  <span className="text-link-arrow" aria-hidden="true">→</span>
                   <span className="sr-only"> {study.title}</span>
-                </TextLink>
+                </Link>
               </article>
             </li>
           ))}

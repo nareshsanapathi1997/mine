@@ -1,5 +1,5 @@
 import { notFound, permanentRedirect } from "next/navigation";
-import { DetailPage } from "@/components/layout/detail-page";
+import { SolutionView } from "@/components/solutions/solution-view";
 import {
   getSolution,
   listSolutionSlugs,
@@ -40,18 +40,13 @@ export default async function SolutionDetailPage({
   if (!page) notFound();
 
   return (
-    <DetailPage
+    <SolutionView
+      page={page}
       crumbs={[
         { label: "Home", href: "/" },
         { label: "Solutions", href: "/solutions" },
         { label: page.title, href: `/solutions/${page.slug}` },
       ]}
-      eyebrow="Solutions"
-      title={page.title}
-      lede={page.lede}
-      icon={page.icon}
-      sections={page.sections}
-      includes={page.includes}
       related={relatedSolutionLinks(page.related)}
       jsonLd={serviceJsonLd({
         name: page.title,

@@ -109,21 +109,4 @@ export function getPostsByTag(tag: string) {
   return getPosts().filter((post) => post.tags.includes(tag));
 }
 
-export function formatPostDate(isoDate: string) {
-  const match = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!match) return isoDate;
-  const [, year, month, day] = match;
-  return new Intl.DateTimeFormat("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(Date.UTC(Number(year), Number(month) - 1, Number(day))));
-}
-
-export function tagLabel(tag: string) {
-  return tag
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-}
+export { blogCategories, formatPostDate, postMatchesCategory, tagLabel } from "@/lib/blog-shared";

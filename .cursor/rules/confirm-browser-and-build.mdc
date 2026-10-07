@@ -1,0 +1,33 @@
+---
+description: Do the requested change only. Wait for confirmation before any verification.
+alwaysApply: true
+---
+
+# Do the change, then stop
+
+Make the requested change and stop. Do not verify it until the user explicitly confirms that check in the current conversation.
+
+## Do without asking
+
+- The edit, file, or asset the user asked for
+- A short statement of what changed
+
+## Do not do until the user confirms
+
+- Browser tools or any preview
+- `npm run build`, `next build`, or any other build
+- Tests, `tsc`, lint, route checks, or curl against the dev server
+- Re-reading the result, screenshots, pixel sampling, or regenerating an asset to check it
+- A second pass "to be sure"
+
+`npm run dev` that is already running may stay running. Do not start it, or a build, just to check.
+
+## Spend fewer tokens
+
+- Read only the files required for the change
+- Do not explore the repo, sample pixels, or retry a command to confirm success
+- Do not restate the plan or recap earlier work
+
+## Confirmation
+
+A confirmation names the check, such as "check it in the browser" or "run the build". "Check once" about a screenshot they already sent is a request to change it, not permission to verify afterward. Silence is not confirmation.

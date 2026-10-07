@@ -22,12 +22,12 @@ import { cn } from "@/lib/cn";
 const labels: Record<EnquiryField, string> = {
   name: "Name",
   company: "Company",
-  email: "Email",
+  email: "Work Email",
   phone: "Phone",
   industry: "Industry",
-  need: "What do you need help with?",
+  need: "Topic",
   budget: "Budget",
-  message: "Message",
+  message: "What are you trying to improve?",
 };
 
 const hints: Record<EnquiryField, string> = {
@@ -139,12 +139,14 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
     <form onSubmit={onSubmit} noValidate aria-describedby={formError ? `${formId}-form-error` : undefined}>
       <div className="mb-5">
         <h2 className="text-h3 text-ink">Send an enquiry</h2>
-        <p className="mt-1 text-small text-muted">All fields are required.</p>
+        <p className="mt-1 text-small text-muted">Name, work email and the workflow are required.</p>
+        {values.need ? <p className="mt-2 text-sm font-medium text-ink">About: {values.need}</p> : null}
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field
           id={`${formId}-name`}
           name="name"
+          required
           label={labels.name}
           hint={hints.name}
           error={errors.name}
@@ -165,6 +167,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
         <Field
           id={`${formId}-email`}
           name="email"
+          required
           label={labels.email}
           hint={hints.email}
           error={errors.email}
@@ -206,18 +209,10 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           options={BUDGETS}
           onChange={(value) => update("budget", value)}
         />
-        <Field
-          id={`${formId}-need`}
-          name="need"
-          label={labels.need}
-          hint={hints.need}
-          error={errors.need}
-          value={values.need}
-          onChange={(value) => update("need", value)}
-          className="sm:col-span-2"
-        />
         <div className="sm:col-span-2">
-          <Label htmlFor={`${formId}-message`}>{labels.message}</Label>
+          <Label htmlFor={`${formId}-message`}>
+            {labels.message} <span className="text-danger">*</span>
+          </Label>
           <p id={`${formId}-message-hint`} className="mt-1 text-small text-muted">
             {hints.message}
           </p>
@@ -282,6 +277,7 @@ function Field({
   type = "text",
   autoComplete,
   className,
+  required = false,
 }: {
   id: string;
   name: string;
@@ -293,10 +289,14 @@ function Field({
   type?: string;
   autoComplete?: string;
   className?: string;
+  required?: boolean;
 }) {
   return (
     <div className={className}>
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id}>
+        {label}
+        {required ? <span className="text-danger"> *</span> : null}
+      </Label>
       <p id={`${id}-hint`} className="mt-1 text-small text-muted">
         {hint}
       </p>
@@ -306,8 +306,10 @@ function Field({
         type={type}
         autoComplete={autoComplete}
         value={value}
+        required={required}
         onChange={(event) => onChange(event.target.value)}
         aria-invalid={error ? true : undefined}
+        aria-required={required || undefined}
         aria-describedby={error ? `${id}-error` : `${id}-hint`}
         className="mt-2"
       />
@@ -359,9 +361,7 @@ function SelectField({
           aria-describedby={error ? `${id}-error` : `${id}-hint`}
           className={cn("field h-11 appearance-none bg-surface px-3 pr-10 outline-none", !value && "is-placeholder")}
         >
-          <option value="" disabled>
-            {placeholder}
-          </option>
+          <option value="">{placeholder}</option>
           {options.map((option) => (
             <option key={option} value={option}>
               {option}

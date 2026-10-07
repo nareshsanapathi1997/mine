@@ -1,11 +1,10 @@
 import { ContactSection } from "@/components/sections/contact-section";
-import { PageHeader } from "@/components/layout/page-header";
 import { siteConfig } from "@/content/site";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Contact",
-  description: `Tell ${siteConfig.name} what you want to improve. Share your industry, a budget range and the workflow you want to change.`,
+  description: `Tell ${siteConfig.name} about the workflow you want to improve. AI, business software, web, mobile and cloud.`,
   path: "/contact",
 });
 
@@ -20,12 +19,7 @@ export default async function ContactPage({
 
   return (
     <>
-      <PageHeader
-        eyebrow="Contact"
-        title="Talk to an expert."
-        description="Tell us what you are trying to improve. Share the industry, a budget range and the workflow you want to change."
-      />
-      <ContactSection showHeading={false} defaultNeed={need} />
+      <ContactSection defaultNeed={need} />
     </>
   );
 }

@@ -56,10 +56,20 @@ export function articleJsonLd(input: {
       url: siteConfig.url,
       logo: {
         "@type": "ImageObject",
-        url: new URL("/mark.svg", siteConfig.url).toString(),
+        url: new URL("/kyntriq-solutions-logo.jpg", siteConfig.url).toString(),
       },
     },
     mainEntityOfPage: new URL(input.path, siteConfig.url).toString(),
+  };
+}
+
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
   };
 }
 
@@ -70,9 +80,9 @@ export function organizationJsonLd() {
     name: siteConfig.name,
     url: siteConfig.url,
     email: siteConfig.email,
-    telephone: siteConfig.phoneDisplay,
-    address: siteConfig.location,
-    logo: new URL("/mark.svg", siteConfig.url).toString(),
+    ...(siteConfig.phoneDisplay ? { telephone: siteConfig.phoneDisplay } : {}),
+    ...(siteConfig.location ? { address: siteConfig.location } : {}),
+    logo: new URL("/kyntriq-solutions-logo.jpg", siteConfig.url).toString(),
     description: siteConfig.description,
   };
 }

@@ -4,15 +4,16 @@ export const INDUSTRIES = [
   "Manufacturing",
   "Healthcare",
   "Corporate / SME",
+  "Professional Services",
   "Other",
 ] as const;
 
 export const BUDGETS = [
-  "Under ₹1 Lakh",
-  "₹1–5 Lakhs",
-  "₹5–10 Lakhs",
-  "₹10–25 Lakhs",
-  "₹25 Lakhs+",
+  "₹50K – ₹1L",
+  "₹1L – ₹3L",
+  "₹3L – ₹5L",
+  "₹5L+",
+  "Not sure",
 ] as const;
 
 export const ENQUIRY_FIELDS = [
@@ -76,28 +77,34 @@ export function validateEnquiry(input: unknown):
     errors.name = "Enter your name using letters, spaces or hyphens.";
   }
 
-  if (!companyPattern.test(data.company)) {
+  if (data.company && !companyPattern.test(data.company)) {
     errors.company = "Enter your company or institution name.";
   }
 
   if (!emailPattern.test(data.email) || data.email.length > 120) {
-    errors.email = "Enter a valid email address.";
+    errors.email = "Enter a valid work email address.";
   }
 
-  const digits = data.phone.replace(/\D/g, "");
-  if (!/^[0-9+\-\s()]{7,20}$/.test(data.phone) || digits.length < 7 || digits.length > 15) {
-    errors.phone = "Enter a phone number with at least 7 digits.";
+  if (data.phone) {
+    const digits = data.phone.replace(/\D/g, "");
+    if (!/^[0-9+\-\s()]{7,20}$/.test(data.phone) || digits.length < 7 || digits.length > 15) {
+      errors.phone = "Enter a phone number with at least 7 digits.";
+    }
   }
 
-  if (!INDUSTRIES.includes(data.industry as (typeof INDUSTRIES)[number])) {
+  if (data.industry && !INDUSTRIES.includes(data.industry as (typeof INDUSTRIES)[number])) {
     errors.industry = "Select an industry.";
   }
 
-  if (data.need.length < 3 || data.need.length > 160) {
-    errors.need = "Tell us what you need help with, in a short phrase.";
+  if (data.need.length < 3 && data.message.length >= 3) {
+    data.need = data.message.slice(0, 160);
   }
 
-  if (!BUDGETS.includes(data.budget as (typeof BUDGETS)[number])) {
+  if (data.need.length < 3 || data.need.length > 160) {
+    errors.need = "Tell us what you are trying to improve.";
+  }
+
+  if (data.budget && !BUDGETS.includes(data.budget as (typeof BUDGETS)[number])) {
     errors.budget = "Select a budget range.";
   }
 

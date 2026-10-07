@@ -11,7 +11,7 @@ export function privacySections(): LegalSection[] {
       heading: "Who this notice is for",
       paragraphs: [
         `This notice describes how ${siteConfig.name} handles information submitted through this website. It is a practical template. Have it reviewed for your business before the site goes live.`,
-        `You can reach us at ${siteConfig.email}, ${siteConfig.phoneDisplay}, ${siteConfig.location}. Business hours: ${siteConfig.hours}. These contact details are placeholders until the business confirms them.`,
+        `You can reach us at ${siteConfig.email}. A public phone number and office address are not listed until they are confirmed.`,
       ],
     },
     {

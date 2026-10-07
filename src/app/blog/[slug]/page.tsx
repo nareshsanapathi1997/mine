@@ -32,7 +32,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getPost(slug);
   if (!post) notFound();
 
-  const others = getPosts().filter((item) => item.slug !== post.slug);
+  const others = getPosts()
+    .filter((item) => item.slug !== post.slug)
+    .sort((a, b) => {
+      const aShared = a.tags.some((tag) => post.tags.includes(tag)) ? 1 : 0;
+      const bShared = b.tags.some((tag) => post.tags.includes(tag)) ? 1 : 0;
+      return bShared - aShared;
+    });
 
   return (
     <>
@@ -52,22 +58,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           { label: post.title, href: `/blog/${post.slug}` },
         ]}
       />
-      <header className="band-dark relative overflow-hidden text-white">
-        <div className="band-grid" aria-hidden="true" />
-        <Container className="section-tight relative z-[1] max-w-3xl">
-          <p className="text-small text-mist">
+      <header className="border-b border-line bg-canvas">
+        <Container className="section-tight max-w-3xl">
+          <p className="text-small text-muted">
             <time dateTime={post.date}>{formatPostDate(post.date)}</time>
             <span aria-hidden="true"> · </span>
             {post.readingMinutes} min read
             <span aria-hidden="true"> · </span>
             {post.author}
           </p>
-          <h1 className="text-h1 cluster text-balance text-white">{post.title}</h1>
-          <p className="text-body cluster text-mist">{post.description}</p>
+          <h1 className="text-h1 cluster text-balance text-ink">{post.title}</h1>
+          <p className="text-body cluster text-muted">{post.description}</p>
           <ul className="cluster flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <li key={tag}>
-                <Link href={`/blog/tag/${tag}`} className="chip chip-on-dark chip-link">
+                <Link href={`/blog/tag/${tag}`} className="chip chip-link">
                   {tagLabel(tag)}
                 </Link>
               </li>
@@ -86,7 +91,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <section className="section border-t border-line bg-surface" aria-labelledby="more-notes">
           <Container className="max-w-3xl">
             <h2 id="more-notes" className="text-h2 text-ink">
-              More notes
+              Related articles
             </h2>
             <ul className="mt-5 grid gap-4" data-reveal-stagger>
               {others.map((item) => (

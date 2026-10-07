@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Case Studies",
-  description: `Placeholder examples of education, hospitality and manufacturing systems from ${siteConfig.name}. Replace them with verified engagements.`,
+  description: `Solution patterns from ${siteConfig.name} for education, hospitality and manufacturing. These are not verified client results.`,
   path: "/case-studies",
 });
 
@@ -15,15 +15,11 @@ export default function CaseStudiesPage() {
     <>
       <PageHeader
         eyebrow="Case studies"
-        title="Built for real business problems."
-        description="These placeholders show the shape of a future case study. They are not verified client engagements, and they do not include invented performance figures."
+        title="Solution in practice."
+        description="Each example shows a problem, the existing workflow, and the system we would build. They are not verified client engagements and they do not include invented statistics."
       />
-      <CaseStudies
-        withAnchors
-        heading="Replace these with verified work."
-        intro="Each card is marked as a placeholder so it can be swapped for a real engagement without changing the layout."
-      />
-      <CtaBand />
+      <CaseStudies heading="Patterns, not claimed results." intro="Replace these with verified engagements when a client agrees to be named." detailed />
+      <CtaBand title="Have a workflow like one of these?" />
     </>
   );
 }

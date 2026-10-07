@@ -4,25 +4,21 @@ export type NavItem = {
 };
 
 export const primaryNav: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Solutions", href: "/solutions" },
-  { label: "Industries", href: "/industries" },
+  { label: "AI & Automation", href: "/ai-automation" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ];
 
 export const companyLinks: NavItem[] = [
   { label: "About", href: "/about" },
-  { label: "Solutions", href: "/solutions" },
-  { label: "Industries", href: "/industries" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Contact", href: "/contact" },
 ];
 
 export const resourceLinks: NavItem[] = [
   { label: "Blog", href: "/blog" },
-  { label: "AI & Automation", href: "/blog/tag/ai" },
-  { label: "Technology Insights", href: "/blog/tag/technology" },
+  { label: "AI & Automation", href: "/ai-automation" },
+  { label: "Technology Insights", href: "/insights" },
 ];
 
 export const legalLinks: NavItem[] = [

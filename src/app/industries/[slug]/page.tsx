@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { DetailPage } from "@/components/layout/detail-page";
+import { IndustryView } from "@/components/industries/industry-view";
 import { getIndustryPage, listIndustrySlugs } from "@/content/industry-details";
 import { relatedSolutionLinks } from "@/content/solution-details";
 import { createMetadata } from "@/lib/seo";
@@ -41,15 +41,9 @@ export default async function IndustryDetailPage({
   crumbs.push({ label: page.title, href: `/industries/${page.slug}` });
 
   return (
-    <DetailPage
+    <IndustryView
+      page={page}
       crumbs={crumbs}
-      eyebrow="Industries"
-      title={page.title}
-      lede={page.lede}
-      icon={page.icon}
-      sections={page.sections}
-      includes={page.includes}
-      explore={page.explore}
       related={relatedSolutionLinks(page.relatedServices)}
       jsonLd={serviceJsonLd({
         name: page.title,

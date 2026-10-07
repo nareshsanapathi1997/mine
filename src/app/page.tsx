@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { ContactSection } from "@/components/sections/contact-section";
+import { CaseStudies } from "@/components/sections/case-studies";
+import { ConnectedSystems } from "@/components/sections/connected-systems";
+import { CtaBand } from "@/components/sections/cta-band";
 import { Hero } from "@/components/sections/hero";
 import { Industries } from "@/components/sections/industries";
 import { Process } from "@/components/sections/process";
@@ -17,11 +19,16 @@ export default function HomePage() {
     <>
       <JsonLd data={servicesJsonLd()} />
       <Hero />
+      <ConnectedSystems />
       <Services />
       <Industries />
       <Process />
       <WhyUs />
-      <ContactSection />
+      <CaseStudies />
+      <CtaBand
+        title="Tell us which operation you want to change."
+        description="We build connected software, AI and automation around the way a business already works."
+      />
     </>
   );
 }

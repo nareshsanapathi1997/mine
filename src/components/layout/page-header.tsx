@@ -10,17 +10,16 @@ export function PageHeader({
   description: string;
 }) {
   return (
-    <header className="band-dark relative overflow-hidden border-b border-white/10 text-white">
-      <div className="band-grid" aria-hidden="true" />
-      <Container className="section-tight relative z-[1] lg:grid lg:grid-cols-12 lg:items-end lg:gap-x-10">
+    <header className="border-b border-line bg-canvas">
+      <Container className="section-tight lg:grid lg:grid-cols-12 lg:items-end lg:gap-x-10">
         <div className="lg:col-span-7">
-          <p className="eyebrow text-accent-glow">
+          <p className="eyebrow">
             <span className="eyebrow-mark" aria-hidden="true" />
             {eyebrow}
           </p>
-          <h1 className="text-h1 cluster text-balance text-white">{title}</h1>
+          <h1 className="text-h1 cluster text-balance text-ink">{title}</h1>
         </div>
-        <p className="text-body cluster text-mist lg:col-span-5 lg:mt-0 lg:pb-1">{description}</p>
+        <p className="text-body cluster text-muted lg:col-span-5 lg:mt-0 lg:pb-1">{description}</p>
       </Container>
     </header>
   );

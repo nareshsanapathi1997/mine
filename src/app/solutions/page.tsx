@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { CtaBand } from "@/components/sections/cta-band";
-import { TextLink } from "@/components/ui/text-link";
 import { Icon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
-import { services } from "@/content/services";
+import { servicesInGroup, solutionGroups } from "@/content/services";
 import { sectorOfferings } from "@/content/solution-details";
 import { siteConfig } from "@/content/site";
 import { createMetadata } from "@/lib/seo";
@@ -20,42 +19,33 @@ export default function SolutionsPage() {
     <>
       <PageHeader
         eyebrow="Solutions"
-        title="Technology solutions built around your business."
-        description="Web, mobile, business software, AI and automation — designed as one system, or delivered as the piece you need first."
+        title="Technology built around how you operate."
+        description="AI, software and infrastructure — designed as one system, or delivered as the piece you need first."
       />
       <section className="section bg-canvas">
-        <Container>
-          <ul className="grid-12" data-reveal-stagger>
-          {services.map((service) => (
-            <li key={service.slug} data-reveal-child className="col-span-12 lg:col-span-6">
-            <article
-              id={service.slug}
-              className="card card-accent scroll-mt-28"
-            >
-              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-                <span className="icon-tile">
-                  <Icon name={service.icon} className="size-5" />
-                </span>
-                <div>
-                  <h2 className="text-h3 text-ink">
-                    <Link href={`/solutions/${service.slug}`} className="link-underline">
-                      {service.title}
+        <Container className="space-y-12">
+          {solutionGroups.map((group) => (
+            <div key={group.id}>
+              <h2 className="text-h2 text-ink">{group.title}</h2>
+              <p className="text-body mt-2 max-w-[62ch] text-muted">{group.description}</p>
+              <ul className="mt-5 grid gap-[var(--gutter)] lg:grid-cols-2">
+                {servicesInGroup(group.slugs).map((service) => (
+                  <li key={service.slug} id={service.slug} className="scroll-mt-28">
+                    <Link href={`/solutions/${service.slug}`} className="card flex h-full flex-col">
+                      <span className="icon-tile">
+                        <Icon name={service.icon} className="size-5" />
+                      </span>
+                      <span className="text-h3 mt-4 text-ink">{service.title}</span>
+                      <span className="text-body mt-2 text-muted">{service.details}</span>
+                      <span className="mt-4 text-sm font-semibold text-accent-ink">
+                        Explore {service.title} <span aria-hidden="true">→</span>
+                      </span>
                     </Link>
-                  </h2>
-                  <p className="text-body mt-2 text-muted">{service.description}</p>
-                  <p className="text-body mt-3 text-ink">{service.details}</p>
-                  <div className="mt-5 flex flex-wrap gap-x-4 gap-y-1">
-                    <TextLink href={`/solutions/${service.slug}`}>Learn More</TextLink>
-                    <TextLink href={`/contact?need=${encodeURIComponent(service.title)}`}>
-                      Talk to an Expert
-                    </TextLink>
-                  </div>
-                </div>
-              </div>
-            </article>
-            </li>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-          </ul>
         </Container>
       </section>
       <section className="section bg-surface" aria-labelledby="sector-offerings">
@@ -64,14 +54,17 @@ export default function SolutionsPage() {
             Built around a sector
           </h2>
           <p className="text-body measure mt-3 text-muted">
-            Education, hospitality and manufacturing systems are the same services, arranged around the work those teams repeat.
+            Education, hospitality and manufacturing systems arrange the same services around the work those teams repeat.
           </p>
-          <ul className="grid-12 stack" data-reveal-stagger>
+          <ul className="grid-12 stack">
             {sectorOfferings().map((offering) => (
-              <li key={offering.slug} data-reveal-child className="col-span-12 lg:col-span-4">
-                <Link href={`/solutions/${offering.slug}`} className="card card-muted card-accent block">
+              <li key={offering.slug} className="col-span-12 lg:col-span-4">
+                <Link href={`/solutions/${offering.slug}`} className="card block h-full">
                   <span className="text-h3 text-ink">{offering.title}</span>
                   <p className="text-small mt-2 text-muted">{offering.description}</p>
+                  <span className="mt-4 inline-block text-sm font-semibold text-accent-ink">
+                    Explore {offering.title} <span aria-hidden="true">→</span>
+                  </span>
                 </Link>
               </li>
             ))}
