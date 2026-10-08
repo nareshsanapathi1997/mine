@@ -7,31 +7,31 @@
   --color-navy-mid: #14213d;
   --color-ink-soft: #14213d;
   --color-ink: #0f172a;
-  --color-canvas: #f6f7f9;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f3f4f6;
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1;
+  --color-canvas: #dceeea;
+  --color-surface: #f4fbf9;
+  --color-surface-muted: #cfe4df;
+  --color-slate-50: #f4fbf9;
+  --color-slate-100: #e5f4f1;
+  --color-slate-200: #c9e3dd;
+  --color-slate-300: #a9d0c9;
   --color-slate-400: #94a3b8;
   --color-slate-500: #64748b;
   --color-slate-600: #475569;
   --color-slate-700: #334155;
   --color-slate-800: #1e293b;
   --color-slate-900: #0f172a;
-  --color-line: #e2e8f0;
-  --color-line-strong: #cbd5e1;
+  --color-line: #b7d5cf;
+  --color-line-strong: #8fbdb4;
   --color-muted: #475569;
   --color-mist: #cbd5e1;
   --color-accent: #0f766e;
   --color-accent-strong: #115e59;
   --color-accent-ink: #0f766e;
-  --color-accent-soft: #ccfbf1;
-  --color-accent-glow: #99f6e4;
+  --color-accent-soft: #b7f0e6;
+  --color-accent-glow: #5eead4;
   --color-ai: #0f766e;
   --color-ai-strong: #115e59;
-  --color-ai-soft: #ccfbf1;
+  --color-ai-soft: #b7f0e6;
   --color-ai-glow: #99f6e4;
   --color-danger: #b91c1c;
   --color-danger-soft: #fee2e2;
@@ -1714,6 +1714,10 @@ textarea:focus-visible,
     var(--color-canvas);
 }
 
+html[data-theme="light"] .hero-grid {
+  background-image: none;
+}
+
 .hero-grid {
   position: absolute;
   inset: 0;
@@ -1868,9 +1872,9 @@ textarea:focus-visible,
 }
 
 html[data-theme="light"] .product-window {
-  border-color: #94a3b8;
-  background: #ffffff;
-  box-shadow: 0 12px 28px -18px rgba(15, 23, 42, 0.35);
+  border-color: #7daba3;
+  background: #f7fffd;
+  box-shadow: 0 12px 28px -18px rgba(15, 118, 110, 0.35);
 }
 
 .system-board {
