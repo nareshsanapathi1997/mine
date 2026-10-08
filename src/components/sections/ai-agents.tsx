@@ -1,72 +1,65 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
-import { Button } from "@/components/ui/button";
-import { WorkflowDiagram } from "@/components/ui/workflow";
 
-const flow = [
-  "Customer request",
-  "AI Agent",
-  "Business records",
-  "Decision",
-  "Action",
-  "Human handoff if necessary",
+const demo = [
+  { label: "User", text: "“Check my application status”" },
+  { label: "AI Agent", text: "Identifying customer…" },
+  { label: "Record", text: "✓ Customer found" },
+  { label: "Record", text: "✓ Application #10482" },
+  { label: "Status", text: "✓ Documents verified" },
+  { label: "Result", text: "Interview scheduled" },
+  { label: "Action", text: "Send confirmation to customer" },
 ];
 
-const checks = [
-  "Identify the user",
-  "Find the record",
-  "Check the status",
+const steps = [
+  "Identify user",
+  "Find record",
+  "Check status",
   "Respond",
-  "Trigger the next action if it is already allowed",
+  "Trigger action",
+  "Human handoff when required",
 ];
 
 export function AiAgents() {
   return (
-    <section className="section bg-surface" aria-labelledby="agents-heading">
-      <Container className="grid-12 items-start">
-        <div className="col-span-12 lg:col-span-5">
-          <p className="eyebrow">
-            <span className="eyebrow-mark" aria-hidden="true" />
-            AI Agents
-          </p>
-          <h2 id="agents-heading" className="text-h2 cluster text-balance text-ink">
-            AI that looks up the record, then takes the next step.
+    <section className="section bg-canvas" aria-labelledby="ai-heading">
+      <Container className="grid items-center gap-14 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-ink">AI Agents</p>
+          <h2 id="ai-heading" className="text-h2 mt-4 max-w-[14ch] uppercase text-ink">
+            AI that doesn&apos;t just chat. It takes the next step.
           </h2>
-          <p className="text-body cluster text-muted">
-            “Check my application status” is a piece of work, not a chat. The agent identifies the person, reads the record you already keep, and either answers or hands the case to someone who can decide.
+          <p className="text-body mt-5 max-w-[46ch] text-muted">
+            An AI agent can identify a customer, look up the correct record, follow business rules and trigger an approved action.
           </p>
-          <Button asChild arrow className="cluster">
-            <Link href="/ai-automation">Explore AI Agents</Link>
-          </Button>
-        </div>
-        <div className="col-span-12 lg:col-span-7">
-          <WorkflowDiagram steps={flow} label="How an AI agent handles a request" />
-          <ol className="mt-6 space-y-2">
-            {checks.map((item, index) => (
-              <li key={item} className="flex min-h-11 items-center gap-3 text-sm text-ink">
-                <span className="font-mono text-xs font-semibold text-accent-ink">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                {item}
-              </li>
-            ))}
-          </ol>
-          <div className="mt-6 rounded-xl border border-line bg-canvas p-4 text-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">Example</p>
-            <p className="mt-3 text-ink">
-              <span className="font-semibold">User. </span>
-              Check my application status
-            </p>
-            <ul className="mt-3 space-y-1 text-muted">
-              <li>Customer identified</li>
-              <li>Application found</li>
-              <li>Status checked</li>
-            </ul>
-            <p className="mt-3 font-semibold text-ink">Application status</p>
-            <p className="mt-1 text-muted">Documents verified. Interview scheduled.</p>
-            <p className="mt-3 text-ink">Would you like me to send the details?</p>
+          <div className="mt-10 overflow-hidden rounded-2xl border border-line bg-[#0c1220]">
+            <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+              <span className="size-2 rounded-full bg-sky-400" aria-hidden="true" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#cbd5e1]">Agent</span>
+            </div>
+            <div className="space-y-3 px-5 py-6" aria-label="Example conversation">
+              {demo.map((line) => (
+                <p key={line.text} className="demo-line text-sm text-[#e2e8f0]">
+                  <span className="mr-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[#7dd3fc]">{line.label}</span>
+                  {line.text}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
+        <ol className="m-0 list-none space-y-5 p-0 lg:col-span-4 lg:col-start-9">
+          {steps.map((step, index) => (
+            <li key={step} className="flex gap-4 border-t border-line pt-4">
+              <span className="font-mono text-sm text-accent-ink">{String(index + 1).padStart(2, "0")}</span>
+              <span className="text-lg text-ink">{step}</span>
+            </li>
+          ))}
+          <li>
+            <Link href="/ai-automation" className="text-link">
+              Explore AI Agents <span className="text-link-arrow" aria-hidden="true">→</span>
+            </Link>
+          </li>
+        </ol>
       </Container>
     </section>
   );

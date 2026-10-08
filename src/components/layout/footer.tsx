@@ -10,8 +10,8 @@ import { copyrightYear, siteConfig } from "@/content/site";
 function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-glow">{title}</p>
-      <ul className="mt-3 space-y-1">{children}</ul>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-glow">{title}</p>
+      <ul className="mt-4 space-y-2">{children}</ul>
     </div>
   );
 }
@@ -19,7 +19,7 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <Link href={href} className="footer-link">
+      <Link href={href} className="footer-link text-sm">
         {children}
       </Link>
     </li>
@@ -31,24 +31,68 @@ export function Footer() {
 
   return (
     <footer className="band-dark relative text-white">
-      <Container className="section relative z-[1]">
-        <div className="grid-12">
-          <div className="col-span-12 max-w-sm lg:col-span-4">
+      <Container className="relative z-[1] py-16 lg:py-24">
+        <div className="flex flex-col gap-8 border-b border-white/10 pb-10 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-md">
             <Logo variant="inverse" />
-            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-accent-glow">
-              {siteConfig.positioning}
-            </p>
+            <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-glow">{siteConfig.positioning}</p>
             <p className="mt-3 text-sm leading-relaxed text-mist">{siteConfig.tagline}</p>
-            <p className="mt-4 flex flex-col gap-1 text-sm">
-              <a href={siteConfig.phoneHref} className="footer-link w-fit">
-                {siteConfig.phoneDisplay}
-              </a>
-              <a href={`mailto:${siteConfig.email}`} className="footer-link w-fit break-all">
-                {siteConfig.email}
-              </a>
-              <span className="text-mist">{siteConfig.location}</span>
-            </p>
-            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          </div>
+          <p className="flex flex-col gap-1 text-sm lg:items-end">
+            <a href={siteConfig.phoneHref} className="footer-link w-fit">
+              {siteConfig.phoneDisplay}
+            </a>
+            <a href={`mailto:${siteConfig.email}`} className="footer-link w-fit break-all">
+              {siteConfig.email}
+            </a>
+            <span className="text-mist">{siteConfig.location}</span>
+          </p>
+        </div>
+
+        <div className="grid gap-10 pt-10 sm:grid-cols-2 lg:grid-cols-5">
+          <FooterColumn title="Solutions">
+            {footerServices.map((service) => (
+              <FooterLink key={service.slug} href={`/solutions/${service.slug}`}>
+                {service.footerLabel ?? service.title}
+              </FooterLink>
+            ))}
+          </FooterColumn>
+          <FooterColumn title="Industries">
+            {footerIndustries.map((industry) => (
+              <FooterLink key={industry.slug} href={`/industries/${industry.slug}`}>
+                {industry.footerLabel ?? industry.title}
+              </FooterLink>
+            ))}
+          </FooterColumn>
+          <FooterColumn title="Company">
+            {companyLinks.map((item) => (
+              <FooterLink key={item.href} href={item.href}>
+                {item.label}
+              </FooterLink>
+            ))}
+          </FooterColumn>
+          <FooterColumn title="Resources">
+            {resourceLinks.map((item) => (
+              <FooterLink key={item.href} href={item.href}>
+                {item.label}
+              </FooterLink>
+            ))}
+          </FooterColumn>
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-glow">Legal</p>
+            <ul className="mt-4 space-y-2">
+              {legalLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="footer-link text-sm">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <CookieSettingsButton />
+              </li>
+            </ul>
+            <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
               {siteConfig.social.map((item) => (
                 <li key={item.label}>
                   <a href={item.href} className="footer-link" target="_blank" rel="noopener noreferrer">
@@ -58,67 +102,11 @@ export function Footer() {
               ))}
             </ul>
           </div>
-          <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-            <FooterColumn title="Solutions">
-              {footerServices.map((service) => (
-                <FooterLink key={service.slug} href={`/solutions/${service.slug}`}>
-                  {service.footerLabel ?? service.title}
-                </FooterLink>
-              ))}
-            </FooterColumn>
-          </div>
-          <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-            <FooterColumn title="Industries">
-              {footerIndustries.map((industry) => (
-                <FooterLink key={industry.slug} href={`/industries/${industry.slug}`}>
-                  {industry.footerLabel ?? industry.title}
-                </FooterLink>
-              ))}
-            </FooterColumn>
-          </div>
-          <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-            <FooterColumn title="Company">
-              {companyLinks.map((item) => (
-                <FooterLink key={item.href} href={item.href}>
-                  {item.label}
-                </FooterLink>
-              ))}
-            </FooterColumn>
-          </div>
-          <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-            <FooterColumn title="Resources">
-              {resourceLinks.map((item) => (
-                <FooterLink key={item.href} href={item.href}>
-                  {item.label}
-                </FooterLink>
-              ))}
-            </FooterColumn>
-          </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-5 text-sm text-mist sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {year} {siteConfig.name}
-          </p>
-          <ul className="flex flex-wrap gap-x-5 gap-y-2">
-            {legalLinks.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="footer-link">
-                  {item.label === "Privacy Policy"
-                    ? "Privacy"
-                    : item.label === "Terms & Conditions"
-                      ? "Terms"
-                      : item.label === "Cookie Policy"
-                        ? "Cookies"
-                        : item.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <CookieSettingsButton />
-            </li>
-          </ul>
-        </div>
+        <p className="mt-12 text-sm text-mist">
+          © {year} {siteConfig.name}
+        </p>
       </Container>
     </footer>
   );

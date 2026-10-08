@@ -2,111 +2,96 @@
 
 import { useState } from "react";
 import { Container } from "@/components/layout/container";
-import { SectionHeading } from "@/components/layout/section-heading";
-import { systemNodes } from "@/content/stories";
 import { cn } from "@/lib/cn";
 
-const positions: Record<string, string> = {
-  website: "left-[6%] top-[8%]",
-  mobile: "left-1/2 top-[6%] -translate-x-1/2",
-  whatsapp: "right-[6%] top-[8%]",
-  agent: "left-[18%] top-[34%]",
-  data: "right-[6%] top-[34%]",
-  crm: "left-1/2 top-[54%] -translate-x-1/2",
-  automation: "left-1/2 top-[72%] -translate-x-1/2",
-  action: "left-1/2 bottom-[4%] -translate-x-1/2",
-};
+const nodes = [
+  { id: "website", label: "Website", x: 16, y: 22, path: ["Website", "API", "Business Data", "Action"] },
+  { id: "mobile", label: "Mobile", x: 50, y: 12, path: ["Mobile", "API", "Business Data", "Action"] },
+  { id: "whatsapp", label: "WhatsApp", x: 84, y: 22, path: ["WhatsApp", "AI Agent", "CRM", "Business Logic", "Action"] },
+  { id: "agent", label: "AI Agent", x: 14, y: 52, path: ["AI Agent", "Business Data", "Business Logic", "Action"] },
+  { id: "human", label: "Human", x: 86, y: 52, path: ["Human", "Business Data", "Approval", "Action"] },
+  { id: "crm", label: "CRM", x: 24, y: 80, path: ["CRM", "Business Data", "Automation", "Action"] },
+  { id: "automation", label: "Automation", x: 76, y: 80, path: ["Automation", "Business Data", "Action"] },
+  { id: "api", label: "API", x: 50, y: 88, path: ["API", "Business Data", "Automation", "Action"] },
+] as const;
 
 export function ConnectedSystems() {
-  const [active, setActive] = useState<(typeof systemNodes)[number]["id"]>("agent");
-  const current = systemNodes.find((node) => node.id === active) ?? systemNodes[2];
+  const [active, setActive] = useState<(typeof nodes)[number]["id"]>("whatsapp");
+  const current = nodes.find((node) => node.id === active) ?? nodes[2];
 
   return (
-    <section className="section bg-surface" aria-labelledby="connected-heading">
-      <Container className="grid-12 items-center">
-        <div className="col-span-12 lg:col-span-5">
-          <SectionHeading
-            id="connected-heading"
-            eyebrow="Connected systems"
-            title="One connected system. Not a collection of tools."
-            description="Website, mobile, WhatsApp, AI and automation should read and write the same business records. We connect the tools you already use. We do not replace them by default."
-          />
-          <p className="mt-6 min-h-16 text-body text-ink" aria-live="polite">
-            <span className="font-semibold">{current.label}. </span>
-            <span className="text-muted">{current.detail}</span>
+    <section className="section bg-canvas" aria-labelledby="connected-heading">
+      <Container>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-ink">Connected systems</p>
+        <div className="mt-4 grid items-end gap-8 lg:grid-cols-12">
+          <h2 id="connected-heading" className="text-h2 max-w-[14ch] uppercase text-ink lg:col-span-7">
+            One business system. Every channel connected.
+          </h2>
+          <p className="text-body text-muted lg:col-span-5">
+            Your website, WhatsApp, mobile apps, AI agents and internal software should work from the same business records.
           </p>
         </div>
-        <div className="col-span-12 lg:col-span-7">
-          <div className="relative hidden h-[34rem] rounded-xl border border-line bg-canvas lg:block">
-            <svg className="absolute inset-0 h-full w-full text-slate-300" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <Connections />
-            </svg>
-            {systemNodes.map((node) => (
-              <button
+
+        <div className="relative mt-14 hidden h-[34rem] lg:block">
+          <svg className="absolute inset-0 h-full w-full text-slate-500" viewBox="0 0 100 100" aria-hidden="true">
+            {nodes.map((node) => (
+              <line
                 key={node.id}
+                x1="50"
+                y1="50"
+                x2={node.x}
+                y2={node.y}
+                stroke="currentColor"
+                strokeWidth={active === node.id ? 0.55 : 0.2}
+                className={active === node.id ? "flow-pulse text-accent" : undefined}
+              />
+            ))}
+          </svg>
+          <div className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/50 bg-surface px-5 py-4 text-center shadow-[0_0_40px_-12px_rgba(56,189,248,0.7)]">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-accent-ink">Center</p>
+            <p className="text-sm font-semibold text-ink">Business Data</p>
+          </div>
+          {nodes.map((node) => (
+            <button
+              key={node.id}
+              type="button"
+              className={cn(
+                "absolute z-[1] min-h-11 -translate-x-1/2 -translate-y-1/2 rounded-full border px-4 text-sm font-medium",
+                active === node.id ? "border-accent bg-surface text-ink" : "border-line bg-canvas/80 text-muted",
+              )}
+              style={{ left: `${node.x}%`, top: `${node.y}%` }}
+              aria-pressed={active === node.id}
+              onMouseEnter={() => setActive(node.id)}
+              onFocus={() => setActive(node.id)}
+              onClick={() => setActive(node.id)}
+            >
+              {node.label}
+            </button>
+          ))}
+        </div>
+
+        <ul className="mt-10 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:hidden">
+          {nodes.map((node) => (
+            <li key={node.id}>
+              <button
                 type="button"
                 className={cn(
-                  "absolute z-[1] min-h-11 rounded-lg border bg-surface px-3 py-2 text-sm font-semibold text-ink shadow-[0_1px_2px_rgba(15,23,42,0.04)]",
-                  positions[node.id],
-                  active === node.id ? "border-navy" : "border-line",
+                  "min-h-11 w-full rounded-full border px-3 text-sm font-medium",
+                  active === node.id ? "border-accent text-ink" : "border-line text-muted",
                 )}
                 aria-pressed={active === node.id}
-                onMouseEnter={() => setActive(node.id)}
-                onFocus={() => setActive(node.id)}
                 onClick={() => setActive(node.id)}
               >
                 {node.label}
               </button>
-            ))}
-          </div>
-          <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:hidden">
-            {systemNodes.map((node) => (
-              <li key={node.id}>
-                <button
-                  type="button"
-                  className={cn(
-                    "min-h-11 w-full rounded-lg border px-3 py-2 text-left text-sm font-semibold",
-                    active === node.id ? "border-navy bg-surface text-ink" : "border-line bg-canvas text-ink",
-                  )}
-                  aria-pressed={active === node.id}
-                  onClick={() => setActive(node.id)}
-                >
-                  {node.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-8 text-sm text-ink" aria-live="polite">
+          {current.path.join("  →  ")}
+        </p>
       </Container>
     </section>
-  );
-}
-
-function Connections() {
-  const lines = [
-    [18, 14, 28, 38],
-    [50, 12, 32, 38],
-    [82, 14, 36, 40],
-    [40, 40, 78, 40],
-    [32, 46, 50, 58],
-    [50, 64, 50, 76],
-    [50, 80, 50, 90],
-  ];
-  return (
-    <>
-      {lines.map((line) => (
-        <line
-          key={line.join("-")}
-          x1={line[0]}
-          y1={line[1]}
-          x2={line[2]}
-          y2={line[3]}
-          className="flow-line"
-          stroke="currentColor"
-          strokeWidth="0.4"
-          vectorEffect="non-scaling-stroke"
-        />
-      ))}
-    </>
   );
 }

@@ -11,6 +11,7 @@ import { Problems } from "@/components/sections/problems";
 import { Process } from "@/components/sections/process";
 import { Services } from "@/components/sections/services";
 import { TechStrip } from "@/components/sections/tech-strip";
+import { Trust } from "@/components/sections/trust";
 import { WhyUs } from "@/components/sections/why-us";
 import { JsonLd } from "@/components/seo/json-ld";
 import { servicesJsonLd } from "@/lib/structured-data";
@@ -31,18 +32,20 @@ export default function HomePage() {
       <AiAgents />
       <Industries />
       <Integrations />
-      <Process />
-      <WhyUs />
       <CaseStudies
-        heading="How we solve real business problems."
+        heading="Real business problems. Systems built around them."
         intro="These are solution patterns for real operating problems. They are not verified client engagements, and they do not include invented results."
       />
+      <Process />
+      <WhyUs />
+      <Trust />
       <Faq />
       <CtaBand
-        title="Tell us which operation you want to change."
-        description="We build connected software, AI and automation around the way your business already works."
-        primaryLabel="Start a Conversation"
+        title="What part of your business do you want to change?"
+        description="Tell us the workflow that is slowing your team down."
+        primaryLabel="Talk to an Expert"
         showWhatsapp
+        showForm
       />
     </>
   );

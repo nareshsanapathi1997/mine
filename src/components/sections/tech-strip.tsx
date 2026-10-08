@@ -1,45 +1,42 @@
-import { Container } from "@/components/layout/container";
+import { Atom, Box, Cloud, Code, Database, Hexagon, Layers, MessageCircle, Server, Sparkles, Workflow } from "lucide-react";
 
 const technologies = [
-  "React",
-  "Next.js",
-  "Python",
-  "Laravel",
-  "Node.js",
-  "PostgreSQL",
-  "MySQL",
-  "OpenAI",
-  "WhatsApp",
-  "REST APIs",
-  "AWS",
-  "Docker",
+  { name: "React", icon: Atom },
+  { name: "Next.js", icon: Hexagon },
+  { name: "Python", icon: Code },
+  { name: "Laravel", icon: Layers },
+  { name: "Node.js", icon: Server },
+  { name: "PostgreSQL", icon: Database },
+  { name: "MySQL", icon: Database },
+  { name: "OpenAI", icon: Sparkles },
+  { name: "WhatsApp", icon: MessageCircle },
+  { name: "REST APIs", icon: Workflow },
+  { name: "AWS", icon: Cloud },
+  { name: "Docker", icon: Box },
 ];
 
 export function TechStrip() {
   return (
-    <section className="border-b border-line bg-surface" aria-labelledby="tech-strip-heading">
-      <Container className="section-tight">
-        <p className="eyebrow">
-          <span className="eyebrow-mark" aria-hidden="true" />
-          Technology & integrations
+    <section className="border-b border-line bg-canvas" aria-labelledby="stack-heading">
+      <div className="section-tight mx-auto w-full max-w-[80rem] px-5">
+        <p id="stack-heading" className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
+          Built to connect with your stack
         </p>
-        <h2 id="tech-strip-heading" className="text-h3 mt-3 text-ink">
-          Connect the tools your business already uses.
-        </h2>
-        <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies we work with">
-          {technologies.map((item) => (
-            <li key={item} className="chip inline-flex items-center gap-2">
-              <span
-                aria-hidden="true"
-                className="grid size-5 shrink-0 place-items-center rounded border border-line text-[10px] font-semibold text-accent-ink"
-              >
-                {item.slice(0, 1)}
-              </span>
-              {item}
-            </li>
-          ))}
+        <p className="mt-3 max-w-[46ch] text-base text-ink">
+          We work with the technologies, APIs and platforms your business already uses.
+        </p>
+        <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-4">
+          {technologies.map((item) => {
+            const Icon = item.icon;
+            return (
+              <li key={item.name} className="inline-flex items-center gap-2 text-sm text-muted">
+                <Icon className="size-4 text-accent-ink" strokeWidth={1.5} aria-hidden="true" />
+                {item.name}
+              </li>
+            );
+          })}
         </ul>
-      </Container>
+      </div>
     </section>
   );
 }

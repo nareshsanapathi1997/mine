@@ -59,8 +59,10 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "site-header sticky top-0 z-50 border-b border-line bg-surface/95 backdrop-blur-md",
-        scrolled && "is-compact",
+        "site-header sticky top-0 z-50 border-b",
+        scrolled || menu || mobileOpen
+          ? "is-scrolled border-line bg-canvas/80 shadow-[0_10px_30px_-24px_rgba(15,23,42,0.45)] backdrop-blur-md"
+          : "border-transparent bg-transparent",
       )}
       onMouseLeave={() => setMenu(null)}
     >
@@ -192,11 +194,11 @@ export function Navbar() {
       <div
         id={menuId}
         className={cn(
-          "mobile-panel grid border-line bg-surface lg:hidden",
-          mobileOpen ? "is-open grid-rows-[1fr] border-t" : "grid-rows-[0fr]",
+          "mobile-panel bg-canvas/95 backdrop-blur-xl lg:hidden",
+          mobileOpen ? "is-open fixed inset-x-0 bottom-0 z-40 overflow-y-auto border-t border-line" : "hidden",
         )}
       >
-        <div className={cn("overflow-hidden", !mobileOpen && "pointer-events-none")} {...(mobileOpen ? {} : { inert: true })}>
+        <div className={cn(!mobileOpen && "pointer-events-none")} {...(mobileOpen ? {} : { inert: true })}>
           <Container className="flex max-h-[calc(100dvh-4.5rem)] flex-col gap-1 overflow-y-auto py-3">
             <nav aria-label="Mobile" className="flex flex-col">
               <MobileGroup

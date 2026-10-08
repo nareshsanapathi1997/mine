@@ -61,7 +61,7 @@ export default function AboutPage() {
           </h2>
           <ol className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {processSteps.map((step) => (
-              <li key={step.number} className="rounded-lg border border-line bg-canvas p-4">
+              <li key={step.number} className="border-t border-line pt-4">
                 <p className="font-mono text-xs font-semibold text-accent-ink">{step.number}</p>
                 <h3 className="mt-2 text-base font-semibold text-ink">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{step.description}</p>
@@ -115,11 +115,11 @@ export default function AboutPage() {
             Team
           </h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-            <li className="rounded-lg border border-line bg-canvas p-4">
+            <li className="border-t border-line pt-4">
               <h3 className="text-h3 text-ink">Naresh Sanapathi</h3>
               <p className="mt-1 text-sm font-medium text-accent-ink">Founder</p>
             </li>
-            <li className="rounded-lg border border-line bg-canvas p-4">
+            <li className="border-t border-line pt-4">
               <h3 className="text-h3 text-ink">Nageswara Rao</h3>
               <p className="mt-1 text-sm font-medium text-accent-ink">Co-founder</p>
             </li>

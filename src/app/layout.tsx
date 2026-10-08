@@ -53,8 +53,8 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: [{ url: "/kyntriq-mark.png", type: "image/png" }],
-    apple: [{ url: "/kyntriq-mark.png", type: "image/png" }],
+    icon: [{ url: "/icon.png", type: "image/png", sizes: "32x32" }],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
   },
   formatDetection: {
     telephone: false,

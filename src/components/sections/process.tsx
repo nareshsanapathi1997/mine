@@ -2,7 +2,6 @@
 
 import { useId, useState } from "react";
 import { Container } from "@/components/layout/container";
-import { SectionHeading } from "@/components/layout/section-heading";
 import { processSteps } from "@/content/home";
 import { cn } from "@/lib/cn";
 
@@ -12,43 +11,38 @@ export function Process() {
   const step = processSteps[active] ?? processSteps[0];
 
   return (
-    <section className="section bg-canvas" aria-labelledby="process-heading">
+    <section className="section bg-surface" aria-labelledby="process-heading">
       <Container>
-        <SectionHeading
-          id="process-heading"
-          eyebrow="How we work"
-          title="Discover, specify, build, connect, stay."
-          description="One workflow first. The next channel or product sits on the same foundation."
-        />
-        <div className="stack" data-reveal>
-          <ol className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5" role="tablist" aria-label="Process">
-            {processSteps.map((item, index) => {
-              const selected = index === active;
-              return (
-                <li key={item.number} role="presentation">
-                  <button
-                    id={`${baseId}-${item.number}`}
-                    type="button"
-                    role="tab"
-                    aria-selected={selected}
-                    aria-controls={`${baseId}-panel`}
-                    className={cn(
-                      "min-h-20 w-full rounded-lg border px-4 py-3 text-left",
-                      selected ? "border-navy bg-surface" : "border-line bg-surface/60",
-                    )}
-                    onMouseEnter={() => setActive(index)}
-                    onFocus={() => setActive(index)}
-                    onClick={() => setActive(index)}
-                  >
-                    <span className="font-mono text-xs font-semibold text-accent-ink">{item.number}</span>
-                    <span className="mt-1 block text-base font-semibold text-ink">{item.title}</span>
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
-        <p id={`${baseId}-panel`} role="tabpanel" aria-labelledby={`${baseId}-${step.number}`} className="text-body mt-6 max-w-[68ch] text-ink">
+        <h2 id="process-heading" className="text-h2 max-w-[14ch] uppercase text-ink">
+          Discover. Specify. Build. Connect. Stay.
+        </h2>
+        <ol className="mt-14 grid gap-6 md:grid-cols-5" role="tablist" aria-label="Process">
+          {processSteps.map((item, index) => {
+            const selected = index === active;
+            return (
+              <li key={item.number} role="presentation" className="relative">
+                {index < processSteps.length - 1 ? (
+                  <span className="absolute top-3 left-8 hidden h-px w-[calc(100%-1rem)] bg-line md:block" aria-hidden="true" />
+                ) : null}
+                <button
+                  id={`${baseId}-${item.number}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  aria-controls={`${baseId}-panel`}
+                  className="relative min-h-11 text-left"
+                  onMouseEnter={() => setActive(index)}
+                  onFocus={() => setActive(index)}
+                  onClick={() => setActive(index)}
+                >
+                  <span className={cn("mb-3 block size-2.5 rounded-full", selected ? "bg-accent" : "bg-line-strong")} aria-hidden="true" />
+                  <span className="block text-sm font-medium uppercase tracking-[0.12em] text-ink">{item.title}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+        <p id={`${baseId}-panel`} role="tabpanel" aria-labelledby={`${baseId}-${step.number}`} className="mt-10 max-w-[36ch] text-2xl leading-snug text-ink">
           {step.description}
         </p>
       </Container>

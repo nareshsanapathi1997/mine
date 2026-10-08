@@ -1,32 +1,34 @@
 import { Container } from "@/components/layout/container";
-import { SectionHeading } from "@/components/layout/section-heading";
 import { comparisonRows } from "@/content/stories";
 
 export function WhyUs() {
   return (
-    <section className="section bg-surface" aria-labelledby="why-heading">
+    <section className="section bg-canvas" aria-labelledby="why-heading">
       <Container>
-        <SectionHeading
-          id="why-heading"
-          eyebrow="Why Kyntriq"
-          title="A business system, not a pile of deliverables."
-          description="We start from how the organization already operates, then connect the software and automation around that workflow."
-        />
-        <div className="stack overflow-hidden rounded-xl border border-line" data-reveal>
-          <div className="grid grid-cols-2 bg-navy text-white">
-            <p className="px-4 py-3 text-sm font-semibold sm:px-6">Typical agency</p>
-            <p className="border-l border-white/15 px-4 py-3 text-sm font-semibold sm:px-6">Kyntriq Solutions</p>
+        <h2 id="why-heading" className="text-h2 max-w-[14ch] uppercase text-ink">
+          Not just a website. A business system.
+        </h2>
+        <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-0">
+          <div className="md:border-r md:border-line md:pr-12">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">Traditional agency</p>
+            <ul className="mt-6 space-y-4">
+              {comparisonRows.map(([typical]) => (
+                <li key={typical} className="text-2xl font-medium text-muted">
+                  {typical}
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul>
-            {comparisonRows.map(([typical, kyntriq]) => (
-              <li key={typical} className="grid grid-cols-2 border-t border-line">
-                <p className="px-4 py-4 text-sm text-muted sm:px-6 sm:text-base">{typical}</p>
-                <p className="border-l border-line bg-canvas px-4 py-4 text-sm font-semibold text-ink sm:px-6 sm:text-base">
+          <div className="md:pl-12">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-ink">Kyntriq</p>
+            <ul className="mt-6 space-y-4">
+              {comparisonRows.map(([, kyntriq]) => (
+                <li key={kyntriq} className="text-2xl font-medium text-ink">
                   {kyntriq}
-                </p>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Container>
     </section>

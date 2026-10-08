@@ -25,8 +25,9 @@ export function IndustryView({
     <>
       <JsonLd data={jsonLd} />
       <Breadcrumbs items={crumbs} />
-      <header className="border-b border-line bg-canvas">
-        <Container className="section-tight grid-12 items-end">
+      <header className="hero-stage relative overflow-hidden border-b border-line">
+        <div className="hero-grid" aria-hidden="true" />
+        <Container className="section-tight relative grid-12 items-end">
           <div className="col-span-12 lg:col-span-8">
             <p className="eyebrow">
               <span className="eyebrow-mark" aria-hidden="true" />

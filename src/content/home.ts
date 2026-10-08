@@ -127,27 +127,27 @@ export const processSteps: { number: string; title: string; description: string 
   {
     number: "01",
     title: "Discover",
-    description: "Understand how the business operates before choosing what to build.",
+    description: "Understand how the business currently operates.",
   },
   {
     number: "02",
     title: "Specify",
-    description: "Define the workflow, the data, and the system that is actually required.",
+    description: "Map the people, the records, the rules, and the work that is repeated.",
   },
   {
     number: "03",
     title: "Build",
-    description: "Build the website, application, AI agent, or automation against that specification.",
+    description: "Build the software or the AI the workflow actually needs.",
   },
   {
     number: "04",
     title: "Connect",
-    description: "Connect the systems, APIs, and business records so the same fact is not copied twice.",
+    description: "Connect the systems and APIs so the same fact is not copied twice.",
   },
   {
     number: "05",
     title: "Stay",
-    description: "Monitor, improve, and support the system after the first release.",
+    description: "Improve and maintain the system after the first release.",
   },
 ];
 

@@ -23,7 +23,7 @@ const labels: Record<EnquiryField, string> = {
   email: "Email",
   phone: "Phone / WhatsApp",
   industry: "Industry",
-  need: "What do you need?",
+  need: "Requirement",
   budget: "Budget",
   message: "Tell us about your workflow.",
 };
@@ -41,17 +41,16 @@ const hints: Record<EnquiryField, string> = {
 
 const needOptions = [
   "AI Agent",
-  "Voice AI",
-  "WhatsApp Automation",
-  "Business Automation",
+  "Automation",
   "Business Software",
   "Website",
   "Mobile App",
-  "Cloud & DevOps",
+  "WhatsApp",
+  "Cloud",
   "Other",
 ] as const;
 
-export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
+export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed?: string; compact?: boolean }) {
   const formId = useId();
   const successRef = useRef<HTMLDivElement>(null);
   const startedAt = useRef(0);
@@ -147,7 +146,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
 
   return (
     <form onSubmit={onSubmit} noValidate aria-describedby={formError ? `${formId}-form-error` : undefined}>
-      <div className="mb-5">
+      <div className={compact ? "sr-only" : "mb-5"}>
         <h2 className="text-h3 text-ink">Send an enquiry</h2>
         <p className="mt-1 text-small text-muted">
           Name, email, what you need, and the workflow are required.
@@ -160,6 +159,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           required
           label={labels.name}
           hint={hints.name}
+          quiet={compact}
           error={errors.name}
           autoComplete="name"
           value={values.name}
@@ -170,6 +170,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           name="company"
           label={labels.company}
           hint={hints.company}
+          quiet={compact}
           error={errors.company}
           autoComplete="organization"
           value={values.company}
@@ -181,6 +182,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           required
           label={labels.email}
           hint={hints.email}
+          quiet={compact}
           error={errors.email}
           type="email"
           autoComplete="email"
@@ -192,6 +194,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           name="phone"
           label={labels.phone}
           hint={hints.phone}
+          quiet={compact}
           error={errors.phone}
           type="tel"
           autoComplete="tel"
@@ -204,6 +207,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           required
           label={labels.need}
           hint={hints.need}
+          quiet={compact}
           error={errors.need}
           value={values.need}
           placeholder="Select what you need"
@@ -219,7 +223,7 @@ export function ContactForm({ defaultNeed = "" }: { defaultNeed?: string }) {
           <Label htmlFor={`${formId}-message`}>
             {labels.message} <span className="text-danger">*</span>
           </Label>
-          <p id={`${formId}-message-hint`} className="mt-1 text-small text-muted">
+          <p id={`${formId}-message-hint`} className={cn("mt-1 text-small text-muted", compact && "sr-only")}>
             {hints.message}
           </p>
           <Textarea
@@ -277,6 +281,7 @@ function Field({
   name,
   label,
   hint,
+  quiet = false,
   error,
   value,
   onChange,
@@ -289,6 +294,7 @@ function Field({
   name: string;
   label: string;
   hint: string;
+  quiet?: boolean;
   error?: string;
   value: string;
   onChange: (value: string) => void;
@@ -303,7 +309,7 @@ function Field({
         {label}
         {required ? <span className="text-danger"> *</span> : null}
       </Label>
-      <p id={`${id}-hint`} className="mt-1 text-small text-muted">
+      <p id={`${id}-hint`} className={cn("mt-1 text-small text-muted", quiet && "sr-only")}>
         {hint}
       </p>
       <Input
@@ -333,6 +339,7 @@ function SelectField({
   name,
   label,
   hint,
+  quiet = false,
   error,
   value,
   onChange,
@@ -345,6 +352,7 @@ function SelectField({
   name: string;
   label: string;
   hint: string;
+  quiet?: boolean;
   error?: string;
   value: string;
   onChange: (value: string) => void;
@@ -359,7 +367,7 @@ function SelectField({
         {label}
         {required ? <span className="text-danger"> *</span> : null}
       </Label>
-      <p id={`${id}-hint`} className="mt-1 text-small text-muted">
+      <p id={`${id}-hint`} className={cn("mt-1 text-small text-muted", quiet && "sr-only")}>
         {hint}
       </p>
       <div className="relative mt-2">

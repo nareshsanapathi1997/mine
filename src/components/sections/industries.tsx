@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useId, useState } from "react";
 import { Icon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
-import { SectionHeading } from "@/components/layout/section-heading";
 import { WorkflowDiagram } from "@/components/ui/workflow";
 import { industries } from "@/content/industries";
 import { industryStories } from "@/content/stories";
@@ -39,27 +38,49 @@ export function Industries() {
   return (
     <section className="section bg-surface" aria-labelledby="industries-heading">
       <Container>
-        <SectionHeading
-          id="industries-heading"
-          eyebrow="Industries"
-          title="The same technology, shaped around the work."
-          description="Select an industry to see the problems, the systems, and a workflow we would actually build."
-        />
-        <div className="stack grid-12 items-start">
-          <label className="col-span-12 text-sm font-semibold text-ink lg:hidden">
-            Industry
-            <select
-              className="field mt-2 h-11 w-full bg-surface px-3"
-              value={industry.slug}
-              onChange={(event) => setActive(event.target.value)}
-            >
-              {industries.map((item) => (
-                <option key={item.slug} value={item.slug}>
-                  {item.title}
-                </option>
-              ))}
-            </select>
-          </label>
+        <h2 id="industries-heading" className="text-h2 max-w-[16ch] uppercase text-ink">
+          The same technology, shaped around the work.
+        </h2>
+        <p className="text-body mt-5 max-w-[48ch] text-muted">
+          Select an industry to see the problem, the system, and a workflow we would actually build.
+        </p>
+        <div className="stack">
+          <div className="border-t border-line lg:hidden">
+            {industries.map((item) => {
+              const selected = item.slug === industry.slug;
+              const itemStory = industryStories[item.slug];
+              return (
+                <div key={item.slug} className="border-b border-line">
+                  <button
+                    type="button"
+                    className="flex min-h-14 w-full items-center justify-between text-left text-lg text-ink"
+                    aria-expanded={selected}
+                    onClick={() => setActive(item.slug)}
+                  >
+                    {item.title}
+                    <span className={`font-mono text-accent-ink ${selected ? "rotate-45" : ""}`} aria-hidden="true">+</span>
+                  </button>
+                  <div className={`grid transition-[grid-template-rows] duration-300 ${selected ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                    <div className="overflow-hidden">
+                      {selected && itemStory ? (
+                        <div className="pb-6">
+                          <p className="text-sm text-muted">{itemStory.problems[0]?.body}</p>
+                          <p className="mt-3 text-sm font-medium text-ink">{itemStory.solutions[0]?.title}</p>
+                          <div className="mt-4">
+                            <WorkflowDiagram steps={itemStory.workflow} />
+                          </div>
+                          <Link href={`/industries/${item.slug}`} className="text-link mt-4">
+                            Explore {item.title} <span className="text-link-arrow" aria-hidden="true">→</span>
+                          </Link>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="hidden lg:grid lg:grid-cols-12 lg:items-start lg:gap-10">
           <div
             role="tablist"
             aria-label="Industries"
@@ -79,8 +100,8 @@ export function Industries() {
                   aria-controls={`${baseId}-panel`}
                   tabIndex={selected ? 0 : -1}
                   className={cn(
-                    "flex min-h-11 shrink-0 items-center gap-3 rounded-lg border px-3 py-2 text-left lg:w-full",
-                    selected ? "border-navy bg-canvas text-ink" : "border-line bg-surface text-ink",
+                    "flex min-h-11 w-full items-center gap-3 border-b border-line px-1 py-3 text-left",
+                    selected ? "text-ink" : "text-muted",
                   )}
                   onClick={() => setActive(item.slug)}
                 >
@@ -94,10 +115,11 @@ export function Industries() {
             })}
           </div>
           <div
+            key={industry.slug}
             id={`${baseId}-panel`}
             role="tabpanel"
             aria-labelledby={`${baseId}-${industry.slug}`}
-            className="card col-span-12 lg:col-span-8"
+            className="industry-panel col-span-12 border-t border-line pt-8 lg:col-span-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">{industry.audience}</p>
             <h3 className="text-h3 mt-2 text-ink">{story.hero}</h3>
@@ -134,6 +156,7 @@ export function Industries() {
             <Link href={`/industries/${industry.slug}`} className="text-link mt-4">
               Explore {industry.title} <span className="text-link-arrow" aria-hidden="true">→</span>
             </Link>
+          </div>
           </div>
         </div>
       </Container>
