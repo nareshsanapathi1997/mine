@@ -37,29 +37,36 @@ export function Problems() {
   return (
     <section className="section bg-surface" aria-labelledby="problem-heading">
       <Container>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-ink">The problem</p>
-        <h2 id="problem-heading" className="text-h2 mt-4 max-w-[16ch] uppercase text-ink">
-          Your business shouldn&apos;t run on manual follow-ups.
-        </h2>
-        <div className="mt-14 border-t border-line">
+        <div className="grid items-end gap-4 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-ink">The problem</p>
+            <h2 id="problem-heading" className="text-h2 mt-2 text-ink">
+              Your business shouldn&apos;t run on manual follow-ups.
+            </h2>
+          </div>
+          <p className="text-sm leading-relaxed text-muted lg:col-span-5">
+            Leads get lost. Teams repeat the same work. Business data is scattered. AI doesn&apos;t have context.
+          </p>
+        </div>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {problems.map((item) => {
             const expanded = open === item.number;
             return (
-              <article key={item.number} className={cn("problem-row border-b border-line", expanded && "is-open")}>
+              <article key={item.number} className={cn("problem-row rounded-2xl border border-line bg-canvas/40", expanded && "is-open")}>
                 <button
                   type="button"
-                  className="grid w-full gap-3 py-7 text-left md:grid-cols-12 md:items-baseline md:gap-6"
+                  className="w-full px-4 py-4 text-left"
                   aria-expanded={expanded}
                   onClick={() => setOpen(expanded ? null : item.number)}
                 >
-                  <span className="font-mono text-sm text-accent-ink md:col-span-2">{item.number}</span>
-                  <span className="text-2xl font-medium tracking-tight text-ink md:col-span-4">{item.title}</span>
-                  <span className="text-base leading-relaxed text-muted md:col-span-6">{item.body}</span>
+                  <span className="font-mono text-xs text-accent-ink">{item.number}</span>
+                  <span className="mt-2 block text-xl font-medium tracking-tight text-ink">{item.title}</span>
+                  <span className="mt-2 block text-sm leading-relaxed text-muted">{item.body}</span>
                 </button>
                 <div className="problem-answer">
                   <div className="overflow-hidden">
-                    <p className="pb-7 text-sm text-ink md:pl-[calc(16.666%+1.5rem)]">
-                      <span className="font-semibold uppercase tracking-[0.14em] text-accent-ink">How Kyntriq solves it. </span>
+                    <p className="px-5 pb-5 text-sm text-ink">
+                      <span className="font-semibold text-accent-ink">How Kyntriq solves it. </span>
                       {item.solve}
                     </p>
                   </div>

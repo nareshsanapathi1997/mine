@@ -46,20 +46,21 @@ const items = [
 export function Faq() {
   return (
     <section className="section bg-canvas" aria-labelledby="faq-heading">
-      <Container className="grid gap-10 lg:grid-cols-12">
-        <h2 id="faq-heading" className="text-h2 uppercase text-ink lg:col-span-4">
+      <Container>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-ink">FAQ</p>
+        <h2 id="faq-heading" className="text-h2 mt-2 text-ink">
           Questions
         </h2>
-        <div className="border-t border-line lg:col-span-8">
+        <div className="mt-4 overflow-hidden rounded-2xl border border-line">
           {items.map((item) => (
-            <details key={item.question} className="group border-b border-line">
-              <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 text-lg text-ink [&::-webkit-details-marker]:hidden">
+            <details key={item.question} className="faq-item group border-b border-line px-5 last:border-b-0 sm:px-6">
+              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-base font-medium text-ink [&::-webkit-details-marker]:hidden">
                 {item.question}
                 <span className="font-mono text-accent-ink transition-transform group-open:rotate-45" aria-hidden="true">
                   +
                 </span>
               </summary>
-              <p className="max-w-[62ch] pb-5 text-base leading-relaxed text-muted">{item.answer}</p>
+              <p className="pb-4 text-sm leading-relaxed text-muted">{item.answer}</p>
             </details>
           ))}
         </div>

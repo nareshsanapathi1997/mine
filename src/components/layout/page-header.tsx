@@ -12,7 +12,7 @@ export function PageHeader({
   return (
     <header className="hero-stage relative overflow-hidden border-b border-line">
       <div className="hero-grid" aria-hidden="true" />
-      <Container className="relative py-16 lg:grid lg:grid-cols-12 lg:items-end lg:gap-x-10 lg:py-24">
+      <Container className="relative py-12 lg:grid lg:grid-cols-12 lg:items-end lg:gap-x-10 lg:py-16">
         <div className="lg:col-span-7">
           <p className="eyebrow">
             <span className="eyebrow-mark" aria-hidden="true" />

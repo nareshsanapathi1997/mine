@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 
-const frame = "h-12 w-auto sm:h-16 [.is-compact_&]:sm:h-12";
+const frame = "h-10 w-auto sm:h-12";
 
 export function Logo({
   variant = "default",
@@ -41,7 +41,7 @@ export function Logo({
   return (
     <>
       <Image
-        src="/kyntriq-solutions-logo.jpg"
+        src="/kyntriq-solutions-logo.png"
         alt="Kyntriq Solutions"
         width={877}
         height={289}

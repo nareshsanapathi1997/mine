@@ -45,6 +45,9 @@ export default function AboutPage() {
           </div>
           <div className="col-span-12 space-y-4 lg:col-span-7">
             <p className="text-body text-muted">
+              KYNTRIQ stands for {siteConfig.nameMeaning}.
+            </p>
+            <p className="text-body text-muted">
               {siteConfig.name} builds digital systems for schools, colleges, coaching institutes, hotels, manufacturers and growing businesses. A website, an app or an assistant should finish a step that a person currently copies between tools.
             </p>
             <p className="text-body text-muted">

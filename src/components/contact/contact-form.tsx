@@ -152,7 +152,7 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
           Name, email, what you need, and the workflow are required.
         </p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-1.5 sm:grid-cols-2">
         <Field
           id={`${formId}-name`}
           name="name"
@@ -233,7 +233,7 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
             onChange={(event) => update("message", event.target.value)}
             aria-invalid={errors.message ? true : undefined}
             aria-describedby={errors.message ? `${formId}-message-error` : `${formId}-message-hint`}
-            className="mt-2"
+            className="mt-0.5 min-h-20"
           />
           {errors.message ? (
             <p id={`${formId}-message-error`} className="mt-1.5 text-sm font-medium text-danger">
@@ -256,9 +256,9 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
         </label>
       </div>
 
-      <p className="mt-5 text-small text-muted">
+      <p className="mt-2 text-small leading-snug text-muted">
         We review your requirement and get back to you. By sending this enquiry you agree that we may use these details to reply.{" "}
-        <Link href="/privacy" className="inline-flex min-h-11 items-center font-medium text-accent-ink underline decoration-accent-ink/30 underline-offset-4">
+        <Link href="/privacy" className="font-medium text-accent-ink underline decoration-accent-ink/30 underline-offset-4">
           Privacy Policy
         </Link>
       </p>
@@ -269,7 +269,7 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
         </p>
       ) : null}
 
-      <Button type="submit" size="lg" className="mt-4 w-full" loading={pending} arrow>
+      <Button type="submit" size="md" className="mt-2 w-full" loading={pending} arrow>
         {pending ? "Sending…" : "Start a Conversation"}
       </Button>
     </form>
@@ -323,7 +323,7 @@ function Field({
         aria-invalid={error ? true : undefined}
         aria-required={required || undefined}
         aria-describedby={error ? `${id}-error` : `${id}-hint`}
-        className="mt-2"
+        className="mt-0.5 h-9"
       />
       {error ? (
         <p id={`${id}-error`} className="mt-1.5 text-sm font-medium text-danger">
@@ -370,7 +370,7 @@ function SelectField({
       <p id={`${id}-hint`} className={cn("mt-1 text-small text-muted", quiet && "sr-only")}>
         {hint}
       </p>
-      <div className="relative mt-2">
+      <div className="relative mt-0.5">
         <select
           id={id}
           name={name}
@@ -380,7 +380,7 @@ function SelectField({
           aria-required={required || undefined}
           required={required}
           aria-describedby={error ? `${id}-error` : `${id}-hint`}
-          className={cn("field h-11 appearance-none bg-surface px-3 pr-10 outline-none", !value && "is-placeholder")}
+          className={cn("field h-9 appearance-none bg-surface px-3 pr-10 outline-none", !value && "is-placeholder")}
         >
           <option value="">{placeholder}</option>
           {options.map((option) => (

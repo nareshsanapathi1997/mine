@@ -6,29 +6,27 @@ const layers = ["Kyntriq system layer", "Business data", "Automation", "Action"]
 export function Integrations() {
   return (
     <section className="section bg-surface" aria-labelledby="integrations-heading">
-      <Container className="grid items-start gap-14 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <h2 id="integrations-heading" className="text-h2 uppercase text-ink">
+      <Container className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-6">
+          <h2 id="integrations-heading" className="text-h2 text-ink">
             Connect the tools you already use.
           </h2>
-          <p className="text-body mt-5 text-muted">
+          <p className="text-body mt-3 text-muted">
             Your business already has tools. We connect them into one workflow. We do not replace a system that already holds the record.
           </p>
-          <ul className="mt-8 flex flex-wrap gap-2">
+          <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
             {sources.map((item) => (
-              <li key={item} className="rounded-full border border-line px-3 py-1 text-sm text-muted">
+              <li key={item} className="rounded-xl border border-line px-3 py-2 text-sm text-ink">
                 {item}
               </li>
             ))}
           </ul>
         </div>
-        <ol className="signal-rail relative m-0 list-none p-0 lg:col-span-6 lg:col-start-7" aria-label="How a tool reaches an action">
-          <span className="signal-dot" aria-hidden="true" />
+        <ol className="m-0 grid list-none gap-2 p-0 sm:grid-cols-2 lg:col-span-6" aria-label="How a tool reaches an action">
           {layers.map((layer, index) => (
-            <li key={layer} className="relative border-b border-line py-6 pl-10">
-              <span className="absolute top-8 left-0 size-2.5 rounded-full border border-accent bg-surface" aria-hidden="true" />
-              <span className="font-mono text-xs text-accent-ink">{String(index + 1).padStart(2, "0")}</span>
-              <span className="mt-1 block text-2xl text-ink">{layer}</span>
+            <li key={layer} className="flow-card">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{layer}</strong>
             </li>
           ))}
         </ol>

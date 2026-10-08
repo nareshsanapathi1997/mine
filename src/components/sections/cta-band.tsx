@@ -21,13 +21,13 @@ export function CtaBand({
 }) {
   return (
     <section className="band-dark relative overflow-hidden text-white" aria-labelledby="cta-heading">
-      <Container className="section relative z-[1] grid items-start gap-12 lg:grid-cols-12">
+      <Container className="relative z-[1] grid items-start gap-8 px-5 py-10 lg:grid-cols-12 lg:py-12">
         <div className={showForm ? "lg:col-span-6" : "lg:col-span-7"}>
-          <h2 id="cta-heading" className="text-h2 max-w-[16ch] uppercase text-white">
+          <h2 id="cta-heading" className="text-h2 text-white">
             {title}
           </h2>
-          <p className="text-body mt-5 max-w-[42ch] text-mist">{description}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <p className="text-body mt-3 text-mist">{description}</p>
+          <div className="mt-5 flex flex-col gap-2 sm:flex-row">
             <Button asChild size="lg" variant="quiet" arrow className="w-full sm:w-auto">
               <Link href={primaryHref}>{primaryLabel}</Link>
             </Button>
@@ -45,7 +45,7 @@ export function CtaBand({
           </div>
         </div>
         {showForm ? (
-          <div className="rounded-2xl border border-white/10 bg-canvas/80 p-5 text-ink backdrop-blur-md sm:p-7 lg:col-span-6">
+          <div className="system-board text-ink lg:col-span-6">
             <ContactForm compact />
           </div>
         ) : null}

@@ -199,7 +199,7 @@ export function Navbar() {
         )}
       >
         <div className={cn(!mobileOpen && "pointer-events-none")} {...(mobileOpen ? {} : { inert: true })}>
-          <Container className="flex max-h-[calc(100dvh-4.5rem)] flex-col gap-1 overflow-y-auto py-3">
+          <Container className="flex max-h-[calc(100dvh-3.75rem)] flex-col gap-1 overflow-y-auto py-3">
             <nav aria-label="Mobile" className="flex flex-col">
               <MobileGroup
                 label="Solutions"

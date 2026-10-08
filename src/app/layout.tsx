@@ -4,6 +4,7 @@ import { ConsentProvider } from "@/components/consent/cookie-consent";
 import { Footer } from "@/components/layout/footer";
 import { MobileCta } from "@/components/layout/mobile-cta";
 import { Navbar } from "@/components/layout/navbar";
+import { ScrollTop } from "@/components/layout/scroll-top";
 import { RevealObserver } from "@/components/layout/reveal-observer";
 import { MotionStage } from "@/components/motion/stage";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -96,6 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </main>
           <MobileCta />
+          <ScrollTop />
           <Footer />
         </ConsentProvider>
       </body>

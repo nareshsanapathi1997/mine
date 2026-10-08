@@ -11,7 +11,7 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
   return (
     <div>
       <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-glow">{title}</p>
-      <ul className="mt-4 space-y-2">{children}</ul>
+      <ul className="mt-2 space-y-0.5">{children}</ul>
     </div>
   );
 }
@@ -31,12 +31,12 @@ export function Footer() {
 
   return (
     <footer className="band-dark relative text-white">
-      <Container className="relative z-[1] py-16 lg:py-24">
-        <div className="flex flex-col gap-8 border-b border-white/10 pb-10 lg:flex-row lg:items-end lg:justify-between">
+      <Container className="relative z-[1] py-8 lg:py-10">
+        <div className="flex flex-col gap-5 border-b border-white/10 pb-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-md">
             <Logo variant="inverse" />
-            <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-glow">{siteConfig.positioning}</p>
-            <p className="mt-3 text-sm leading-relaxed text-mist">{siteConfig.tagline}</p>
+            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-glow">{siteConfig.positioning}</p>
+            <p className="mt-2 text-sm leading-snug text-mist">{siteConfig.tagline}</p>
           </div>
           <p className="flex flex-col gap-1 text-sm lg:items-end">
             <a href={siteConfig.phoneHref} className="footer-link w-fit">
@@ -49,7 +49,7 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="grid gap-10 pt-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-6 pt-6 sm:grid-cols-2 lg:grid-cols-5">
           <FooterColumn title="Solutions">
             {footerServices.map((service) => (
               <FooterLink key={service.slug} href={`/solutions/${service.slug}`}>
@@ -80,7 +80,7 @@ export function Footer() {
           </FooterColumn>
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-glow">Legal</p>
-            <ul className="mt-4 space-y-2">
+            <ul className="mt-2 space-y-0.5">
               {legalLinks.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="footer-link text-sm">
@@ -92,7 +92,7 @@ export function Footer() {
                 <CookieSettingsButton />
               </li>
             </ul>
-            <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
               {siteConfig.social.map((item) => (
                 <li key={item.label}>
                   <a href={item.href} className="footer-link" target="_blank" rel="noopener noreferrer">
@@ -104,7 +104,7 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="mt-12 text-sm text-mist">
+        <p className="mt-6 text-sm text-mist">
           © {year} {siteConfig.name}
         </p>
       </Container>

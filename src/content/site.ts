@@ -15,10 +15,13 @@ export const siteConfig = {
   /** Placeholder until the public office address is confirmed. */
   location: "Hyderabad, India",
   hours: "",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kyntriq.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kyntriqsolutions.com",
   description:
     "Kyntriq Solutions builds AI agents, custom software and business automation systems that connect people, processes and data.",
   positioning: "AI · Software · Automation · Business Systems",
+  /** Full name, kept in the brand story rather than the public lockup. */
+  nameMeaning:
+    "Knowledge · Yield · Networking · Technology · Research · Innovation · Quality",
   tagline:
     "Kyntriq Solutions builds connected software, AI and automation systems for organizations that have outgrown separate tools.",
   locale: "en_IN",

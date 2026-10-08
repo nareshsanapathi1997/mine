@@ -5,26 +5,47 @@ import { Container } from "@/components/layout/container";
 import { cn } from "@/lib/cn";
 
 const nodes = [
-  { id: "website", label: "Website", x: 16, y: 22, path: ["Website", "API", "Business Data", "Action"] },
-  { id: "mobile", label: "Mobile", x: 50, y: 12, path: ["Mobile", "API", "Business Data", "Action"] },
-  { id: "whatsapp", label: "WhatsApp", x: 84, y: 22, path: ["WhatsApp", "AI Agent", "CRM", "Business Logic", "Action"] },
-  { id: "agent", label: "AI Agent", x: 14, y: 52, path: ["AI Agent", "Business Data", "Business Logic", "Action"] },
-  { id: "human", label: "Human", x: 86, y: 52, path: ["Human", "Business Data", "Approval", "Action"] },
-  { id: "crm", label: "CRM", x: 24, y: 80, path: ["CRM", "Business Data", "Automation", "Action"] },
-  { id: "automation", label: "Automation", x: 76, y: 80, path: ["Automation", "Business Data", "Action"] },
-  { id: "api", label: "API", x: 50, y: 88, path: ["API", "Business Data", "Automation", "Action"] },
+  { id: "website", label: "Website", group: "in", path: ["Website", "API", "Business Data", "Action"] },
+  { id: "mobile", label: "Mobile", group: "in", path: ["Mobile", "API", "Business Data", "Action"] },
+  { id: "whatsapp", label: "WhatsApp", group: "in", path: ["WhatsApp", "AI Agent", "CRM", "Business Logic", "Action"] },
+  { id: "human", label: "Human", group: "in", path: ["Human", "Business Data", "Approval", "Action"] },
+  { id: "agent", label: "AI Agent", group: "out", path: ["AI Agent", "Business Data", "Business Logic", "Action"] },
+  { id: "crm", label: "CRM", group: "out", path: ["CRM", "Business Data", "Automation", "Action"] },
+  { id: "automation", label: "Automation", group: "out", path: ["Automation", "Business Data", "Action"] },
+  { id: "api", label: "API", group: "out", path: ["API", "Business Data", "Automation", "Action"] },
 ] as const;
 
 export function ConnectedSystems() {
   const [active, setActive] = useState<(typeof nodes)[number]["id"]>("whatsapp");
   const current = nodes.find((node) => node.id === active) ?? nodes[2];
+  const incoming = nodes.filter((node) => node.group === "in");
+  const outgoing = nodes.filter((node) => node.group === "out");
+
+  function Channel({ node }: { node: (typeof nodes)[number] }) {
+    const selected = active === node.id;
+    return (
+      <button
+        type="button"
+        className={cn(
+          "min-h-11 min-w-0 rounded-xl border px-3 text-sm font-medium",
+          selected ? "border-accent bg-accent-soft text-ink" : "border-line bg-canvas/70 text-muted",
+        )}
+        aria-pressed={selected}
+        onMouseEnter={() => setActive(node.id)}
+        onFocus={() => setActive(node.id)}
+        onClick={() => setActive(node.id)}
+      >
+        {node.label}
+      </button>
+    );
+  }
 
   return (
     <section className="section bg-canvas" aria-labelledby="connected-heading">
       <Container>
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-ink">Connected systems</p>
-        <div className="mt-4 grid items-end gap-8 lg:grid-cols-12">
-          <h2 id="connected-heading" className="text-h2 max-w-[14ch] uppercase text-ink lg:col-span-7">
+        <div className="grid items-end gap-4 lg:grid-cols-12">
+          <h2 id="connected-heading" className="text-h2 max-w-[18ch] text-ink lg:col-span-7">
             One business system. Every channel connected.
           </h2>
           <p className="text-body text-muted lg:col-span-5">
@@ -32,65 +53,27 @@ export function ConnectedSystems() {
           </p>
         </div>
 
-        <div className="relative mt-14 hidden h-[34rem] lg:block">
-          <svg className="absolute inset-0 h-full w-full text-slate-500" viewBox="0 0 100 100" aria-hidden="true">
-            {nodes.map((node) => (
-              <line
-                key={node.id}
-                x1="50"
-                y1="50"
-                x2={node.x}
-                y2={node.y}
-                stroke="currentColor"
-                strokeWidth={active === node.id ? 0.55 : 0.2}
-                className={active === node.id ? "flow-pulse text-accent" : undefined}
-              />
+        <div className="system-board mt-5">
+          <div className="system-board-bar">Channels into one record</div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {incoming.map((node) => (
+              <Channel key={node.id} node={node} />
             ))}
-          </svg>
-          <div className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/50 bg-surface px-5 py-4 text-center shadow-[0_0_40px_-12px_rgba(56,189,248,0.7)]">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-accent-ink">Center</p>
-            <p className="text-sm font-semibold text-ink">Business Data</p>
           </div>
-          {nodes.map((node) => (
-            <button
-              key={node.id}
-              type="button"
-              className={cn(
-                "absolute z-[1] min-h-11 -translate-x-1/2 -translate-y-1/2 rounded-full border px-4 text-sm font-medium",
-                active === node.id ? "border-accent bg-surface text-ink" : "border-line bg-canvas/80 text-muted",
-              )}
-              style={{ left: `${node.x}%`, top: `${node.y}%` }}
-              aria-pressed={active === node.id}
-              onMouseEnter={() => setActive(node.id)}
-              onFocus={() => setActive(node.id)}
-              onClick={() => setActive(node.id)}
-            >
-              {node.label}
-            </button>
-          ))}
+          <div className="system-link" aria-hidden="true" />
+          <div className="mx-auto w-fit rounded-full border border-accent/50 bg-accent-soft px-5 py-2.5 text-sm font-semibold text-ink shadow-[0_0_28px_-12px_rgba(45,212,191,0.7)]">
+            Business Data
+          </div>
+          <div className="system-link" aria-hidden="true" />
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {outgoing.map((node) => (
+              <Channel key={node.id} node={node} />
+            ))}
+          </div>
+          <p className="mt-4 text-sm text-ink" aria-live="polite">
+            {current.path.join("  →  ")}
+          </p>
         </div>
-
-        <ul className="mt-10 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:hidden">
-          {nodes.map((node) => (
-            <li key={node.id}>
-              <button
-                type="button"
-                className={cn(
-                  "min-h-11 w-full rounded-full border px-3 text-sm font-medium",
-                  active === node.id ? "border-accent text-ink" : "border-line text-muted",
-                )}
-                aria-pressed={active === node.id}
-                onClick={() => setActive(node.id)}
-              >
-                {node.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-8 text-sm text-ink" aria-live="polite">
-          {current.path.join("  →  ")}
-        </p>
       </Container>
     </section>
   );
