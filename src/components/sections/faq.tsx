@@ -1,3 +1,4 @@
+import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 
 const items = [
@@ -45,22 +46,24 @@ const items = [
 
 export function Faq() {
   return (
-    <section className="section bg-canvas" aria-labelledby="faq-heading">
-      <Container>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-ink">FAQ</p>
-        <h2 id="faq-heading" className="text-h2 mt-2 text-ink">
-          Questions
-        </h2>
-        <div className="mt-4 overflow-hidden rounded-2xl border border-line">
+    <section className="section" aria-labelledby="faq-heading">
+      <Container className="grid items-start gap-8 lg:grid-cols-12">
+        <div className="lg:col-span-4">
+          <p className="eyebrow">FAQ</p>
+          <h2 id="faq-heading" className="text-h2 mt-3 text-ink">
+            Questions
+          </h2>
+        </div>
+        <div className="overflow-hidden rounded-2xl border border-line lg:col-span-8">
           {items.map((item) => (
             <details key={item.question} className="faq-item group border-b border-line px-5 last:border-b-0 sm:px-6">
-              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-base font-medium text-ink [&::-webkit-details-marker]:hidden">
+              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-base font-medium text-ink [&::-webkit-details-marker]:hidden">
                 {item.question}
-                <span className="font-mono text-accent-ink transition-transform group-open:rotate-45" aria-hidden="true">
-                  +
+                <span className="icon-chip icon-chip-sm text-accent-ink transition-transform group-open:rotate-45">
+                  <UiIcon name="plus" />
                 </span>
               </summary>
-              <p className="pb-4 text-sm leading-relaxed text-muted">{item.answer}</p>
+              <p className="max-w-[68ch] pb-5 text-sm leading-relaxed text-muted">{item.answer}</p>
             </details>
           ))}
         </div>

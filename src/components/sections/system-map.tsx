@@ -34,13 +34,13 @@ function NodeCard({
 }) {
   return (
     <div
-      className={`flex items-center gap-2.5 rounded-lg border bg-[#10192c] px-3 py-2.5 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.8)] ${
+      className={`flex items-center gap-2.5 rounded-lg border bg-surface px-3 py-2.5 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.8)] ${
         emphasis ? "border-ai/80 ai-pulse" : "border-white/14"
       } ${className}`}
     >
       <span
         className={`flex size-8 shrink-0 items-center justify-center rounded-md ${
-          emphasis ? "bg-ai text-white" : "bg-white/8 text-mist"
+          emphasis ? "bg-ai text-navy" : "bg-white/8 text-mist"
         }`}
       >
         <Icon className="size-4" strokeWidth={1.5} aria-hidden />
@@ -163,7 +163,7 @@ export function SystemMap() {
           <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" aria-hidden="true">
             {paths.map((d) => (
               <g key={d}>
-                <path d={d} fill="none" className="flow-line" stroke="#93c5fd" strokeWidth="0.45" strokeOpacity="0.55" />
+                <path d={d} fill="none" className="flow-line" stroke="#02f5fb" strokeWidth="0.45" strokeOpacity="0.55" />
                 <path d={d} fill="none" className="flow-packet" stroke="#ffffff" strokeWidth="0.85" strokeLinecap="round" />
               </g>
             ))}

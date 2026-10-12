@@ -4,8 +4,10 @@ import { Container } from "@/components/layout/container";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
+import { SectionPhotoFrame } from "@/components/ui/section-photo";
 import { WorkflowDiagram } from "@/components/ui/workflow";
 import type { SolutionPage } from "@/content/solution-details";
+import { solutionPhotos } from "@/content/section-photos";
 import { deliverySteps, sharedIntegrations, solutionStories } from "@/content/stories";
 
 export function SolutionView({
@@ -23,6 +25,7 @@ export function SolutionView({
   const headline = story?.headline ?? page.title;
   const support = story?.support ?? page.lede;
   const workflow = story?.workflow ?? ["Request", page.title, "Business data", "Action"];
+  const photo = solutionPhotos[page.slug];
 
   return (
     <>
@@ -30,7 +33,7 @@ export function SolutionView({
       <Breadcrumbs items={crumbs} />
       <header className="hero-stage relative overflow-hidden border-b border-line">
         <div className="hero-grid" aria-hidden="true" />
-        <Container className="section-tight relative grid-12 items-end">
+        <Container className="section-tight relative grid-12 items-center">
           <div className="col-span-12 lg:col-span-7">
             <p className="eyebrow">
               <span className="eyebrow-mark" aria-hidden="true" />
@@ -47,6 +50,7 @@ export function SolutionView({
               </Button>
             </div>
           </div>
+          {photo ? <SectionPhotoFrame photo={photo} className="col-span-12 lg:col-span-5" /> : null}
         </Container>
       </header>
 

@@ -1,5 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import { ArrowRight } from "lucide-react";
 import { cloneElement, isValidElement } from "react";
 import { cn } from "@/lib/cn";
 
@@ -27,11 +28,7 @@ const buttonVariants = cva("btn", {
 });
 
 function Arrow() {
-  return (
-    <span className="btn-arrow" aria-hidden="true">
-      →
-    </span>
-  );
+  return <ArrowRight className="btn-arrow" strokeWidth={1.5} aria-hidden="true" />;
 }
 
 export function Button({

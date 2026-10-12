@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { UiIcon } from "@/components/icons";
 import { ContactForm } from "@/components/contact/contact-form";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
@@ -20,32 +21,36 @@ export function CtaBand({
   showForm?: boolean;
 }) {
   return (
-    <section className="band-dark relative overflow-hidden text-white" aria-labelledby="cta-heading">
-      <Container className="relative z-[1] grid items-start gap-8 px-5 py-10 lg:grid-cols-12 lg:py-12">
-        <div className={showForm ? "lg:col-span-6" : "lg:col-span-7"}>
-          <h2 id="cta-heading" className="text-h2 text-white">
+    <section className="section band-dark relative overflow-hidden" aria-labelledby="cta-heading">
+      <Container className="relative z-[1] grid items-stretch gap-10 lg:grid-cols-12">
+        <div className={showForm ? "flex flex-col lg:col-span-5" : "flex flex-col lg:col-span-7"}>
+          <h2 id="cta-heading" className="text-h2 text-ink">
             {title}
           </h2>
-          <p className="text-body mt-3 text-mist">{description}</p>
-          <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+          <p className="text-body mt-4 max-w-[38ch] text-muted">{description}</p>
+          <div className={showForm ? "mt-8 flex flex-col gap-2.5 sm:flex-row lg:mt-auto lg:pt-10" : "mt-8 flex flex-col gap-2.5 sm:flex-row"}>
             <Button asChild size="lg" variant="quiet" arrow className="w-full sm:w-auto">
               <Link href={primaryHref}>{primaryLabel}</Link>
             </Button>
             {showWhatsapp ? (
               <Button asChild size="lg" variant="inverse" className="w-full sm:w-auto">
                 <a href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer">
+                  <UiIcon name="message" className="size-4" />
                   WhatsApp Us
                 </a>
               </Button>
             ) : showForm ? null : (
               <Button asChild size="lg" variant="inverse" className="w-full sm:w-auto">
-                <Link href="/solutions">Explore Solutions</Link>
+                <Link href="/solutions">
+                  <UiIcon name="compass" className="size-4" />
+                  Explore Solutions
+                </Link>
               </Button>
             )}
           </div>
         </div>
         {showForm ? (
-          <div className="system-board text-ink lg:col-span-6">
+          <div className="system-board text-ink lg:col-span-7">
             <ContactForm compact />
           </div>
         ) : null}

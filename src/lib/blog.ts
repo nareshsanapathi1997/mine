@@ -13,6 +13,7 @@ export type PostMeta = {
   author: string;
   tags: string[];
   cover?: string;
+  coverAlt?: string;
   readingMinutes: number;
 };
 
@@ -53,6 +54,7 @@ function parseFile(fileName: string): Post | null {
     : [];
   const coverValue = asString(parsed.data.cover);
   const cover = coverValue.startsWith("/") ? coverValue : undefined;
+  const coverAlt = asString(parsed.data.coverAlt) || undefined;
 
   if (!title || !description || !date || !author || tags.length === 0) {
     console.warn(`[blog] Skipping ${fileName}: frontmatter needs title, description, date, author and tags.`);
@@ -67,6 +69,7 @@ function parseFile(fileName: string): Post | null {
     author,
     tags,
     cover,
+    coverAlt,
     readingMinutes: readingMinutes(parsed.content),
     content: parsed.content,
   };
@@ -88,6 +91,7 @@ export function getPosts(): PostMeta[] {
       author: post.author,
       tags: post.tags,
       cover: post.cover,
+      coverAlt: post.coverAlt,
       readingMinutes: post.readingMinutes,
     }));
 }

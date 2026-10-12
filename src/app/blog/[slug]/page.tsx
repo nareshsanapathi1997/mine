@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleBody } from "@/components/blog/article-body";
 import { TextLink } from "@/components/ui/text-link";
+import { SectionPhotoFrame } from "@/components/ui/section-photo";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -69,6 +70,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </p>
           <h1 className="text-h1 cluster text-balance text-ink">{post.title}</h1>
           <p className="text-body cluster text-muted">{post.description}</p>
+          {post.cover && post.coverAlt ? (
+            <SectionPhotoFrame
+              className="cluster"
+              sizes="(max-width: 768px) 100vw, 48rem"
+              photo={{ src: post.cover, alt: post.coverAlt }}
+            />
+          ) : null}
           <ul className="cluster flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <li key={tag}>

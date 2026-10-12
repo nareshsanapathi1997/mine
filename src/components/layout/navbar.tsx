@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { Logo } from "@/components/brand/logo";
+import { Icon, UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -59,10 +60,9 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "site-header sticky top-0 z-50 border-b",
-        scrolled || menu || mobileOpen
-          ? "is-scrolled border-line bg-canvas/80 shadow-[0_10px_30px_-24px_rgba(15,23,42,0.45)] backdrop-blur-md"
-          : "border-transparent bg-transparent",
+        "site-header sticky top-0 z-50 border-b bg-[#071825]",
+        (scrolled || menu || mobileOpen) &&
+          "is-scrolled shadow-[0_10px_30px_-24px_rgba(15,23,42,0.45)]",
       )}
       onMouseLeave={() => setMenu(null)}
     >
@@ -72,7 +72,7 @@ export function Navbar() {
             <Logo compact priority />
           </span>
           <span className="hidden sm:inline-flex">
-            <Logo priority />
+            <Logo variant="inverse" priority />
           </span>
         </Link>
 
@@ -124,7 +124,7 @@ export function Navbar() {
             onClick={() => setOpenPath(mobileOpen ? null : pathname)}
           >
             <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
-            {mobileOpen ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
+            {mobileOpen ? <X className="size-5" strokeWidth={1.5} aria-hidden /> : <Menu className="size-5" strokeWidth={1.5} aria-hidden />}
           </button>
         </div>
       </Container>
@@ -142,11 +142,16 @@ export function Navbar() {
                       <li key={service.slug}>
                         <Link
                           href={`/solutions/${service.slug}`}
-                          className="block rounded-lg px-2 py-2 hover:bg-canvas"
+                          className="flex items-start gap-2.5 rounded-lg px-2 py-2 hover:bg-canvas"
                           onClick={() => setMenu(null)}
                         >
-                          <span className="block text-sm font-semibold text-ink">{service.title}</span>
-                          <span className="mt-0.5 line-clamp-2 text-sm leading-snug text-muted">{service.details}</span>
+                          <span className="icon-chip icon-chip-sm mt-0.5">
+                            <Icon name={service.icon} />
+                          </span>
+                          <span className="min-w-0">
+                            <span className="block text-sm font-semibold text-ink">{service.title}</span>
+                            <span className="mt-0.5 line-clamp-2 text-sm leading-snug text-muted">{service.details}</span>
+                          </span>
                         </Link>
                       </li>
                     ))}
@@ -173,17 +178,22 @@ export function Navbar() {
                   <li key={industry.slug}>
                     <Link
                       href={`/industries/${industry.slug}`}
-                      className="block rounded-lg px-3 py-3 hover:bg-canvas"
+                      className="flex items-start gap-2.5 rounded-lg px-3 py-3 hover:bg-canvas"
                       onClick={() => setMenu(null)}
                     >
-                      <span className="block text-sm font-semibold text-ink">{industry.title}</span>
-                      <span className="mt-1 block text-sm leading-snug text-muted">{industry.summary}</span>
+                      <span className="icon-chip icon-chip-sm mt-0.5">
+                        <Icon name={industry.icon} />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-sm font-semibold text-ink">{industry.title}</span>
+                        <span className="mt-1 block text-sm leading-snug text-muted">{industry.summary}</span>
+                      </span>
                     </Link>
                   </li>
                 ))}
               </ul>
               <Link href="/industries" className="text-link mt-4" onClick={() => setMenu(null)}>
-                All industries <span className="text-link-arrow" aria-hidden="true">→</span>
+                All industries <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
               </Link>
             </Container>
           </div>
@@ -194,8 +204,8 @@ export function Navbar() {
       <div
         id={menuId}
         className={cn(
-          "mobile-panel bg-canvas/95 backdrop-blur-xl lg:hidden",
-          mobileOpen ? "is-open fixed inset-x-0 bottom-0 z-40 overflow-y-auto border-t border-line" : "hidden",
+          "mobile-panel bg-[#071825] lg:hidden",
+          mobileOpen ? "is-open fixed inset-x-0 z-40 overflow-y-auto border-t border-line" : "hidden",
         )}
       >
         <div className={cn(!mobileOpen && "pointer-events-none")} {...(mobileOpen ? {} : { inert: true })}>
@@ -212,7 +222,8 @@ export function Navbar() {
                     <ul className="mt-1">
                       {servicesInGroup(group.slugs).map((service) => (
                         <li key={service.slug}>
-                          <Link href={`/solutions/${service.slug}`} className="nav-link w-full px-1" onClick={closeAll}>
+                          <Link href={`/solutions/${service.slug}`} className="nav-link w-full gap-2 px-1" onClick={closeAll}>
+                            <Icon name={service.icon} className="size-3.5 text-accent-ink" />
                             {service.title}
                           </Link>
                         </li>
@@ -230,9 +241,10 @@ export function Navbar() {
                   <Link
                     key={industry.slug}
                     href={`/industries/${industry.slug}`}
-                    className="nav-link w-full px-3"
+                    className="nav-link w-full gap-2 px-3"
                     onClick={closeAll}
                   >
+                    <Icon name={industry.icon} className="size-3.5 text-accent-ink" />
                     {industry.title}
                   </Link>
                 ))}
@@ -308,7 +320,7 @@ function MenuButton({
       }}
     >
       {label}
-      <ChevronDown className={cn("size-4 transition-transform", open && "rotate-180")} aria-hidden />
+      <ChevronDown className={cn("size-4 transition-transform", open && "rotate-180")} strokeWidth={1.5} aria-hidden />
     </button>
   );
 }
@@ -328,7 +340,7 @@ function MobileGroup({
     <div className="border-b border-line">
       <button type="button" className="nav-link w-full justify-between px-2" aria-expanded={open} onClick={onToggle}>
         {label}
-        <ChevronDown className={cn("size-4", open && "rotate-180")} aria-hidden />
+        <ChevronDown className={cn("size-4", open && "rotate-180")} strokeWidth={1.5} aria-hidden />
       </button>
       {open ? <div className="pb-2">{children}</div> : null}
     </div>

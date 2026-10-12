@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { UiIcon, type UiIconName } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 
 const demo = [
@@ -11,51 +13,65 @@ const demo = [
   { label: "Action", text: "Send confirmation to customer" },
 ];
 
-const steps = [
-  "Identify user",
-  "Find record",
-  "Check status",
-  "Respond",
-  "Trigger action",
-  "Human handoff when required",
+const steps: { label: string; icon: UiIconName }[] = [
+  { label: "Identify user", icon: "user" },
+  { label: "Find record", icon: "search" },
+  { label: "Check status", icon: "status" },
+  { label: "Respond", icon: "message" },
+  { label: "Trigger action", icon: "zap" },
+  { label: "Human handoff when required", icon: "users" },
 ];
 
 export function AiAgents() {
   return (
-    <section className="section bg-canvas" aria-labelledby="ai-heading">
-      <Container className="grid items-start gap-6 lg:grid-cols-12">
+    <section className="section" aria-labelledby="ai-heading">
+      <Container className="grid items-start gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-ink">AI Agents</p>
-          <h2 id="ai-heading" className="text-h2 mt-2 text-ink">
+          <p className="eyebrow">AI Agents</p>
+          <h2 id="ai-heading" className="text-h2 mt-3 text-ink">
             AI that doesn&apos;t just chat. It takes the next step.
           </h2>
-          <p className="text-body mt-3 text-muted">
+          <p className="text-body mt-4 text-muted">
             An AI agent can identify a customer, look up the correct record, follow business rules and trigger an approved action.
           </p>
-          <ol className="m-0 mt-4 list-none space-y-0 p-0">
+          <ol className="m-0 mt-6 list-none border-t border-line p-0">
             {steps.map((step, index) => (
-              <li key={step} className="flex items-center gap-3 border-t border-line py-3">
-                <span className="font-mono text-xs text-accent-ink">{String(index + 1).padStart(2, "0")}</span>
-                <span className="text-base text-ink">{step}</span>
+              <li key={step.label} className="flex items-center gap-3 border-b border-line py-3">
+                <span className="icon-chip icon-chip-sm">
+                  <UiIcon name={step.icon} />
+                </span>
+                <span className="step-num">{String(index + 1).padStart(2, "0")}</span>
+                <span className="text-base text-ink">{step.label}</span>
               </li>
             ))}
           </ol>
-          <Link href="/ai-automation" className="text-link mt-2">
-            Explore AI Agents <span className="text-link-arrow" aria-hidden="true">→</span>
+          <Link href="/ai-automation" className="text-link mt-5">
+            Explore AI Agents <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
           </Link>
         </div>
-        <div className="product-window min-w-0 lg:col-span-7">
-          <div className="product-window-bar">
-            <span className="live-pip" aria-hidden="true" />
-            Agent
-          </div>
-          <div className="product-window-body space-y-3" aria-label="Example conversation">
-            {demo.map((line) => (
-              <p key={line.text} className={line.label === "User" ? "chat-user demo-line" : "chat-agent demo-line"}>
-                <span className="mb-1 block font-mono text-[10px] uppercase tracking-[0.14em] text-accent-ink">{line.label}</span>
-                {line.text}
-              </p>
-            ))}
+        <div className="grid min-w-0 content-start gap-4 lg:col-span-7">
+          <figure className="photo-frame photo-wide">
+            <Image
+              src="/images/ai-agent-workspace.jpg"
+              alt="A dark desk with a monitor showing abstract teal lines"
+              fill
+              sizes="(max-width: 1024px) 100vw, 58vw"
+              className="object-cover"
+            />
+          </figure>
+          <div className="product-window min-w-0">
+            <div className="product-window-bar">
+              <span className="live-pip" aria-hidden="true" />
+              Agent
+            </div>
+            <ol className="m-0 list-none p-0" aria-label="Example conversation">
+              {demo.map((line) => (
+                <li key={line.text} className="grid grid-cols-[5.5rem_minmax(0,1fr)] items-baseline gap-3 border-t border-line px-4 py-3 text-sm text-ink first:border-t-0">
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-ink">{line.label}</span>
+                  <span>{line.text}</span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </Container>

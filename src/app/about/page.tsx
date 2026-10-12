@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
+import { SectionPhotoFrame } from "@/components/ui/section-photo";
 import { processSteps, whyPoints } from "@/content/home";
 import { siteConfig } from "@/content/site";
 import { createMetadata } from "@/lib/seo";
@@ -42,6 +43,13 @@ export default function AboutPage() {
             <h2 id="philosophy-heading" className="text-h2 text-ink">
               Our philosophy
             </h2>
+            <SectionPhotoFrame
+              className="mt-6"
+              photo={{
+                src: "/images/about-philosophy.jpg",
+                alt: "A closed laptop, a notebook, and a plant on a quiet studio table",
+              }}
+            />
           </div>
           <div className="col-span-12 space-y-4 lg:col-span-7">
             <p className="text-body text-muted">

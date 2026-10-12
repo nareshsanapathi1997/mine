@@ -118,8 +118,8 @@ function Workflow({
               <span
                 className={cn(
                   "relative z-10 mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors",
-                  reached ? "bg-white text-navy" : "border border-white/15 bg-[#121a2b] text-mist",
-                  index === lastStep && reached && "bg-ai text-white",
+                  reached ? "bg-white text-navy" : "border border-white/15 bg-surface text-mist",
+                  index === lastStep && reached && "bg-ai text-navy",
                 )}
               >
                 {index + 1}

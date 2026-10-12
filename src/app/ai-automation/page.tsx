@@ -3,6 +3,7 @@ import { Icon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Button } from "@/components/ui/button";
+import { SectionPhotoFrame } from "@/components/ui/section-photo";
 import { WorkflowDiagram } from "@/components/ui/workflow";
 import { aiExamples } from "@/content/home";
 import { servicesInGroup } from "@/content/services";
@@ -37,25 +38,34 @@ export default function AIAutomationPage() {
         data={servicesJsonLd()}
       />
       <header className="border-b border-line bg-canvas">
-        <Container className="section-tight">
-          <p className="eyebrow">
-            <span className="eyebrow-mark" aria-hidden="true" />
-            AI & Automation
-          </p>
-          <h1 className="text-h1 cluster max-w-[18ch] text-balance text-ink">
-            AI that doesn&apos;t just answer. AI that gets work done.
-          </h1>
-          <p className="text-body measure cluster text-muted">
-            An agent is useful when the conversation changes a record: a booking, a ticket, a status, a follow-up. If someone still retypes it, you have a chatbot.
-          </p>
-          <div className="cluster-lg flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" arrow className="w-full sm:w-auto">
-              <Link href="/contact?need=AI%20%26%20Automation">Talk to an Expert</Link>
-            </Button>
-            <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
-              <a href="#workflow">See how it works</a>
-            </Button>
+        <Container className="section-tight grid-12 items-center">
+          <div className="col-span-12 lg:col-span-7">
+            <p className="eyebrow">
+              <span className="eyebrow-mark" aria-hidden="true" />
+              AI & Automation
+            </p>
+            <h1 className="text-h1 cluster max-w-[18ch] text-balance text-ink">
+              AI that doesn&apos;t just answer. AI that gets work done.
+            </h1>
+            <p className="text-body measure cluster text-muted">
+              An agent is useful when the conversation changes a record: a booking, a ticket, a status, a follow-up. If someone still retypes it, you have a chatbot.
+            </p>
+            <div className="cluster-lg flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" arrow className="w-full sm:w-auto">
+                <Link href="/contact?need=AI%20%26%20Automation">Talk to an Expert</Link>
+              </Button>
+              <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
+                <a href="#workflow">See how it works</a>
+              </Button>
+            </div>
           </div>
+          <SectionPhotoFrame
+            className="col-span-12 lg:col-span-5"
+            photo={{
+              src: "/images/ai-automation-desk.jpg",
+              alt: "An unoccupied operations desk with a telephone and a softly lit monitor",
+            }}
+          />
         </Container>
       </header>
 

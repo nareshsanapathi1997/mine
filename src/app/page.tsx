@@ -10,7 +10,6 @@ import { Integrations } from "@/components/sections/integrations";
 import { Problems } from "@/components/sections/problems";
 import { Process } from "@/components/sections/process";
 import { Services } from "@/components/sections/services";
-import { TechStrip } from "@/components/sections/tech-strip";
 import { Trust } from "@/components/sections/trust";
 import { WhyUs } from "@/components/sections/why-us";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -25,7 +24,6 @@ export default function HomePage() {
     <>
       <JsonLd data={servicesJsonLd()} />
       <Hero />
-      <TechStrip />
       <Problems />
       <ConnectedSystems />
       <Services />

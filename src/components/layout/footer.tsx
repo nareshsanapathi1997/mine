@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/logo";
+import { SocialGlyph, UiIcon } from "@/components/icons";
 import { CookieSettingsButton } from "@/components/consent/cookie-consent";
 import { Container } from "@/components/layout/container";
 import { footerIndustries } from "@/content/industries";
@@ -38,14 +39,19 @@ export function Footer() {
             <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-glow">{siteConfig.positioning}</p>
             <p className="mt-2 text-sm leading-snug text-mist">{siteConfig.tagline}</p>
           </div>
-          <p className="flex flex-col gap-1 text-sm lg:items-end">
-            <a href={siteConfig.phoneHref} className="footer-link w-fit">
+          <p className="flex flex-col gap-1.5 text-sm lg:items-end">
+            <a href={siteConfig.phoneHref} className="footer-link inline-flex w-fit items-center gap-2">
+              <UiIcon name="phone" className="size-3.5" />
               {siteConfig.phoneDisplay}
             </a>
-            <a href={`mailto:${siteConfig.email}`} className="footer-link w-fit break-all">
+            <a href={`mailto:${siteConfig.email}`} className="footer-link inline-flex w-fit items-center gap-2 break-all">
+              <UiIcon name="mail" className="size-3.5" />
               {siteConfig.email}
             </a>
-            <span className="text-mist">{siteConfig.location}</span>
+            <span className="inline-flex items-center gap-2 text-mist">
+              <UiIcon name="pin" className="size-3.5" />
+              {siteConfig.location}
+            </span>
           </p>
         </div>
 
@@ -95,7 +101,8 @@ export function Footer() {
             <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
               {siteConfig.social.map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} className="footer-link" target="_blank" rel="noopener noreferrer">
+                  <a href={item.href} className="footer-link inline-flex items-center gap-1.5" target="_blank" rel="noopener noreferrer">
+                    <SocialGlyph label={item.label} />
                     {item.label}
                   </a>
                 </li>

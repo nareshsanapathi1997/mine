@@ -8,7 +8,7 @@ export function Logo({
   priority = false,
   compact = false,
 }: {
-  variant?: "default" | "inverse";
+  variant?: "default" | "inverse" | "ink";
   priority?: boolean;
   compact?: boolean;
 }) {
@@ -21,6 +21,19 @@ export function Logo({
         height={180}
         priority={priority}
         className="size-10"
+      />
+    );
+  }
+
+  if (variant === "ink") {
+    return (
+      <Image
+        src="/kyntriq-solutions-logo.png"
+        alt="Kyntriq Solutions"
+        width={877}
+        height={289}
+        priority={priority}
+        className={frame}
       />
     );
   }

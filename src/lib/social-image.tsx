@@ -40,11 +40,11 @@ export function socialImage(options?: { eyebrow?: string; title?: string; footer
           width: "100%",
           height: "100%",
           display: "flex",
-          backgroundColor: "#0B1220",
-          color: "#FFFFFF",
+          backgroundColor: "#070B14",
+          color: "#F9F5F2",
         }}
       >
-        <div style={{ width: 18, height: "100%", backgroundColor: "#2563EB" }} />
+        <div style={{ width: 18, height: "100%", backgroundColor: "#02F5FB" }} />
         <div
           style={{
             display: "flex",
@@ -60,10 +60,10 @@ export function socialImage(options?: { eyebrow?: string; title?: string; footer
                 width: 22,
                 height: 22,
                 borderRadius: 99,
-                backgroundColor: "#7C3AED",
+                backgroundColor: "#017DF5",
               }}
             />
-            <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: "0.08em", color: "#93C5FD" }}>
+            <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: "0.08em", color: "#02F5FB" }}>
               {eyebrow}
             </div>
           </div>
@@ -82,7 +82,7 @@ export function socialImage(options?: { eyebrow?: string; title?: string; footer
               </div>
             ))}
           </div>
-          <div style={{ fontSize: 26, color: "#CBD5E1", letterSpacing: "0.01em" }}>{footer}</div>
+          <div style={{ fontSize: 26, color: "#8C8D90", letterSpacing: "0.01em" }}>{footer}</div>
         </div>
       </div>
     ),

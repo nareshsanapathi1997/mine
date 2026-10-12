@@ -4,8 +4,10 @@ import { Container } from "@/components/layout/container";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
+import { SectionPhotoFrame } from "@/components/ui/section-photo";
 import { WorkflowDiagram } from "@/components/ui/workflow";
 import type { IndustryPage } from "@/content/industry-details";
+import { industryPhotos } from "@/content/section-photos";
 import { industryStories } from "@/content/stories";
 
 export function IndustryView({
@@ -20,6 +22,7 @@ export function IndustryView({
   related: { href: string; title: string; description: string }[];
 }) {
   const story = industryStories[page.slug];
+  const photo = industryPhotos[page.slug];
 
   return (
     <>
@@ -27,8 +30,8 @@ export function IndustryView({
       <Breadcrumbs items={crumbs} />
       <header className="hero-stage relative overflow-hidden border-b border-line">
         <div className="hero-grid" aria-hidden="true" />
-        <Container className="section-tight relative grid-12 items-end">
-          <div className="col-span-12 lg:col-span-8">
+        <Container className="section-tight relative grid-12 items-center">
+          <div className="col-span-12 lg:col-span-7">
             <p className="eyebrow">
               <span className="eyebrow-mark" aria-hidden="true" />
               Industries
@@ -41,6 +44,7 @@ export function IndustryView({
               </Link>
             </Button>
           </div>
+          {photo ? <SectionPhotoFrame photo={photo} className="col-span-12 lg:col-span-5" /> : null}
         </Container>
       </header>
 
