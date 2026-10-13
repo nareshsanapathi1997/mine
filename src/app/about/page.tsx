@@ -46,7 +46,7 @@ export default function AboutPage() {
             <SectionPhotoFrame
               className="mt-6"
               photo={{
-                src: "/images/about-philosophy.jpg",
+                src: "/images/about-philosophy.webp",
                 alt: "A closed laptop, a notebook, and a plant on a quiet studio table",
               }}
             />

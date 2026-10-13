@@ -79,7 +79,7 @@ export function BlogBrowser({ posts }: { posts: PostMeta[] }) {
           </Link>
         </article>
       ) : (
-        <p className="mt-8 text-body text-muted">No articles match that search.</p>
+        <p className="mt-8 text-body text-muted" role="status">No articles match that search. Try another word or choose All.</p>
       )}
 
       {rest.length > 0 ? (

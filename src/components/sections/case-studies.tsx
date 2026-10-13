@@ -7,16 +7,16 @@ import type { IconName } from "@/content/types";
 
 const studyPhotos: Record<string, { src: string; alt: string }> = {
   "education-admissions": {
-    src: "/images/education-admissions.jpg",
+    src: "/images/education-admissions.webp",
     alt: "An empty college admissions office with a laptop and folders on an oak desk",
   },
   "hotel-bookings": {
-    src: "/images/hospitality-booking.jpg",
-    alt: "An empty boutique hotel lobby at dusk",
+    src: "/images/hospitality-booking.webp",
+    alt: "Hotel staff at a lit reception desk in a modern lobby",
   },
   "factory-orders": {
-    src: "/images/manufacturing-orders.jpg",
-    alt: "A clean factory floor with machines and a status screen",
+    src: "/images/manufacturing-orders.webp",
+    alt: "A worker tending thread spools on a textile factory line",
   },
 };
 

@@ -163,8 +163,8 @@ export function SystemMap() {
           <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" aria-hidden="true">
             {paths.map((d) => (
               <g key={d}>
-                <path d={d} fill="none" className="flow-line" stroke="#02f5fb" strokeWidth="0.45" strokeOpacity="0.55" />
-                <path d={d} fill="none" className="flow-packet" stroke="#ffffff" strokeWidth="0.85" strokeLinecap="round" />
+                <path d={d} fill="none" className="flow-line stroke-brand-cyan" strokeWidth="0.45" strokeOpacity="0.55" />
+                <path d={d} fill="none" className="flow-packet stroke-white" strokeWidth="0.85" strokeLinecap="round" />
               </g>
             ))}
           </svg>

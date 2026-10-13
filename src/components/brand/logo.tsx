@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { cn } from "@/lib/cn";
 
 const frame = "h-10 w-auto sm:h-12";
 
@@ -52,23 +51,14 @@ export function Logo({
   }
 
   return (
-    <>
-      <Image
-        src="/kyntriq-solutions-logo.png"
-        alt="Kyntriq Solutions"
-        width={877}
-        height={289}
-        priority={priority}
-        className={cn(frame, "dark:hidden")}
-      />
-      <Image
-        src="/kyntriq-solutions-logo-dark.png"
-        alt=""
-        width={877}
-        height={289}
-        aria-hidden
-        className={cn(frame, "hidden dark:block")}
-      />
-    </>
+    // Both themes use a navy header, so the light-text lockup is used in each.
+    <Image
+      src="/kyntriq-solutions-logo-dark.png"
+      alt="Kyntriq Solutions"
+      width={877}
+      height={289}
+      priority={priority}
+      className={frame}
+    />
   );
 }

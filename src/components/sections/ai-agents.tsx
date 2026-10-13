@@ -52,7 +52,7 @@ export function AiAgents() {
         <div className="grid min-w-0 content-start gap-4 lg:col-span-7">
           <figure className="photo-frame photo-wide">
             <Image
-              src="/images/ai-agent-workspace.jpg"
+              src="/images/ai-agent-workspace.webp"
               alt="A dark desk with a monitor showing abstract teal lines"
               fill
               sizes="(max-width: 1024px) 100vw, 58vw"

@@ -58,7 +58,7 @@ export function Hero() {
         <div className="hero-visual min-w-0 lg:col-span-7">
           <figure className="photo-frame photo-hero">
             <Image
-              src="/images/hero-connected-systems.jpg"
+              src="/images/hero-connected-systems.webp"
               alt="A quiet operations studio at night, with teal light across a row of screens"
               fill
               preload

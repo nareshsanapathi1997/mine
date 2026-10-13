@@ -62,7 +62,7 @@ export default function AIAutomationPage() {
           <SectionPhotoFrame
             className="col-span-12 lg:col-span-5"
             photo={{
-              src: "/images/ai-automation-desk.jpg",
+              src: "/images/ai-automation-desk.webp",
               alt: "An unoccupied operations desk with a telephone and a softly lit monitor",
             }}
           />

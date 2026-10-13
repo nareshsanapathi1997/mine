@@ -14,7 +14,7 @@
   --color-slate-100: #101722;
   --color-slate-200: #1a2333;
   --color-slate-300: #2a3548;
-  --color-slate-400: #717378;
+  --color-slate-400: #85878c;
   --color-slate-500: #8c8d90;
   --color-slate-600: #a3a4a6;
   --color-slate-700: #c5c4c5;
@@ -37,6 +37,11 @@
   --color-danger-soft: rgba(185, 28, 28, 0.22);
   --color-success: #6ee7b7;
   --color-success-soft: rgba(4, 120, 87, 0.22);
+  --color-brand-navy: #070b14;
+  --color-brand-ivory: #f9f5f2;
+  --color-brand-blue: #0053c7;
+  --color-brand-cyan: #02f5fb;
+  --color-header: #071825;
 }
 
 @theme inline {
@@ -59,7 +64,7 @@ html[data-theme="dark"] {
   --color-slate-100: #101722;
   --color-slate-200: #1a2333;
   --color-slate-300: #2a3548;
-  --color-slate-400: #717378;
+  --color-slate-400: #85878c;
   --color-slate-600: #a3a4a6;
   --color-line: rgba(249, 245, 242, 0.12);
   --color-line-strong: rgba(249, 245, 242, 0.22);
@@ -102,7 +107,7 @@ html[data-theme="light"] {
   --color-slate-100: #101722;
   --color-slate-200: #1a2333;
   --color-slate-300: #2a3548;
-  --color-slate-400: #717378;
+  --color-slate-400: #85878c;
   --color-slate-500: #8c8d90;
   --color-slate-600: #a3a4a6;
   --color-slate-700: #c5c4c5;
@@ -2308,7 +2313,9 @@ html[data-theme="light"] .hero-particle {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent 52%, rgba(7, 11, 20, 0.38));
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(2, 245, 251, 0.08), transparent 55%),
+    linear-gradient(180deg, rgba(0, 83, 199, 0.06), transparent 40%, transparent 52%, rgba(7, 11, 20, 0.42));
 }
 
 html[data-theme="light"] .photo-frame::after {

@@ -56,7 +56,7 @@ export function articleJsonLd(input: {
       url: siteConfig.url,
       logo: {
         "@type": "ImageObject",
-        url: new URL("/kyntriq-solutions-logo.jpg", siteConfig.url).toString(),
+        url: new URL("/kyntriq-solutions-logo.png", siteConfig.url).toString(),
       },
     },
     mainEntityOfPage: new URL(input.path, siteConfig.url).toString(),
@@ -83,7 +83,7 @@ export function organizationJsonLd() {
     ...(siteConfig.phoneHref ? { telephone: siteConfig.phoneHref.replace(/^tel:/, "") } : {}),
     ...(siteConfig.location ? { address: siteConfig.location } : {}),
     sameAs: siteConfig.social.map((item) => item.href),
-    logo: new URL("/kyntriq-solutions-logo.jpg", siteConfig.url).toString(),
+    logo: new URL("/kyntriq-solutions-logo.png", siteConfig.url).toString(),
     description: siteConfig.description,
   };
 }

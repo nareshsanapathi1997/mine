@@ -60,7 +60,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "site-header sticky top-0 z-50 border-b bg-[#071825]",
+        "site-header sticky top-0 z-50 border-b bg-header",
         (scrolled || menu || mobileOpen) &&
           "is-scrolled shadow-[0_10px_30px_-24px_rgba(15,23,42,0.45)]",
       )}
@@ -204,7 +204,7 @@ export function Navbar() {
       <div
         id={menuId}
         className={cn(
-          "mobile-panel bg-[#071825] lg:hidden",
+          "mobile-panel bg-header lg:hidden",
           mobileOpen ? "is-open fixed inset-x-0 z-40 overflow-y-auto border-t border-line" : "hidden",
         )}
       >
