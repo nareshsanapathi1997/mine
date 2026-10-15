@@ -8,7 +8,7 @@ import { siteConfig } from "@/content/site";
 export function CtaBand({
   title = "Have a workflow you want to improve?",
   description = "Tell us how the work happens today. We will reply with whether it is a fit and what a first version would cover.",
-  primaryLabel = "Talk to an Expert",
+  primaryLabel = "Talk to us",
   primaryHref = "/contact",
   showWhatsapp = false,
   showForm = false,
@@ -36,7 +36,7 @@ export function CtaBand({
               <Button asChild size="lg" variant="inverse" className="w-full sm:w-auto">
                 <a href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer">
                   <UiIcon name="message" className="size-4" />
-                  WhatsApp Us
+                  WhatsApp us
                 </a>
               </Button>
             ) : showForm ? null : (

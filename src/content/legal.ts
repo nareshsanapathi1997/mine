@@ -10,8 +10,8 @@ export function privacySections(): LegalSection[] {
     {
       heading: "Who this notice is for",
       paragraphs: [
-        `This notice describes how ${siteConfig.name} handles information submitted through this website. It is a practical template. Have it reviewed for your business before the site goes live.`,
-        `You can reach us at ${siteConfig.email}, ${siteConfig.phoneDisplay}, or ${siteConfig.location}.`,
+        `This notice describes how ${siteConfig.name} handles information submitted through this website. It applies to visitors, prospective clients and anyone who contacts us through the site.`,
+        `You can reach us at ${siteConfig.email} or ${siteConfig.phoneDisplay}. We are based in ${siteConfig.location}.`,
       ],
     },
     {
@@ -24,26 +24,26 @@ export function privacySections(): LegalSection[] {
     {
       heading: "Why it is collected",
       paragraphs: [
-        "We use the enquiry to understand your request and reply. We do not use this website template for advertising profiles or for selling contact lists.",
+        "We use the enquiry to understand your request, reply to you, and keep a record of the conversation. We do not build advertising profiles from it and we do not sell or rent contact details.",
       ],
     },
     {
       heading: "Where it goes",
       paragraphs: [
-        "If email is configured, the enquiry is sent through SMTP to the inbox set for this deployment. If a webhook address is configured, the same enquiry is posted as JSON so it can be forwarded to a CRM, a spreadsheet or a messaging workflow. If neither is configured, the enquiry is written to the server log and the form says that delivery is not connected.",
-        "The host of this website, the email provider and the webhook destination can see the fields you submit. Replace this sentence with the specific providers, where the data is stored, and who on your team can read enquiries before the site goes live.",
+        "Your enquiry is stored in our enquiry database and delivered to our team inbox. It may also be forwarded to the internal tools we use to track conversations, such as a CRM or a shared spreadsheet.",
+        "Only the people at ${siteConfig.name} who handle enquiries can read them. Our hosting, database and email providers process the data on our behalf and only to run those services.",
       ],
     },
     {
       heading: "How long it is kept",
       paragraphs: [
-        "Set a retention period before launch. Until that decision is written here, keep enquiries only for as long as you need them to respond and keep a record of the conversation.",
+        "We keep enquiries for as long as we need them to respond and to keep a reasonable record of our conversation, and no longer than 24 months after our last contact unless a project agreement requires otherwise. You can ask us to delete an enquiry sooner.",
       ],
     },
     {
       heading: "Your choices",
       paragraphs: [
-        `To ask about an enquiry you sent, email ${siteConfig.email}. If you are in India, you may also have rights under the Digital Personal Data Protection Act, 2023. Confirm the process with counsel before you publish a rights request address.`,
+        `To ask about an enquiry you sent, email ${siteConfig.email}. You can ask us to access, correct or delete the personal data you sent, or withdraw consent, in line with the Digital Personal Data Protection Act, 2023. We will respond within a reasonable time.`,
       ],
     },
   ];
@@ -54,7 +54,7 @@ export function termsSections(): LegalSection[] {
     {
       heading: "Using this website",
       paragraphs: [
-        `This website is operated by ${siteConfig.name}. By using it you agree to these terms. They are a template and should be reviewed before launch.`,
+        `This website is operated by ${siteConfig.name}. By using it you agree to these terms.`,
         "The pages describe services we offer. They are not a promise that a particular feature, timeline or outcome applies to your organization until we agree that in writing.",
       ],
     },
@@ -67,7 +67,7 @@ export function termsSections(): LegalSection[] {
     {
       heading: "Information on the site",
       paragraphs: [
-        "Case studies marked as placeholders are examples of the kind of work the site is structured to present. They are not claims about a named client or a measured result.",
+        "Case studies and sample scenarios on this site are illustrative. They describe the kind of system we build and are not claims about a named client or a measured result. Sample record numbers shown in product illustrations are not real data.",
         "We may update pages as services change. The version you see is the current public description, not a standing offer.",
       ],
     },
@@ -87,7 +87,7 @@ export function termsSections(): LegalSection[] {
     {
       heading: "Governing law",
       paragraphs: [
-        "Governing law and venue should be confirmed before launch. Do not treat this template as a choice of court.",
+        "These terms are governed by the laws of India. Courts in Hyderabad, Telangana have jurisdiction over any dispute arising from the use of this website.",
       ],
     },
   ];
@@ -105,7 +105,7 @@ export function cookieSections(): LegalSection[] {
     {
       heading: "What analytics does",
       paragraphs: [
-        "When you allow analytics and a measurement ID is set, Google Analytics 4 receives page visits so the operator can see which public pages are used. The script is loaded from Google. IP anonymisation is requested. There is no advertising cookie and no social pixel in this template.",
+        "When you allow analytics and a measurement ID is set, Google Analytics 4 receives page visits so the operator can see which public pages are used. The script is loaded from Google. IP anonymisation is requested. There is no advertising cookie and no social media pixel on this site.",
         "If you reject analytics, or turn it off later, further page loads do not request the script. If a script was already running in the open tab, refresh the page so it is dropped. You can reopen Cookie settings from the footer at any time.",
       ],
     },
@@ -118,7 +118,7 @@ export function cookieSections(): LegalSection[] {
     {
       heading: "Contact",
       paragraphs: [
-        `Questions about cookies can be sent to ${siteConfig.email}. Review this notice before launch if your deployment adds any measurement or marketing tools.`,
+        `Questions about cookies can be sent to ${siteConfig.email}. We will update this notice before adding any other measurement or marketing tools.`,
       ],
     },
   ];

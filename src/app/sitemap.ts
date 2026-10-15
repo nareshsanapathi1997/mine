@@ -1,7 +1,6 @@
+import { listDetails } from "@/content/details";
 import type { MetadataRoute } from "next";
-import { listIndustrySlugs } from "@/content/industry-details";
 import { siteConfig } from "@/content/site";
-import { listSolutionSlugs } from "@/content/solution-details";
 import { getPosts, getTags } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -28,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "/" ? 1 : 0.7,
   }));
 
-  for (const slug of listSolutionSlugs()) {
+  for (const { slug } of listDetails("solution")) {
     pages.push({
       url: new URL(`/solutions/${slug}`, siteConfig.url).toString(),
       lastModified,
@@ -37,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  for (const slug of listIndustrySlugs()) {
+  for (const { slug } of listDetails("industry")) {
     pages.push({
       url: new URL(`/industries/${slug}`, siteConfig.url).toString(),
       lastModified,

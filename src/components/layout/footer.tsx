@@ -31,7 +31,7 @@ export function Footer() {
   const year = copyrightYear();
 
   return (
-    <footer className="band-dark relative text-white">
+    <footer className="site-footer band-dark relative text-white">
       <Container className="relative z-[1] py-8 lg:py-10">
         <div className="flex flex-col gap-5 border-b border-white/10 pb-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-md">

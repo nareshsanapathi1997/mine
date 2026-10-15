@@ -122,7 +122,7 @@ export function CookieSettingsButton() {
   const api = useContext(ConsentContext);
   if (!api) return null;
   return (
-    <button type="button" className="footer-link" onClick={api.openPreferences}>
+    <button type="button" className="footer-link text-sm" onClick={api.openPreferences}>
       Cookie settings
     </button>
   );
@@ -145,12 +145,13 @@ function AnalyticsScripts() {
 }
 
 function CookieBanner({ onPreferences }: { onPreferences: () => void }) {
-  const mounted = useMounted();
+  // Rendered on the server so it paints with the page instead of after hydration.
+  // The boot script in layout hides it at once for visitors who already chose.
   const consent = useConsent();
-  if (!mounted || consent) return null;
+  if (consent) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 p-3 sm:p-4">
+    <div className="cookie-banner fixed inset-x-0 bottom-0 z-50 p-3 sm:p-4">
       <div
         role="region"
         aria-label="Cookie consent"

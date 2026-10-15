@@ -17,13 +17,13 @@ export const siteConfig = {
   hours: "",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kyntriqsolutions.com",
   description:
-    "Kyntriq Solutions builds AI agents, custom software and business automation systems that connect people, processes and data.",
-  positioning: "AI · Software · Automation · Business Systems",
+    "Kyntriq Solutions builds websites, apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and small businesses in India.",
+  positioning: "Websites · Apps · Software · AI · Automation",
   /** Full name, kept in the brand story rather than the public lockup. */
   nameMeaning:
     "Knowledge · Yield · Networking · Technology · Research · Innovation · Quality",
   tagline:
-    "Kyntriq Solutions builds connected software, AI and automation systems for organizations that have outgrown separate tools.",
+    "Software, WhatsApp automation and AI assistants that take routine work off your team's plate.",
   locale: "en_IN",
   /** Placeholder profiles. Replace with the real accounts before launch. */
   social: [

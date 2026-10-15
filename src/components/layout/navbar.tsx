@@ -1,11 +1,11 @@
 "use client";
 
-import { ChevronDown, Menu, X } from "lucide-react";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { Logo } from "@/components/brand/logo";
-import { Icon, UiIcon } from "@/components/icons";
+import { Glyph, Icon, UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -72,7 +72,7 @@ export function Navbar() {
             <Logo compact priority />
           </span>
           <span className="hidden sm:inline-flex">
-            <Logo variant="inverse" priority />
+            <Logo priority />
           </span>
         </Link>
 
@@ -113,7 +113,7 @@ export function Navbar() {
           <ThemeToggle />
           <div className="hidden lg:block">
             <Button asChild arrow>
-              <Link href="/contact">Talk to an Expert</Link>
+              <Link href="/contact">Talk to us</Link>
             </Button>
           </div>
           <button
@@ -124,7 +124,7 @@ export function Navbar() {
             onClick={() => setOpenPath(mobileOpen ? null : pathname)}
           >
             <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
-            {mobileOpen ? <X className="size-5" strokeWidth={1.5} aria-hidden /> : <Menu className="size-5" strokeWidth={1.5} aria-hidden />}
+            {mobileOpen ? <Glyph name="close" className="size-5" /> : <Glyph name="menu" className="size-5" />}
           </button>
         </div>
       </Container>
@@ -160,10 +160,10 @@ export function Navbar() {
               ))}
               <div className="col-span-3 rounded-xl bg-canvas p-5">
                 <p className="text-sm font-semibold text-ink">Not sure what you need?</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted">Tell us about your workflow.</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">Tell us the problem. We will suggest what fits.</p>
                 <Button asChild arrow className="mt-4 w-full">
                   <Link href="/contact" onClick={() => setMenu(null)}>
-                    Talk to an Expert
+                    Talk to us
                   </Link>
                 </Button>
               </div>
@@ -186,7 +186,7 @@ export function Navbar() {
                       </span>
                       <span className="min-w-0">
                         <span className="block text-sm font-semibold text-ink">{industry.title}</span>
-                        <span className="mt-1 block text-sm leading-snug text-muted">{industry.summary}</span>
+                        <span className="mt-1 line-clamp-2 text-sm leading-snug text-muted">{industry.summary}</span>
                       </span>
                     </Link>
                   </li>
@@ -266,7 +266,7 @@ export function Navbar() {
             </nav>
             <Button asChild arrow className="mt-2 w-full">
               <Link href="/contact" onClick={closeAll}>
-                Talk to an Expert
+                Talk to us
               </Link>
             </Button>
           </Container>
@@ -320,7 +320,7 @@ function MenuButton({
       }}
     >
       {label}
-      <ChevronDown className={cn("size-4 transition-transform", open && "rotate-180")} strokeWidth={1.5} aria-hidden />
+      <Glyph name="chevron-down" className={cn("size-4 transition-transform", open && "rotate-180")} />
     </button>
   );
 }
@@ -340,7 +340,7 @@ function MobileGroup({
     <div className="border-b border-line">
       <button type="button" className="nav-link w-full justify-between px-2" aria-expanded={open} onClick={onToggle}>
         {label}
-        <ChevronDown className={cn("size-4", open && "rotate-180")} strokeWidth={1.5} aria-hidden />
+        <Glyph name="chevron-down" className={cn("size-4", open && "rotate-180")} />
       </button>
       {open ? <div className="pb-2">{children}</div> : null}
     </div>

@@ -9,7 +9,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Blog",
-  description: `Notes from ${siteConfig.name} on AI that does real work, business systems, and the tools a team already uses.`,
+  description: `Simple, practical articles from ${siteConfig.name} on AI assistants, WhatsApp automation and business software for Indian businesses.`,
   path: "/blog",
 });
 
@@ -20,10 +20,10 @@ export default function BlogPage() {
     <>
       <PageHeader
         eyebrow="Blog"
-        title="Notes on systems, AI and operations."
-        description="Practical writing on agents that take action, industry operations, and connecting the tools a team already uses."
+        title="Practical articles for business owners."
+        description="Short, jargon-free reads on AI assistants, WhatsApp automation and software, with everyday examples from schools, hotels and small businesses."
       />
-      <section className="section bg-canvas">
+      <section className="section h-section">
         <Container>
           {posts.length === 0 ? (
             <div className="rounded-xl border border-dashed border-line bg-surface px-6 py-12 text-center">
@@ -32,7 +32,7 @@ export default function BlogPage() {
                 When the first notes are ready, they will appear here.
               </p>
               <Button asChild arrow className="mt-6">
-                <Link href="/contact">Talk to an Expert</Link>
+                <Link href="/contact">Talk to us</Link>
               </Button>
             </div>
           ) : (

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { Glyph } from "@/components/icons";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -23,31 +23,31 @@ const labels: Record<EnquiryField, string> = {
   email: "Email",
   phone: "Phone / WhatsApp",
   industry: "Industry",
-  need: "Requirement",
+  need: "What do you need?",
   budget: "Budget",
-  message: "Tell us about your workflow.",
+  message: "Tell us a little about the work.",
 };
 
 const hints: Record<EnquiryField, string> = {
   name: "The person we should reply to.",
-  company: "Organisation or institution.",
+  company: "Your business, school, hotel or clinic.",
   email: "Where the reply is sent.",
   phone: "A mobile number is enough.",
   industry: "The sector this work is for.",
-  need: "The system you want to talk about.",
+  need: "Pick the closest option.",
   budget: "A range is enough.",
-  message: "The workflow, the tools you already use, and what a good outcome looks like.",
+  message: "What happens today, what tools you use, and what you would like to change.",
 };
 
 const needOptions = [
-  "AI Agent",
-  "Automation",
-  "Business Software",
   "Website",
-  "Mobile App",
-  "WhatsApp",
-  "Cloud",
-  "Other",
+  "Mobile app",
+  "Business software",
+  "AI assistant",
+  "WhatsApp automation",
+  "Automation",
+  "Hosting and support",
+  "Not sure yet",
 ] as const;
 
 export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed?: string; compact?: boolean }) {
@@ -149,7 +149,7 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
       <div className={compact ? "sr-only" : "mb-5"}>
         <h2 className="text-h3 text-ink">Send an enquiry</h2>
         <p className="mt-1 text-small text-muted">
-          Name, email, what you need, and the workflow are required.
+          Name, email, what you need and a short note are required.
         </p>
       </div>
       <div className="grid gap-1.5 sm:grid-cols-2">
@@ -270,7 +270,7 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
       ) : null}
 
       <Button type="submit" size="md" className="mt-2 w-full" loading={pending} arrow>
-        {pending ? "Sending…" : "Start a Conversation"}
+        {pending ? "Sending…" : "Send message"}
       </Button>
     </form>
   );
@@ -389,7 +389,7 @@ function SelectField({
             </option>
           ))}
         </select>
-        <ChevronDown className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted" strokeWidth={1.5} aria-hidden />
+        <Glyph name="chevron-down" className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted" />
       </div>
       {error ? (
         <p id={`${id}-error`} className="mt-1.5 text-sm font-medium text-danger">

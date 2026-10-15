@@ -1,140 +1,119 @@
 import Link from "next/link";
-import { Icon } from "@/components/icons";
+import { DetailCard } from "@/components/detail/detail-card";
+import { HomeFaq } from "@/components/home/faq";
+import { HomeSampleFlow } from "@/components/home/sample-flow";
+import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
+import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
-import { SectionPhotoFrame } from "@/components/ui/section-photo";
-import { WorkflowDiagram } from "@/components/ui/workflow";
-import { aiExamples } from "@/content/home";
-import { servicesInGroup } from "@/content/services";
-import { siteConfig } from "@/content/site";
+import { getDetail } from "@/content/details";
 import { createMetadata } from "@/lib/seo";
 import { servicesJsonLd } from "@/lib/structured-data";
-import { JsonLd } from "@/components/seo/json-ld";
 
 export const metadata = createMetadata({
   title: "AI & Automation",
-  description: `AI agents, voice, WhatsApp and workflow automation from ${siteConfig.name}. AI that can look up your systems and take a defined next step.`,
+  description: "AI assistants, phone assistants, WhatsApp messages and automation explained simply: what they can do, what they should not do, and a sample of how they work.",
   path: "/ai-automation",
 });
 
-const capabilities = [
-  ...servicesInGroup(["ai-agents", "voice-ai", "whatsapp-automation", "business-automation"]),
+const can = [
+  "Answer common questions from your own fees, rates, timings or stock",
+  "Collect a name, number and requirement, and save it",
+  "Book an open slot, share a form or a payment link",
+  "Send reminders and updates on time, every time",
+  "Pass a chat or call to your staff with the full history",
 ];
 
-const booking = [
-  "Customer sends WhatsApp",
-  "AI Agent",
-  "Check CRM",
-  "Check availability",
-  "Create booking",
-  "Send confirmation",
+const cannot = [
+  "Make up prices, offers or answers you have not approved",
+  "Give discounts, refunds or exceptions on its own",
+  "Give medical, legal or financial advice",
+  "Replace the people who make decisions in your business",
+];
+
+const sample = {
+  id: "ai",
+  label: "WhatsApp assistant",
+  title: "A parent asks about bus timings",
+  steps: [
+    { title: "Message arrives", body: "\"What time does the bus reach Kukatpally?\" comes in at 7 AM on the school's WhatsApp." },
+    { title: "Looks up the answer", body: "The assistant checks the bus route list the school has shared, not the internet." },
+    { title: "Replies", body: "It sends the stop time and the driver's helpline number." },
+    { title: "Not sure? Hands over", body: "If the parent asks something new, such as a route change, the transport desk gets the chat." },
+  ],
+};
+
+const faqs = [
+  { q: "Is AI safe to use with my customers?", a: "Yes, when it is set up to answer only from information you approve and to hand over anything else. We test it with your real questions before it goes live." },
+  { q: "What is the difference between AI and automation?", a: "Automation follows fixed rules, such as sending a reminder on the 5th. AI understands a written or spoken question and picks the right answer or step." },
+  { q: "Do I need a big budget to start?", a: "No. Most businesses start with one assistant or a few automatic reminders, and add more once they see it working." },
 ];
 
 export default function AIAutomationPage() {
+  const pages = ["ai-agents", "voice-ai", "whatsapp-automation", "business-automation"].flatMap((slug) => {
+    const page = getDetail("solution", slug);
+    return page ? [page] : [];
+  });
   return (
     <>
-      <JsonLd
-        data={servicesJsonLd()}
-      />
-      <header className="border-b border-line bg-canvas">
-        <Container className="section-tight grid-12 items-center">
-          <div className="col-span-12 lg:col-span-7">
-            <p className="eyebrow">
-              <span className="eyebrow-mark" aria-hidden="true" />
-              AI & Automation
-            </p>
-            <h1 className="text-h1 cluster max-w-[18ch] text-balance text-ink">
-              AI that doesn&apos;t just answer. AI that gets work done.
-            </h1>
-            <p className="text-body measure cluster text-muted">
-              An agent is useful when the conversation changes a record: a booking, a ticket, a status, a follow-up. If someone still retypes it, you have a chatbot.
-            </p>
-            <div className="cluster-lg flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" arrow className="w-full sm:w-auto">
-                <Link href="/contact?need=AI%20%26%20Automation">Talk to an Expert</Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
-                <a href="#workflow">See how it works</a>
-              </Button>
+      <JsonLd data={servicesJsonLd()} />
+      <PageHeader
+        eyebrow="AI & Automation"
+        title="AI that does real work, with your team in charge."
+        description="An AI assistant is useful when it finishes a job, like booking a slot or sending a reminder, and passes everything else to a person."
+        photo={{ src: "/images/ai-automation-desk.webp", alt: "An operations desk with a telephone and a softly lit monitor" }}
+      >
+        <Button asChild size="lg" arrow className="w-full sm:w-auto">
+          <Link href="/contact?need=AI%20assistant">Talk to us</Link>
+        </Button>
+      </PageHeader>
+
+      <section className="section h-section" aria-labelledby="can-heading">
+        <Container>
+          <div className="home-head">
+            <div>
+              <p className="eyebrow">Honest limits</p>
+              <h2 id="can-heading" className="text-h2 mt-3 text-ink">What AI can and cannot do for you</h2>
+            </div>
+            <p className="text-body text-muted">We set these limits on every assistant we build.</p>
+          </div>
+          <div className="stack grid gap-3 md:grid-cols-2" data-reveal-stagger>
+            <div className="card" data-reveal-child>
+              <h3 className="flex items-center gap-2 text-lg font-semibold text-ink"><span className="icon-chip icon-chip-sm"><UiIcon name="check" /></span>It can</h3>
+              <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-ink">
+                {can.map((item) => <li key={item} className="flex gap-2"><UiIcon name="check" className="mt-0.5 size-3.5 shrink-0 text-accent-ink" />{item}</li>)}
+              </ul>
+            </div>
+            <div className="card" data-reveal-child>
+              <h3 className="flex items-center gap-2 text-lg font-semibold text-ink"><span className="icon-chip icon-chip-sm"><UiIcon name="minus" /></span>It will not</h3>
+              <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-ink">
+                {cannot.map((item) => <li key={item} className="flex gap-2"><UiIcon name="minus" className="mt-0.5 size-3.5 shrink-0 text-muted" />{item}</li>)}
+              </ul>
             </div>
           </div>
-          <SectionPhotoFrame
-            className="col-span-12 lg:col-span-5"
-            photo={{
-              src: "/images/ai-automation-desk.webp",
-              alt: "An unoccupied operations desk with a telephone and a softly lit monitor",
-            }}
-          />
-        </Container>
-      </header>
-
-      <section className="section bg-surface" aria-labelledby="capabilities-heading">
-        <Container>
-          <h2 id="capabilities-heading" className="text-h2 text-ink">
-            What AI can actually do here
-          </h2>
-          <ul className="grid-12 stack">
-            {capabilities.map((service) => (
-              <li key={service.slug} className="col-span-12 md:col-span-6">
-                <Link href={`/solutions/${service.slug}`} className="card flex h-full flex-col">
-                  <span className="icon-tile">
-                    <Icon name={service.icon} className="size-5" />
-                  </span>
-                  <span className="text-h3 mt-4 text-ink">{service.title}</span>
-                  <span className="text-small mt-2 flex-1 text-muted">{service.details}</span>
-                  <span className="mt-4 text-sm font-semibold text-accent-ink">
-                    Explore {service.title} <span aria-hidden="true">→</span>
-                  </span>
-                </Link>
-              </li>
-            ))}
-            <li className="col-span-12 md:col-span-6">
-              <Link href="/solutions/business-software" className="card flex h-full flex-col">
-                <span className="text-h3 text-ink">Business AI</span>
-                <span className="text-small mt-2 flex-1 text-muted">
-                  AI inside the system of record: status, routing and the next task, using the same rules as the people who run it.
-                </span>
-                <span className="mt-4 text-sm font-semibold text-accent-ink">
-                  Explore Business Software <span aria-hidden="true">→</span>
-                </span>
-              </Link>
-            </li>
-          </ul>
         </Container>
       </section>
 
-      <section id="workflow" className="section scroll-mt-28 bg-canvas" aria-labelledby="workflow-heading">
+      <section className="section h-section h-band-soft" aria-labelledby="tools-heading">
         <Container>
-          <h2 id="workflow-heading" className="text-h2 text-ink">
-            A booking, finished
-          </h2>
-          <p className="text-body mt-3 max-w-[68ch] text-muted">
-            The guest writes on WhatsApp. The agent checks who they are, checks what is open, creates the booking, and sends the confirmation. A person still handles the exception.
-          </p>
-          <div className="mt-6">
-            <WorkflowDiagram steps={booking} label="WhatsApp booking workflow" />
+          <div className="home-head">
+            <div>
+              <p className="eyebrow">Options</p>
+              <h2 id="tools-heading" className="text-h2 mt-3 text-ink">Four ways to use AI and automation</h2>
+            </div>
+            <p className="text-body text-muted">Each page has a sample and common questions.</p>
           </div>
-        </Container>
-      </section>
-
-      <section className="section bg-surface" aria-labelledby="examples-heading">
-        <Container>
-          <h2 id="examples-heading" className="text-h2 text-ink">
-            Requests with an outcome
-          </h2>
-          <ul className="mt-6 divide-y divide-line border-y border-line">
-            {aiExamples.map((example) => (
-              <li key={example.id} className="grid gap-2 py-4 md:grid-cols-12">
-                <p className="text-base font-semibold text-ink md:col-span-5">{example.prompt}</p>
-                <p className="text-sm leading-relaxed text-muted md:col-span-7">{example.result}</p>
-              </li>
-            ))}
+          <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+            {pages.map((page) => <DetailCard key={page.slug} page={page} />)}
           </ul>
         </Container>
       </section>
 
-      <CtaBand title="Have a workflow you want to automate?" />
+      <HomeSampleFlow flows={[sample]} eyebrow="Sample walkthrough" title={sample.title} intro="An example of an assistant at work. It is an illustration, not a client result." />
+      <HomeFaq items={faqs} title="Questions about AI" />
+      <CtaBand title="Want to try AI on one small job?" description="Send us the questions your team answers most. We will show you how an assistant would handle them." primaryLabel="Talk to us" showWhatsapp />
     </>
   );
 }

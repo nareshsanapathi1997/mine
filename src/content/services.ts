@@ -1,3 +1,4 @@
+import { getDetail } from "@/content/details";
 import type { IconName } from "@/content/types";
 
 export type Service = {
@@ -10,7 +11,7 @@ export type Service = {
   icon: IconName;
 };
 
-export const services: Service[] = [
+const rawServices: Service[] = [
   {
     slug: "web-development",
     title: "Web Development",
@@ -97,6 +98,12 @@ export const services: Service[] = [
   },
 ];
 
+/** Names and summaries come from the detail pages so menus match page content. */
+export const services: Service[] = rawServices.map((service) => {
+  const page = getDetail("solution", service.slug);
+  return page ? { ...service, title: page.name, footerLabel: undefined, details: page.intro } : service;
+});
+
 const footerOrder = [
   "ai-agents",
   "voice-ai",
@@ -116,20 +123,20 @@ export const footerServices = footerOrder.flatMap((slug) => {
 export const solutionGroups = [
   {
     id: "ai",
-    title: "AI & Automation",
-    description: "Agents and workflows that look up your information and take a defined next step.",
+    title: "AI and automation",
+    description: "Assistants that answer customers, and messages and tasks that run on their own.",
     slugs: ["ai-agents", "voice-ai", "whatsapp-automation", "business-automation"],
   },
   {
     id: "software",
-    title: "Software",
-    description: "Websites, applications and internal systems shaped around the work.",
+    title: "Websites, apps and software",
+    description: "Websites, mobile apps and business software built around how your team works.",
     slugs: ["web-development", "mobile-applications", "business-software"],
   },
   {
     id: "infrastructure",
-    title: "Infrastructure",
-    description: "Deployment, monitoring and a repeatable path from a change to production.",
+    title: "Hosting and support",
+    description: "Keeping your website and software online, backed up and looked after.",
     slugs: ["cloud-devops"],
   },
 ] as const;

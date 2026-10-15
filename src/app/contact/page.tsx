@@ -4,7 +4,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Contact",
-  description: `Tell ${siteConfig.name} about the workflow you want to improve. AI, business software, web, mobile and cloud.`,
+  description: `Call, WhatsApp or write to ${siteConfig.name} in Hyderabad about a website, app, software, WhatsApp automation or AI assistant.`,
   path: "/contact",
 });
 

@@ -1,51 +1,89 @@
+/**
+ * Sample scenarios. These are illustrations of what we would build,
+ * not client projects, and they contain no claimed results.
+ */
 export type CaseStudy = {
   slug: string;
   industry: string;
+  industryHref: string;
+  photo: { src: string; alt: string };
   title: string;
-  problem: string;
-  existingWorkflow: string;
-  solution: string;
-  architecture: string[];
-  technology: string[];
-  /** Illustrative system patterns. Not verified client engagements. */
-  placeholder: true;
+  before: string[];
+  built: string[];
+  after: string[];
 };
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "education-admissions",
-    industry: "Education",
-    title: "AI admission system",
-    problem: "Enquiries arrive on a form, on WhatsApp, and at the front desk, and each one is handled by hand.",
-    existingWorkflow: "A counsellor copies the enquiry into a sheet, then follows up from memory.",
-    solution:
-      "An AI agent captures the enquiry, writes it to a CRM, and hands exceptions to the admissions desk. Follow-up and admission stay on the same record.",
-    architecture: ["Enquiry", "AI Agent", "CRM", "Follow-up", "Admission"],
-    technology: ["Web", "AI agents", "WhatsApp", "CRM"],
-    placeholder: true,
+    slug: "school-admissions",
+    industry: "School",
+    industryHref: "/industries/schools",
+    photo: { src: "/images/industry-schools.webp", alt: "Students seated at desks in a smart classroom" },
+    title: "A school that misses admission enquiries in peak season",
+    before: [
+      "Enquiries come by phone, WhatsApp, website form and walk-in.",
+      "The counsellor writes them in a register and calls back from memory.",
+      "Parents call again to ask about documents and status.",
+    ],
+    built: ["One admission list for every enquiry", "WhatsApp assistant for fees, timings and documents", "Follow-up reminders for counsellors", "Online form and admission fee payment"],
+    after: [
+      "Every enquiry is saved with its source and next step.",
+      "Counsellors can see who is waiting for a call.",
+      "Parents get updates on WhatsApp without calling.",
+    ],
   },
   {
     slug: "hotel-bookings",
-    industry: "Hospitality",
-    title: "Booking and guest communication",
-    problem: "Room enquiries and booking messages are relayed manually between the website, WhatsApp, and the front desk.",
-    existingWorkflow: "Whoever answers the chat checks availability somewhere else, then confirms from memory.",
-    solution:
-      "The website, a booking record, WhatsApp, and an AI agent read one availability list and write one confirmation.",
-    architecture: ["Enquiry", "Availability", "Booking", "WhatsApp", "Confirmation"],
-    technology: ["Web", "WhatsApp automation", "AI agents", "Operations dashboard"],
-    placeholder: true,
+    industry: "Hotel",
+    industryHref: "/industries/hotels",
+    photo: { src: "/images/industry-hospitality.webp", alt: "A dining room set before service" },
+    title: "A hotel that answers booking messages late",
+    before: [
+      "Night-time WhatsApp enquiries wait until morning.",
+      "Room availability is checked in a register or someone's memory.",
+      "Guests call for directions and check-in time.",
+    ],
+    built: ["One room list for the whole team", "WhatsApp booking assistant", "Advance payment links", "Automatic pre-arrival messages"],
+    after: [
+      "Guests get a reply with rooms and rates at any hour.",
+      "The front desk confirms bookings from one list.",
+      "Guests receive directions and timings before they arrive.",
+    ],
   },
   {
     slug: "factory-orders",
-    industry: "Manufacturing",
-    title: "Order and production visibility",
-    problem: "Inventory and production status live in separate files, so a manager waits for someone to assemble a report.",
-    existingWorkflow: "An order is copied from the inbox into a stock sheet, then again onto the floor.",
-    solution:
-      "One operational record runs stock check, approval, production status, and the customer notification.",
-    architecture: ["Order", "Stock check", "Approval", "Production", "Notification"],
-    technology: ["Business software", "Workflow automation", "Dashboards"],
-    placeholder: true,
+    industry: "Factory",
+    industryHref: "/industries/manufacturing",
+    photo: { src: "/images/industry-manufacturing.webp", alt: "A worker operating machinery on a factory floor" },
+    title: "A factory where nobody knows the exact stage of an order",
+    before: [
+      "Orders are copied from email to Excel to the floor.",
+      "Stock is counted by hand and runs short without warning.",
+      "Customers call sales to ask about delivery dates.",
+    ],
+    built: ["Order tracking from PO to dispatch", "Stock list with low-stock alerts", "Mobile updates for supervisors", "Dispatch messages and GST invoices"],
+    after: [
+      "Each order is entered once and shows its current stage.",
+      "Low stock is flagged before it stops production.",
+      "Customers get a message when their order is dispatched.",
+    ],
+  },
+  {
+    slug: "clinic-appointments",
+    industry: "Clinic",
+    industryHref: "/industries/healthcare",
+    photo: { src: "/images/industry-healthcare.webp", alt: "A doctor speaking with a patient" },
+    title: "A clinic whose reception phone never stops ringing",
+    before: [
+      "Most calls are for booking or changing appointments.",
+      "Patients forget visits and follow-ups.",
+      "Patients call to check if reports are ready.",
+    ],
+    built: ["OPD booking on WhatsApp and website", "Visit and follow-up reminders", "Report-ready messages", "Reception dashboard for the day"],
+    after: [
+      "Patients book and change slots themselves.",
+      "Reminders go out without anyone sending them.",
+      "Reception has more time for patients at the desk.",
+    ],
   },
 ];

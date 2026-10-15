@@ -1,3 +1,4 @@
+import { getDetail } from "@/content/details";
 import type { IconName } from "@/content/types";
 
 export type Industry = {
@@ -11,7 +12,7 @@ export type Industry = {
   icon: IconName;
 };
 
-export const industries: Industry[] = [
+const rawIndustries: Industry[] = [
   {
     slug: "education",
     title: "Education",
@@ -116,5 +117,11 @@ export const industries: Industry[] = [
     icon: "briefcase",
   },
 ];
+
+/** Names and summaries come from the detail pages so menus match page content. */
+export const industries: Industry[] = rawIndustries.map((industry) => {
+  const page = getDetail("industry", industry.slug);
+  return page ? { ...industry, title: page.name, footerLabel: undefined, audience: page.forWho.join(", "), summary: page.intro } : industry;
+});
 
 export const footerIndustries = industries.filter((industry) => industry.showInFooter);

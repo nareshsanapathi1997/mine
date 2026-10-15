@@ -5,7 +5,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Cookie Policy",
-  description: `Cookie notice for the ${siteConfig.name} website. This template does not set advertising cookies.`,
+  description: `Cookie notice for the ${siteConfig.name} website. The site does not set advertising cookies.`,
   path: "/cookies",
 });
 

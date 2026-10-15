@@ -11,15 +11,30 @@ export function MotionStage() {
     let frame = 0;
     let point: PointerEvent | null = null;
     let magnet: HTMLElement | null = null;
+    let activeGroup: HTMLElement | null = null;
 
     const apply = () => {
       frame = 0;
       if (!point) return;
       const spot = (point.target as HTMLElement | null)?.closest?.(".card, .spot, .lift-card") as HTMLElement | null;
       if (spot) {
-        const rect = spot.getBoundingClientRect();
-        spot.style.setProperty("--mx", `${point.clientX - rect.left}px`);
-        spot.style.setProperty("--my", `${point.clientY - rect.top}px`);
+        // Light every card in the same group, so the glow travels across neighbours.
+        const item = spot.parentElement?.tagName === "LI" && !spot.matches("li") ? spot.parentElement : spot;
+        const group = item.parentElement;
+        if (group && group !== activeGroup) {
+          activeGroup?.classList.remove("glow-group");
+          group.classList.add("glow-group");
+          activeGroup = group;
+        }
+        const cards = group ? group.querySelectorAll<HTMLElement>(":scope > .card, :scope > .spot, :scope > .lift-card, :scope > li > .card, :scope > li > .spot") : [spot];
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--mx", `${point!.clientX - rect.left}px`);
+          card.style.setProperty("--my", `${point!.clientY - rect.top}px`);
+        });
+      } else if (activeGroup) {
+        activeGroup.classList.remove("glow-group");
+        activeGroup = null;
       }
 
       const next = (point.target as HTMLElement | null)?.closest?.(".btn-primary, .btn-ai") as HTMLElement | null;

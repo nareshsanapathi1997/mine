@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Manrope } from "next/font/google";
 import { ConsentProvider } from "@/components/consent/cookie-consent";
 import { Footer } from "@/components/layout/footer";
-import { MobileCta } from "@/components/layout/mobile-cta";
+import { FloatingDock } from "@/components/layout/floating-dock";
 import { Navbar } from "@/components/layout/navbar";
-import { ScrollTop } from "@/components/layout/scroll-top";
+import { Splash } from "@/components/layout/splash";
 import { RevealObserver } from "@/components/layout/reveal-observer";
 import { MotionStage } from "@/components/motion/stage";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -79,6 +79,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script id="theme-boot" dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
       <body className="flex min-h-full flex-col">
+        <Splash />
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
         <noscript>
@@ -96,8 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
-          <MobileCta />
-          <ScrollTop />
+          <FloatingDock />
           <Footer />
         </ConsentProvider>
       </body>

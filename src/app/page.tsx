@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import { AiAgents } from "@/components/sections/ai-agents";
-import { CaseStudies } from "@/components/sections/case-studies";
-import { ConnectedSystems } from "@/components/sections/connected-systems";
+import { HomeFaq } from "@/components/home/faq";
+import { HomeHero } from "@/components/home/hero";
+import { HomeIndustries } from "@/components/home/industries";
+import { HomeProblems } from "@/components/home/problems";
+import { HomeSampleFlow } from "@/components/home/sample-flow";
+import { StatsStrip } from "@/components/home/stats-strip";
+import { HomeServices } from "@/components/home/services";
+import { HomeSteps, HomeWhy } from "@/components/home/why";
 import { CtaBand } from "@/components/sections/cta-band";
-import { Faq } from "@/components/sections/faq";
-import { Hero } from "@/components/sections/hero";
-import { Industries } from "@/components/sections/industries";
-import { Integrations } from "@/components/sections/integrations";
-import { Problems } from "@/components/sections/problems";
-import { Process } from "@/components/sections/process";
-import { Services } from "@/components/sections/services";
-import { Trust } from "@/components/sections/trust";
-import { WhyUs } from "@/components/sections/why-us";
 import { JsonLd } from "@/components/seo/json-ld";
 import { servicesJsonLd } from "@/lib/structured-data";
 
@@ -23,25 +19,20 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={servicesJsonLd()} />
-      <Hero />
-      <Problems />
-      <ConnectedSystems />
-      <Services />
-      <AiAgents />
-      <Industries />
-      <Integrations />
-      <CaseStudies
-        heading="Real business problems. Systems built around them."
-        intro="These are solution patterns for real operating problems. They are not verified client engagements, and they do not include invented results."
-      />
-      <Process />
-      <WhyUs />
-      <Trust />
-      <Faq />
+      <HomeHero />
+      {/* Appears automatically once figures are added in src/content/stats.ts */}
+      <StatsStrip />
+      <HomeProblems />
+      <HomeServices />
+      <HomeIndustries />
+      <HomeSampleFlow />
+      <HomeSteps />
+      <HomeWhy />
+      <HomeFaq />
       <CtaBand
-        title="What part of your business do you want to change?"
-        description="Tell us the workflow that is slowing your team down."
-        primaryLabel="Talk to an Expert"
+        title="Tell us one job you want off your team's plate."
+        description="A short call with no obligation. We listen, suggest a simple first step, and send you a written plan with cost and timeline."
+        primaryLabel="Talk to us"
         showWhatsapp
         showForm
       />

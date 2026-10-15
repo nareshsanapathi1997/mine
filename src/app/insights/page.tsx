@@ -1,134 +1,133 @@
 import Link from "next/link";
+import { HomeFaq } from "@/components/home/faq";
+import { UiIcon, type UiIconName } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
-import { WorkflowDiagram } from "@/components/ui/workflow";
-import { siteConfig } from "@/content/site";
 import { getPosts, tagLabel } from "@/lib/blog";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
-  title: "Technology Insights",
-  description: `How ${siteConfig.name} thinks about React, Python, AI, APIs, cloud, databases, automation and DevOps when building business systems.`,
+  title: "Safety and quality",
+  description: "How we keep your data safe, test software before it goes live, and look after it afterwards, in plain English.",
   path: "/insights",
 });
 
-const topics = [
+const stages: { icon: UiIconName; title: string; points: string[] }[] = [
   {
-    title: "React",
-    body: "Interfaces for staff and customers. Server-rendered pages for marketing and portals, client components only where a person filters, selects or submits.",
+    icon: "shield",
+    title: "While we build",
+    points: [
+      "We test on sample data, never on your live student, guest or customer records.",
+      "Each person on your team gets a role, so a teacher does not see fee reports and a receptionist does not see salaries.",
+      "AI assistants are given a short list of things they may do, and nothing more.",
+    ],
   },
   {
-    title: "Python",
-    body: "A practical place for workflow services, data jobs and model calls that should not live inside the web request.",
+    icon: "check",
+    title: "Before going live",
+    points: [
+      "Your team tries the software with real tasks and tells us what is confusing.",
+      "We test the assistant with the actual questions your customers ask.",
+      "We agree on what should happen when something fails, and who gets told.",
+    ],
   },
   {
-    title: "AI",
-    body: "A model proposes. Your system decides. The agent is allowed a short list of actions and must write the outcome back to a record.",
-  },
-  {
-    title: "APIs",
-    body: "Each integration has an owner, a failure you can see, and a payload that matches the record — not a one-off script on someone’s laptop.",
-  },
-  {
-    title: "Cloud",
-    body: "Separate environments. A test must not write into live student, guest or customer data.",
-  },
-  {
-    title: "Databases",
-    body: "One description of a lead, booking or order. Views for each team. Reports read that record instead of last week’s export.",
-  },
-  {
-    title: "Automation",
-    body: "Start with a path you can draw. Exceptions stay visible. Hidden branches become a second inbox.",
-  },
-  {
-    title: "DevOps",
-    body: "A repeatable release, monitoring, backups and an explicit list of who can reach production.",
+    icon: "cloud",
+    title: "After launch",
+    points: [
+      "Regular backups, with a way to restore data if something is deleted by mistake.",
+      "We watch for errors and slow pages, and fix them.",
+      "Security updates are applied, and changes are tracked so they can be undone.",
+    ],
   },
 ];
 
-const sample = `type BookingRequest = {
-  guest: string;
-  channel: "whatsapp" | "web" | "voice";
-  partySize: number;
-};
+const checklist = [
+  "Who will own the code and the data?",
+  "Where will our data be stored, and who can see it?",
+  "What happens if your team is not available?",
+  "How do we get our data out if we stop using the software?",
+  "What will the AI do when it does not know an answer?",
+  "What are the monthly costs after launch?",
+];
 
-async function holdStay(input: BookingRequest, availability: string[]) {
-  if (!availability.length) return { status: "handoff", reason: "nothing open" };
-  return { status: "held", room: availability[0], notify: input.channel };
-}`;
+const faqs = [
+  { q: "Do you follow Indian data protection law?", a: "We design software with the Digital Personal Data Protection Act, 2023 in mind: collect only what is needed, limit who can see it, and delete it when it is no longer needed." },
+  { q: "Who owns the software you build?", a: "You do. Ownership of the code and data is written into our agreement." },
+  { q: "Can we see what the AI assistant said to customers?", a: "Yes. Every conversation is saved so your team can review it." },
+];
 
 export default function InsightsPage() {
   const posts = getPosts();
-
   return (
     <>
       <PageHeader
-        eyebrow="Technology insights"
-        title="How the systems are put together."
-        description="Notes for people who will live with the software: where AI is allowed to act, how records stay shared, and what a release has to include."
+        eyebrow="Safety and quality"
+        title="How we keep your software safe and working."
+        description="You are trusting us with your students', guests' or customers' details. Here is what we do at each stage, in plain words."
+        photo={{ src: "/images/ai-agent-workspace.webp", alt: "A dark workstation with a monitor showing an abstract wave of light" }}
       />
-      <section className="section bg-canvas" aria-labelledby="architecture-heading">
+
+      <section className="section h-section" aria-labelledby="stages-heading">
         <Container>
-          <h2 id="architecture-heading" className="text-h2 text-ink">
-            A request, then a record
-          </h2>
-          <p className="text-body mt-3 max-w-[68ch] text-muted">
-            Channels change. The record should not. A website form, a WhatsApp message and a phone call can all start the same booking, ticket or application.
-          </p>
-          <div className="mt-6">
-            <WorkflowDiagram steps={["Channel", "API", "Business rules", "Database", "Notification"]} label="Request architecture" />
+          <div className="home-head">
+            <div>
+              <p className="eyebrow">Our practice</p>
+              <h2 id="stages-heading" className="text-h2 mt-3 text-ink">Safety at every stage</h2>
+            </div>
+            <p className="text-body text-muted">From the first line of code to years after launch.</p>
           </div>
-        </Container>
-      </section>
-      <section className="section bg-surface" aria-labelledby="topics-heading">
-        <Container>
-          <h2 id="topics-heading" className="text-h2 text-ink">
-            Topics
-          </h2>
-          <ul className="grid-12 stack">
-            {topics.map((topic) => (
-              <li key={topic.title} className="col-span-12 sm:col-span-6 lg:col-span-3">
-                <article className="h-full border-t border-navy pt-4">
-                  <h3 className="text-h3 text-ink">{topic.title}</h3>
-                  <p className="text-small mt-2 text-muted">{topic.body}</p>
-                </article>
+          <ol className="stack grid gap-3 lg:grid-cols-3" data-reveal-stagger>
+            {stages.map((stage, index) => (
+              <li key={stage.title} className="card" data-reveal-child>
+                <div className="flex items-center gap-3">
+                  <span className="icon-chip"><UiIcon name={stage.icon} /></span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.12em] text-accent-ink">Stage {index + 1}</span>
+                </div>
+                <h3 className="mt-4 text-lg font-semibold tracking-tight text-ink">{stage.title}</h3>
+                <ul className="mt-3 space-y-2.5 text-sm leading-relaxed text-muted">
+                  {stage.points.map((point) => (
+                    <li key={point} className="flex gap-2"><UiIcon name="check" className="mt-0.5 size-3.5 shrink-0 text-accent-ink" />{point}</li>
+                  ))}
+                </ul>
               </li>
             ))}
-          </ul>
+          </ol>
         </Container>
       </section>
-      <section className="section bg-canvas" aria-labelledby="practice-heading">
-        <Container className="grid-12 items-start">
-          <div className="col-span-12 lg:col-span-5">
-            <h2 id="practice-heading" className="text-h2 text-ink">
-              An action with a limit
-            </h2>
-            <p className="text-body mt-3 text-muted">
-              This is the shape of a booking step, not a product you can copy into production. If nothing is open, the path hands the request to a person instead of inventing a room.
-            </p>
+
+      <section className="section h-section band-dark" aria-labelledby="checklist-heading">
+        <Container className="relative z-[1] grid gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-5">
+            <p className="eyebrow">Checklist</p>
+            <h2 id="checklist-heading" className="text-h2 mt-3 text-ink">Six questions to ask any software company</h2>
+            <p className="text-body mt-4 text-muted">Ask us these too. A good partner should answer each one clearly before you sign anything.</p>
           </div>
-          <pre className="col-span-12 overflow-x-auto rounded-xl border border-white/10 bg-navy p-4 text-sm leading-relaxed text-white lg:col-span-7">
-            <code>{sample}</code>
-          </pre>
+          <ol className="grid gap-2.5 sm:grid-cols-2 lg:col-span-7" data-reveal-stagger>
+            {checklist.map((item, index) => (
+              <li key={item} className="panel flex items-start gap-3 rounded-xl p-4 text-sm font-medium text-ink" data-reveal-child>
+                <span className="h-step-num shrink-0" aria-hidden="true">{index + 1}</span>
+                {item}
+              </li>
+            ))}
+          </ol>
         </Container>
       </section>
+
+      <HomeFaq items={faqs} title="Questions about safety" />
+
       {posts.length > 0 ? (
-        <section className="section bg-surface" aria-labelledby="notes-heading">
+        <section className="section-tight h-section border-t border-line" aria-labelledby="notes-heading">
           <Container>
-            <h2 id="notes-heading" className="text-h2 text-ink">
-              From the journal
-            </h2>
-            <ul className="mt-6 grid gap-4">
+            <h2 id="notes-heading" className="text-h3 text-ink">Read more on our blog</h2>
+            <ul className="mt-5 grid gap-3 md:grid-cols-3">
               {posts.map((post) => (
                 <li key={post.slug}>
-                  <Link href={`/blog/${post.slug}`} className="card block">
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-                      {post.tags.map(tagLabel).join(" · ")}
-                    </p>
-                    <span className="text-h3 mt-2 block text-ink">{post.title}</span>
-                    <span className="text-small mt-2 block text-muted">{post.description}</span>
+                  <Link href={`/blog/${post.slug}`} className="card d-link block h-full">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">{post.tags.map(tagLabel).join(" · ")}</p>
+                    <span className="mt-2 block font-semibold text-ink">{post.title}</span>
+                    <span className="mt-2 line-clamp-2 block text-sm text-muted">{post.description}</span>
                   </Link>
                 </li>
               ))}
@@ -136,7 +135,8 @@ export default function InsightsPage() {
           </Container>
         </section>
       ) : null}
-      <CtaBand />
+
+      <CtaBand title="Have a question about safety?" description="Ask us anything about how your data would be handled. We are happy to explain." primaryLabel="Talk to us" showWhatsapp />
     </>
   );
 }
