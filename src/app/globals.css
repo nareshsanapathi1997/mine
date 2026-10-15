@@ -3257,3 +3257,31 @@ html.kq-splash-on #kq-splash {
 .h-hero-visual.has-banner { padding-bottom: 0; }
 .h-hero-visual.has-banner .h-chat { position: relative; right: auto; bottom: auto; margin: -1.75rem 0 0 auto; }
 @media (max-width: 639px) { .h-hero-visual.has-banner .h-chat { margin: 0.75rem 0 0; width: 100%; } }
+
+/* ---------- v17: opaque mobile menu ---------- */
+/* Only <html> is locked: making <body> a scroll container would break the sticky header. */
+html.kq-menu-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+/* Solid header while the menu is open; no backdrop-filter so the fixed panel
+   and backdrop are positioned against the viewport, not the header. */
+.site-header.is-menu-open,
+html[data-theme="light"] .site-header.is-menu-open {
+  background-color: var(--color-surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+html[data-theme="dark"] .site-header.is-menu-open { background-color: #071825; }
+.mobile-panel.is-open {
+  z-index: 2;
+  background-color: var(--color-surface);
+}
+html[data-theme="dark"] .mobile-panel.is-open { background-color: #071825; }
+.site-header.is-menu-open .nav-shell { position: relative; z-index: 3; }
+.mobile-backdrop {
+  z-index: 1;
+  background: rgba(7, 11, 20, 0.55);
+}
+.mobile-backdrop { top: 3.75rem; }
+@media (min-width: 640px) { .mobile-backdrop { top: 4rem; } }

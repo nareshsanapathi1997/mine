@@ -51,6 +51,13 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // Lock page scroll while the mobile menu is open.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("kq-menu-open", mobileOpen);
+    return () => root.classList.remove("kq-menu-open");
+  }, [mobileOpen]);
+
   function closeAll() {
     setMenu(null);
     setOpenPath(null);
@@ -60,7 +67,8 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "site-header sticky top-0 z-50 border-b bg-header",
+        "site-header sticky top-0 border-b bg-header",
+        mobileOpen ? "is-menu-open z-[70]" : "z-50",
         (scrolled || menu || mobileOpen) &&
           "is-scrolled shadow-[0_10px_30px_-24px_rgba(15,23,42,0.45)]",
       )}
@@ -201,10 +209,14 @@ export function Navbar() {
       </div>
       ) : null}
 
+      {mobileOpen ? (
+        <div className="mobile-backdrop fixed inset-0 lg:hidden" aria-hidden="true" onClick={closeAll} />
+      ) : null}
+
       <div
         id={menuId}
         className={cn(
-          "mobile-panel bg-header lg:hidden",
+          "mobile-panel lg:hidden",
           mobileOpen ? "is-open fixed inset-x-0 z-40 overflow-y-auto border-t border-line" : "hidden",
         )}
       >
