@@ -4,6 +4,7 @@ import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
+import { newImages } from "@/content/new-images";
 import { caseStudies } from "@/content/case-studies";
 import { createMetadata } from "@/lib/seo";
 
@@ -36,15 +37,15 @@ export default function CaseStudiesPage() {
         eyebrow="Examples"
         title="Sample projects: the problem, what we build, what changes."
         description="Four everyday situations we hear about often. These are samples to show how we think, not real client projects, and they make no claims about results."
-        photo={{ src: "/images/industry-professional-services.webp", alt: "A conference table set with folders and water glasses" }}
+        photo={newImages.caseStudies}
       />
       <section className="section h-section" aria-label="Sample projects">
         <Container>
           <ul className="grid gap-5" data-reveal-stagger>
             {caseStudies.map((study, index) => (
               <li key={study.slug} id={study.slug} className={index % 2 ? "card cs-card cs-flip" : "card cs-card"} data-reveal-child>
-                <div className="cs-photo relative">
-                  <Image src={study.photo.src} alt={study.photo.alt} fill sizes="(max-width: 1024px) 100vw, 35vw" className="object-cover" />
+                <div className="cs-photo is-banner relative" style={{ "--ratio": `${study.photo.width} / ${study.photo.height}` } as React.CSSProperties}>
+                  <Image src={study.photo.src} alt={study.photo.alt} fill sizes="(max-width: 1024px) 100vw, 480px" className="object-cover" />
                   <span className="sample-tag absolute left-3 top-3">Sample</span>
                 </div>
                 <div className="p-5 sm:p-7">

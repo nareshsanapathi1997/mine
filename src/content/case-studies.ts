@@ -1,3 +1,5 @@
+import { newImages, type BannerImage } from "@/content/new-images";
+
 /**
  * Sample scenarios. These are illustrations of what we would build,
  * not client projects, and they contain no claimed results.
@@ -6,7 +8,7 @@ export type CaseStudy = {
   slug: string;
   industry: string;
   industryHref: string;
-  photo: { src: string; alt: string };
+  photo: BannerImage;
   title: string;
   before: string[];
   built: string[];
@@ -18,7 +20,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "school-admissions",
     industry: "School",
     industryHref: "/industries/schools",
-    photo: { src: "/images/industry-schools.webp", alt: "Students seated at desks in a smart classroom" },
+    photo: newImages.education,
     title: "A school that misses admission enquiries in peak season",
     before: [
       "Enquiries come by phone, WhatsApp, website form and walk-in.",
@@ -36,7 +38,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "hotel-bookings",
     industry: "Hotel",
     industryHref: "/industries/hotels",
-    photo: { src: "/images/industry-hospitality.webp", alt: "A dining room set before service" },
+    photo: newImages.hospitality,
     title: "A hotel that answers booking messages late",
     before: [
       "Night-time WhatsApp enquiries wait until morning.",
@@ -54,7 +56,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "factory-orders",
     industry: "Factory",
     industryHref: "/industries/manufacturing",
-    photo: { src: "/images/industry-manufacturing.webp", alt: "A worker operating machinery on a factory floor" },
+    photo: newImages.manufacturing,
     title: "A factory where nobody knows the exact stage of an order",
     before: [
       "Orders are copied from email to Excel to the floor.",
@@ -72,7 +74,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "clinic-appointments",
     industry: "Clinic",
     industryHref: "/industries/healthcare",
-    photo: { src: "/images/industry-healthcare.webp", alt: "A doctor speaking with a patient" },
+    photo: newImages["healthcare-alt"],
     title: "A clinic whose reception phone never stops ringing",
     before: [
       "Most calls are for booking or changing appointments.",

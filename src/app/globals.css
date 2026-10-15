@@ -3242,3 +3242,18 @@ html.kq-splash-on #kq-splash {
 @keyframes kq-splash-word { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 @keyframes kq-splash-out { to { opacity: 0; visibility: hidden; } }
 @media (prefers-reduced-motion: reduce) { html.kq-splash-on #kq-splash { display: none; } }
+
+/* ---------- v15: client banner images (text drawn in) ---------- */
+.photo-frame.is-banner::after { display: none; }
+.photo-frame.is-banner img { transform: none !important; }
+.cs-card .cs-photo.is-banner { aspect-ratio: var(--ratio); min-height: 0; }
+@media (min-width: 1024px) {
+  .cs-card .cs-photo.is-banner { align-self: start; margin: 1.25rem; border-radius: 0.9rem; overflow: hidden; }
+  .cs-flip .cs-photo.is-banner { margin-left: 0; }
+  .cs-card:not(.cs-flip) .cs-photo.is-banner { margin-right: 0; }
+}
+.page-hero-media.has-banner .ia-badge { top: -1.4rem; left: -1.1rem; bottom: auto; width: 4.25rem; height: 4.25rem; }
+.page-hero-media.has-banner .ia-badge .ia { width: 3rem; height: 3rem; }
+.h-hero-visual.has-banner { padding-bottom: 0; }
+.h-hero-visual.has-banner .h-chat { position: relative; right: auto; bottom: auto; margin: -1.75rem 0 0 auto; }
+@media (max-width: 639px) { .h-hero-visual.has-banner .h-chat { margin: 0.75rem 0 0; width: 100%; } }

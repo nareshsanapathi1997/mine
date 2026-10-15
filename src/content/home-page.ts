@@ -1,3 +1,4 @@
+import { newImages } from "@/content/new-images";
 import type { UiIconName } from "@/components/icons";
 
 /* Home page copy. Plain English, Indian examples, no invented numbers. */
@@ -118,7 +119,7 @@ export type HomeIndustry = {
   icon: UiIconName;
   heading: string;
   examples: string[];
-  photo: { src: string; alt: string };
+  photo: { src: string; alt: string; width?: number; height?: number };
 };
 
 export const homeIndustries: HomeIndustry[] = [
@@ -128,7 +129,7 @@ export const homeIndustries: HomeIndustry[] = [
     icon: "graduation",
     heading: "From the first enquiry to the fee receipt.",
     examples: ["Admission enquiries and follow-ups", "Fee reminders and receipts", "Attendance and parent updates", "Batch and timetable management"],
-    photo: { src: "/images/industry-schools.webp", alt: "Students seated at desks in a smart classroom in Chennai" },
+    photo: newImages["education"],
   },
   {
     slug: "hospitality",
@@ -136,7 +137,7 @@ export const homeIndustries: HomeIndustry[] = [
     icon: "hotel",
     heading: "Answer every booking enquiry, day or night.",
     examples: ["Room availability on WhatsApp", "Booking confirmations", "Check-in and guest messages", "Front-desk dashboard"],
-    photo: { src: "/images/hospitality-booking.webp", alt: "Hotel staff at a lit reception desk in a modern lobby" },
+    photo: newImages["hospitality"],
   },
   {
     slug: "manufacturing",
@@ -144,7 +145,7 @@ export const homeIndustries: HomeIndustry[] = [
     icon: "factory",
     heading: "Know where every order stands.",
     examples: ["Purchase and sales orders", "Stock and material checks", "Production stages", "Dispatch updates to customers"],
-    photo: { src: "/images/industry-manufacturing.webp", alt: "A worker operating machinery on an Indian factory floor" },
+    photo: newImages["manufacturing"],
   },
   {
     slug: "healthcare",
@@ -152,7 +153,7 @@ export const homeIndustries: HomeIndustry[] = [
     icon: "heart",
     heading: "Fewer calls at reception, fewer missed appointments.",
     examples: ["OPD appointment booking", "Reminders before the visit", "Report-ready messages", "Follow-up visit reminders"],
-    photo: { src: "/images/industry-healthcare.webp", alt: "A doctor speaking with a patient in a hospital room" },
+    photo: newImages["healthcare"],
   },
   {
     slug: "corporate-smes",
@@ -160,7 +161,7 @@ export const homeIndustries: HomeIndustry[] = [
     icon: "briefcase",
     heading: "Less typing, fewer missed follow-ups.",
     examples: ["Lead tracking and follow-ups", "GST invoices and quotations", "Approvals on mobile", "Daily sales report"],
-    photo: { src: "/images/industry-corporate-smes.webp", alt: "A small shared office with a round meeting table" },
+    photo: newImages["corporate-smes-alt"],
   },
 ];
 

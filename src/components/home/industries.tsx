@@ -62,13 +62,15 @@ export function HomeIndustries() {
           </div>
 
           <div id="ind-panel" role="tabpanel" aria-labelledby={`ind-tab-${current.slug}`} className="h-ind-panel lg:col-span-8">
-            <div key={current.slug} className="h-ind-swap grid h-full gap-0 sm:grid-cols-2">
-                <figure className="relative min-h-56 overflow-hidden">
-                  <Image src={current.photo.src} alt={current.photo.alt} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
-                  <span className="ia-badge ia-badge-sm"><IndustryArt slug={current.slug} /></span>
+            <div key={current.slug} className="h-ind-swap grid h-full gap-0">
+                <figure className="relative overflow-hidden" style={{ aspectRatio: `${current.photo.width ?? 16} / ${current.photo.height ?? 9}` }}>
+                  <Image src={current.photo.src} alt={current.photo.alt} fill sizes="(max-width: 640px) 100vw, 620px" className="object-cover" />
                 </figure>
                 <div className="flex flex-col p-5 sm:p-6">
-                  <h3 className="text-xl font-semibold tracking-tight text-ink">{current.heading}</h3>
+                  <div className="flex items-center gap-3">
+                    <IndustryArt slug={current.slug} className="size-11 shrink-0" />
+                    <h3 className="text-xl font-semibold tracking-tight text-ink">{current.heading}</h3>
+                  </div>
                   <ul className="mt-4 space-y-2.5">
                     {current.examples.map((example) => (
                       <li key={example} className="flex items-start gap-2.5 text-sm text-ink">

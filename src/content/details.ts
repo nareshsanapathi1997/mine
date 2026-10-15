@@ -1,4 +1,5 @@
 import type { UiIconName } from "@/components/icons";
+import { bannerFor } from "@/content/new-images";
 
 /*
  * Solution and industry detail pages. One template, plain English,
@@ -18,7 +19,7 @@ export type DetailPage = {
   heading: string;
   /** One or two plain sentences under the heading. Also the meta description. */
   intro: string;
-  photo: { src: string; alt: string };
+  photo: { src: string; alt: string; width?: number; height?: number };
   /** Who this is for, shown as chips in the header. */
   forWho: string[];
   problems: { problem: string; fix: string }[];
@@ -32,7 +33,9 @@ export type DetailPage = {
   parent?: { slug: string; name: string };
 };
 
-const solutionPages: DetailPage[] = [
+type DetailInput = Omit<DetailPage, "photo">;
+
+const solutionInput: DetailInput[] = [
   {
     slug: "web-development",
     kind: "solution",
@@ -40,7 +43,6 @@ const solutionPages: DetailPage[] = [
     icon: "globe",
     heading: "Websites that bring you enquiries, not just visitors.",
     intro: "A clear, fast website for your school, hotel, clinic or business, with forms and WhatsApp buttons that send every enquiry straight to your team.",
-    photo: { src: "/images/solution-web-development.webp", alt: "A studio desk with a laptop and layout sheets" },
     forWho: ["Schools and colleges", "Hotels", "Clinics", "Factories", "Small businesses"],
     problems: [
       { problem: "The website looks old and parents or customers call to ask basic questions.", fix: "Fees, timings, courses, room types or products are easy to find on any phone." },
@@ -77,7 +79,6 @@ const solutionPages: DetailPage[] = [
     icon: "smartphone",
     heading: "Mobile apps your staff and customers will actually use.",
     intro: "Simple Android and iPhone apps for parents, students, guests, field staff or customers, built around the few things they need to do every day.",
-    photo: { src: "/images/solution-mobile-applications.webp", alt: "A phone resting beside a closed notebook" },
     forWho: ["Schools and coaching", "Hotels", "Factories", "Sales and field teams"],
     problems: [
       { problem: "Staff mark attendance or visits on paper and someone types it in later.", fix: "Staff mark it on the app, and the office sees it at once." },
@@ -114,7 +115,6 @@ const solutionPages: DetailPage[] = [
     icon: "blocks",
     heading: "Software built around how your business already runs.",
     intro: "Custom software for admissions, fees, bookings, orders, stock or sales, so your team stops juggling registers, Excel sheets and WhatsApp chats.",
-    photo: { src: "/images/solution-business-software.webp", alt: "An operations desk facing a monitor of bar charts" },
     forWho: ["Schools and coaching", "Hotels", "Factories", "Clinics", "Small businesses"],
     problems: [
       { problem: "The same customer or student details are typed into three different sheets.", fix: "Details are entered once and used everywhere they are needed." },
@@ -151,7 +151,6 @@ const solutionPages: DetailPage[] = [
     icon: "bot",
     heading: "AI assistants that answer your customers, using your own information.",
     intro: "A helper on WhatsApp or your website that replies to common questions at any hour, from your fees, timings, rates or stock, and hands anything important to your staff.",
-    photo: { src: "/images/solution-ai-agents.webp", alt: "A headset on a stand in a quiet booth" },
     forWho: ["Schools and coaching", "Hotels", "Clinics", "Shops and small businesses"],
     problems: [
       { problem: "The same ten questions come in all day: fees, timings, location, availability.", fix: "The assistant answers them instantly, using information you approve." },
@@ -188,7 +187,6 @@ const solutionPages: DetailPage[] = [
     icon: "audio",
     heading: "A phone assistant for calls your staff cannot pick up.",
     intro: "An AI voice assistant that answers routine calls, such as appointment bookings, status checks and timings, and passes other calls to your team.",
-    photo: { src: "/images/solution-voice-ai.webp", alt: "A call desk with a headset and a small lamp" },
     forWho: ["Clinics", "Hotels", "Coaching centres", "Service businesses"],
     problems: [
       { problem: "The reception phone rings all day and calls are missed during busy hours.", fix: "The assistant answers routine calls so staff can focus on people in front of them." },
@@ -225,7 +223,6 @@ const solutionPages: DetailPage[] = [
     icon: "message",
     heading: "WhatsApp messages that go out on their own, at the right time.",
     intro: "Fee reminders, booking confirmations, appointment reminders and order updates sent automatically from your software on WhatsApp Business.",
-    photo: { src: "/images/solution-whatsapp-automation.webp", alt: "A service counter with a phone and a small bell" },
     forWho: ["Schools and coaching", "Hotels", "Clinics", "Factories", "Shops"],
     problems: [
       { problem: "Staff send reminders one by one from their own phones.", fix: "Reminders go out automatically from your official number." },
@@ -262,7 +259,6 @@ const solutionPages: DetailPage[] = [
     icon: "workflow",
     heading: "Automate the boring, repeated steps in your daily work.",
     intro: "We find the copy-paste and follow-up work your team does every day, such as entering enquiries, making invoices or sending reports, and make it happen on its own.",
-    photo: { src: "/images/solution-business-automation.webp", alt: "Cardboard trays on a warehouse conveyor" },
     forWho: ["Factories", "Schools and coaching", "Hotels", "Small businesses"],
     problems: [
       { problem: "Someone copies data from email or WhatsApp into Excel every day.", fix: "The data is picked up and saved automatically." },
@@ -299,7 +295,6 @@ const solutionPages: DetailPage[] = [
     icon: "cloud",
     heading: "Hosting, security and support, so your software keeps running.",
     intro: "We put your website and software online on secure cloud servers, keep backups, watch for problems and fix them, so you do not need your own IT team.",
-    photo: { src: "/images/solution-cloud-devops.webp", alt: "A server aisle lit with cool blue light" },
     forWho: ["Any business running software or a website"],
     problems: [
       { problem: "The website or software goes down and nobody knows why.", fix: "It is monitored, and we are alerted when something goes wrong." },
@@ -331,7 +326,7 @@ const solutionPages: DetailPage[] = [
   },
 ];
 
-const industryPages: DetailPage[] = [
+const industryInput: DetailInput[] = [
   {
     slug: "education",
     kind: "industry",
@@ -339,7 +334,6 @@ const industryPages: DetailPage[] = [
     icon: "graduation",
     heading: "Software for schools, colleges and coaching centres.",
     intro: "From the first admission enquiry to fee receipts, attendance and parent updates, all in one place your office can trust.",
-    photo: { src: "/images/industry-education.webp", alt: "Students in uniform working at desks in an Indian classroom" },
     forWho: ["Schools", "Colleges", "Coaching centres", "Training institutes"],
     problems: [
       { problem: "Admission enquiries come from the website, WhatsApp, calls and walk-ins, and some are never followed up.", fix: "All enquiries go into one admission list with a follow-up date." },
@@ -377,7 +371,6 @@ const industryPages: DetailPage[] = [
     parent: { slug: "education", name: "Education" },
     heading: "Software for schools: admissions, fees and parent updates.",
     intro: "Help your school office answer parents faster, collect fees on time and keep every student's details in one place.",
-    photo: { src: "/images/industry-schools.webp", alt: "Students seated at desks in a smart classroom in Chennai" },
     forWho: ["CBSE, ICSE and State Board schools", "Pre-schools", "School groups"],
     problems: [
       { problem: "Admission season brings hundreds of calls and WhatsApp messages.", fix: "Each enquiry is saved and answered, with reminders for the counsellor." },
@@ -415,7 +408,6 @@ const industryPages: DetailPage[] = [
     parent: { slug: "education", name: "Education" },
     heading: "Software for colleges: admissions, departments and student services.",
     intro: "Manage admissions, departments, attendance, exams and student requests without chasing files between offices.",
-    photo: { src: "/images/industry-colleges.webp", alt: "The main building of IIT Kharagpur behind palm trees" },
     forWho: ["Degree colleges", "Engineering and professional colleges", "Universities"],
     problems: [
       { problem: "Admission applications and documents are checked by hand across departments.", fix: "Applications and documents are reviewed online, with status for each student." },
@@ -453,7 +445,6 @@ const industryPages: DetailPage[] = [
     parent: { slug: "education", name: "Education" },
     heading: "Software for coaching centres: enquiries, batches and fees.",
     intro: "Turn more enquiries into admissions, manage batches and collect instalments on time, across one or many centres.",
-    photo: { src: "/images/industry-coaching.webp", alt: "Students in uniform listening during a class" },
     forWho: ["JEE, NEET and foundation coaching", "Competitive exam coaching", "Tuition and skill centres"],
     problems: [
       { problem: "Enquiries from ads and walk-ins are noted in a book and forgotten.", fix: "Every enquiry gets a follow-up reminder until it is closed." },
@@ -490,7 +481,6 @@ const industryPages: DetailPage[] = [
     icon: "hotel",
     heading: "Software for hotels, resorts and restaurants.",
     intro: "Answer every booking enquiry quickly, avoid double bookings and keep guests informed from booking to check-out.",
-    photo: { src: "/images/industry-hospitality.webp", alt: "A dining room set before service" },
     forWho: ["Hotels", "Resorts", "Homestays", "Restaurants and banquet halls"],
     problems: [
       { problem: "Booking enquiries on WhatsApp and calls are answered late, especially at night.", fix: "Guests get an instant reply with current availability and rates." },
@@ -528,7 +518,6 @@ const industryPages: DetailPage[] = [
     parent: { slug: "hospitality", name: "Hospitality" },
     heading: "Software for hotels: bookings, guests and the front desk.",
     intro: "A simple setup that helps your front desk answer enquiries, confirm bookings and look after guests without missing messages.",
-    photo: { src: "/images/industry-hotels.webp", alt: "The Taj Mahal Palace hotel facade in Mumbai" },
     forWho: ["Business hotels", "Heritage and boutique hotels", "Hotel groups"],
     problems: [
       { problem: "Shift changes mean the next person does not know what the last one promised.", fix: "Every booking and guest request is written down in one place." },
@@ -565,7 +554,6 @@ const industryPages: DetailPage[] = [
     icon: "factory",
     heading: "Software for factories and manufacturers.",
     intro: "Track every order from purchase order to dispatch, know your stock, and keep customers updated without calling the floor.",
-    photo: { src: "/images/industry-manufacturing.webp", alt: "A worker operating machinery on an Indian factory floor" },
     forWho: ["Small and mid-size factories", "Job-work units", "Textile, engineering and food units"],
     problems: [
       { problem: "Orders are tracked in Excel and WhatsApp, and nobody knows the exact stage.", fix: "Each order shows its stage: material, production, quality, dispatch." },
@@ -602,7 +590,6 @@ const industryPages: DetailPage[] = [
     icon: "heart",
     heading: "Software for clinics, hospitals and diagnostic centres.",
     intro: "Make OPD booking easy, send reminders before visits, and reduce the calls your reception handles. Medical decisions always stay with your doctors.",
-    photo: { src: "/images/industry-healthcare.webp", alt: "A doctor speaking with a patient in a hospital room" },
     forWho: ["Clinics", "Hospitals", "Diagnostic centres", "Dental and eye clinics"],
     problems: [
       { problem: "The reception phone is busy all day with appointment calls.", fix: "Patients book or change OPD slots on WhatsApp or online." },
@@ -639,7 +626,6 @@ const industryPages: DetailPage[] = [
     icon: "briefcase",
     heading: "Software for small and growing businesses.",
     intro: "Track leads, send quotations and GST invoices, get approvals on mobile and see your daily numbers, without adding more staff for paperwork.",
-    photo: { src: "/images/industry-corporate-smes.webp", alt: "A small shared office with a round meeting table" },
     forWho: ["Traders and distributors", "Service companies", "Retail chains", "Growing teams"],
     problems: [
       { problem: "Leads come from calls, WhatsApp and IndiaMART and many are never followed up.", fix: "Every lead is saved with an owner and a follow-up date." },
@@ -676,7 +662,6 @@ const industryPages: DetailPage[] = [
     icon: "briefcase",
     heading: "Software for consultants, agencies and service firms.",
     intro: "Keep track of enquiries, client work, documents and billing, so clients get updates without having to ask.",
-    photo: { src: "/images/industry-professional-services.webp", alt: "A conference table set with folders and water glasses" },
     forWho: ["CA and tax firms", "Consultants", "Agencies", "Legal and design firms"],
     problems: [
       { problem: "Client documents arrive on WhatsApp and email and are hard to find later.", fix: "Each client has one folder with every document and message." },
@@ -707,6 +692,16 @@ const industryPages: DetailPage[] = [
     related: ["business-software", "web-development", "business-automation"],
   },
 ];
+
+// Every detail page uses a client-supplied banner from public/newImages.
+function withPhoto(page: DetailInput): DetailPage {
+  const photo = bannerFor(page.slug);
+  if (!photo) throw new Error(`No banner image for ${page.slug}`);
+  return { ...page, photo };
+}
+
+const solutionPages = solutionInput.map(withPhoto);
+const industryPages = industryInput.map(withPhoto);
 
 const bySlug = {
   solution: new Map(solutionPages.map((page) => [page.slug, page])),

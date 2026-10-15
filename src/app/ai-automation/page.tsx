@@ -8,6 +8,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
+import { newImages } from "@/content/new-images";
 import { getDetail } from "@/content/details";
 import { createMetadata } from "@/lib/seo";
 import { servicesJsonLd } from "@/lib/structured-data";
@@ -63,7 +64,7 @@ export default function AIAutomationPage() {
         eyebrow="AI & Automation"
         title="AI that does real work, with your team in charge."
         description="An AI assistant is useful when it finishes a job, like booking a slot or sending a reminder, and passes everything else to a person."
-        photo={{ src: "/images/ai-automation-desk.webp", alt: "An operations desk with a telephone and a softly lit monitor" }}
+        photo={newImages["ai-agents"]}
       >
         <Button asChild size="lg" arrow className="w-full sm:w-auto">
           <Link href="/contact?need=AI%20assistant">Talk to us</Link>

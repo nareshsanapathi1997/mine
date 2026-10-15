@@ -3,6 +3,7 @@ import { DetailCard } from "@/components/detail/detail-card";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
+import { newImages } from "@/content/new-images";
 import { listDetails } from "@/content/details";
 import { createMetadata } from "@/lib/seo";
 
@@ -21,7 +22,7 @@ export default function IndustriesPage() {
         eyebrow="Industries"
         title="Built for the way your sector works."
         description="A school, a hotel and a factory have very different days. Choose yours to see the problems we fix and a sample of how it works."
-        photo={{ src: "/images/industry-schools.webp", alt: "Students seated at desks in a smart classroom in Chennai" }}
+        photo={newImages.education}
       />
       <section className="section h-section" aria-label="Industries">
         <Container>

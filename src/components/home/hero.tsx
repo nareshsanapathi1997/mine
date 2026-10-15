@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { newImages } from "@/content/new-images";
 import Link from "next/link";
 import { EyebrowMark, UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
@@ -41,14 +42,14 @@ export function HomeHero() {
           </ul>
         </div>
 
-        <div className="h-hero-visual relative min-w-0 lg:col-span-6">
-          <figure className="photo-frame aspect-[4/3] sm:aspect-[16/11]">
+        <div className="h-hero-visual has-banner relative min-w-0 lg:col-span-6">
+          <figure className="photo-frame" style={{ aspectRatio: `${newImages.home.width} / ${newImages.home.height}` }}>
             <Image
-              src="/images/industry-education.webp"
-              alt="Students in uniform working at desks in an Indian classroom"
+              src={newImages.home.src}
+              alt={newImages.home.alt}
               fill
-              preload
-              sizes="(max-width: 1024px) 100vw, 48vw"
+              loading="eager"
+              sizes="(max-width: 1024px) 100vw, 620px"
               className="object-cover"
             />
           </figure>

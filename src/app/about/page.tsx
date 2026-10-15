@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
 import { SectionPhotoFrame } from "@/components/ui/section-photo";
+import { newImages } from "@/content/new-images";
 import { listDetails } from "@/content/details";
 import { siteConfig } from "@/content/site";
 import { createMetadata } from "@/lib/seo";
@@ -36,7 +37,7 @@ export default function AboutPage() {
         eyebrow="About us"
         title="A small Hyderabad team that builds practical software."
         description={`${siteConfig.name} builds websites, apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and growing businesses across India.`}
-        photo={{ src: "/images/solution-web-development.webp", alt: "A studio desk with a laptop and layout sheets" }}
+        photo={newImages.about}
       />
 
       <section className="section h-section" aria-labelledby="story-heading">

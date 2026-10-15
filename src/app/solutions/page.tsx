@@ -3,6 +3,7 @@ import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
 import { getDetail } from "@/content/details";
+import { newImages } from "@/content/new-images";
 import { solutionGroups } from "@/content/services";
 import { createMetadata } from "@/lib/seo";
 
@@ -19,7 +20,7 @@ export default function SolutionsPage() {
         eyebrow="Solutions"
         title="What we build, in plain words."
         description="Pick the problem you want to solve. Each page explains what we build, shows a sample of how it works and answers common questions."
-        photo={{ src: "/images/solution-business-software.webp", alt: "An operations desk facing a monitor of bar charts" }}
+        photo={newImages["business-software"]}
       />
       {solutionGroups.map((group, index) => (
         <section key={group.id} className={index % 2 ? "section h-section h-band-soft" : "section h-section"} aria-labelledby={`g-${group.id}`}>

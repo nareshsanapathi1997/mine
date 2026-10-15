@@ -9,14 +9,13 @@ export function DetailCard({ page, photo = false, children }: { page: DetailPage
   return (
     <li className="card d-card flex h-full flex-col overflow-hidden p-0" data-reveal-child>
       {photo ? (
-        <div className="relative aspect-[16/9] overflow-hidden">
-          <Image src={page.photo.src} alt={page.photo.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="d-card-img object-cover" />
-          {page.kind === "industry" && hasIndustryArt(page.slug) ? <span className="ia-badge ia-badge-sm"><IndustryArt slug={page.slug} /></span> : null}
+        <div className="relative overflow-hidden" style={{ aspectRatio: `${page.photo.width ?? 16} / ${page.photo.height ?? 9}` }}>
+          <Image src={page.photo.src} alt={page.photo.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px" className="d-card-img object-cover" />
         </div>
       ) : null}
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <span className="flex items-center gap-2.5">
-          <span className="icon-chip icon-chip-sm"><UiIcon name={page.icon} /></span>
+          {page.kind === "industry" && hasIndustryArt(page.slug) ? <IndustryArt slug={page.slug} className="size-10 shrink-0" /> : <span className="icon-chip icon-chip-sm"><UiIcon name={page.icon} /></span>}
           <h3 className="text-lg font-semibold tracking-tight text-ink">{page.name}</h3>
         </span>
         <p className="mt-3 text-sm leading-relaxed text-muted">{page.intro}</p>

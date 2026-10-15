@@ -53,10 +53,15 @@ export function PageHeader({
           {children ? <div className="cluster-lg flex flex-col gap-2.5 sm:flex-row">{children}</div> : null}
         </div>
         {photo ? (
-          <figure className="photo-frame page-hero-photo relative aspect-[16/9] lg:col-span-5 lg:aspect-[4/3]">
-            <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 1024px) 100vw, 40vw" priority className="object-cover" />
-            {art}
+          <div className={cn("page-hero-media relative lg:col-span-5", photo.width && "has-banner")}>
+          <figure
+            className={cn("photo-frame page-hero-photo relative", !photo.width && "aspect-[16/9] lg:aspect-[4/3]")}
+            style={photo.width && photo.height ? { aspectRatio: `${photo.width} / ${photo.height}` } : undefined}
+          >
+            <Image src={photo.src} alt={photo.alt} fill sizes={photo.width ? `(max-width: 1024px) 100vw, ${photo.width}px` : "(max-width: 1024px) 100vw, 40vw"} priority className="object-cover" />
           </figure>
+          {art}
+          </div>
         ) : null}
       </Container>
     </header>

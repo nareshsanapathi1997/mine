@@ -32,6 +32,7 @@ export function Logo({
         alt="Kyntriq Solutions"
         width={877}
         height={289}
+        sizes="180px"
         priority={priority}
         className={frame}
       />
@@ -45,6 +46,7 @@ export function Logo({
         alt="Kyntriq Solutions"
         width={877}
         height={289}
+        sizes="180px"
         priority={priority}
         className={frame}
       />
@@ -58,6 +60,7 @@ export function Logo({
         alt="Kyntriq Solutions"
         width={877}
         height={289}
+        sizes="180px"
         priority={priority}
         className={cn(frame, "dark:hidden")}
       />
@@ -66,6 +69,7 @@ export function Logo({
         alt=""
         width={877}
         height={289}
+        sizes="180px"
         aria-hidden
         priority={priority}
         className={cn(frame, "hidden dark:block")}
