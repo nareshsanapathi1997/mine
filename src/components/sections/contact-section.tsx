@@ -37,7 +37,7 @@ export function ContactSection({ defaultNeed = "" }: { defaultNeed?: string }) {
           <p className="text-body mt-3 text-muted">
             For example: admission enquiries, hotel bookings, an order sheet or a busy reception phone. Only your name, email, need and a short note are required.
           </p>
-          <figure className="photo-frame relative mt-6" style={{ aspectRatio: `${newImages.contact.width} / ${newImages.contact.height}` }}>
+          <figure className="photo-frame page-hero-photo c-photo relative mt-5" style={{ aspectRatio: `${newImages.contact.width} / ${newImages.contact.height}` }}>
             <Photo src={newImages.contact.src} alt={newImages.contact.alt} fill priority sizes="(max-width: 1024px) 100vw, 480px" className="object-cover" />
           </figure>
           <ul className="mt-6 space-y-3">

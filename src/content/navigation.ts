@@ -21,6 +21,12 @@ export const resourceLinks: NavItem[] = [
   { label: "Safety and quality", href: "/insights" },
 ];
 
+/** Hub links shown first in the footer Solutions / Industries columns. */
+export const footerHubLinks = {
+  solutions: { label: "All solutions", href: "/solutions" },
+  industries: { label: "All industries", href: "/industries" },
+} as const;
+
 export const legalLinks: NavItem[] = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of use", href: "/terms" },

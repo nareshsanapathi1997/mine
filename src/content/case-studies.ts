@@ -88,4 +88,22 @@ export const caseStudies: CaseStudy[] = [
       "Reception has more time for patients at the desk.",
     ],
   },
+  {
+    slug: "consultant-deadlines",
+    industry: "Consultant",
+    industryHref: "/industries/professional-services",
+    photo: newImages["professional-services"],
+    title: "A consultant who tracks client work in email and WhatsApp",
+    before: [
+      "Client files and documents are scattered across email and chats.",
+      "Renewal and filing deadlines live in someone's calendar or memory.",
+      "Clients ask for status updates and wait for a manual reply.",
+    ],
+    built: ["One client file per engagement", "Deadline and renewal reminders", "Document collection on WhatsApp", "Status updates to clients"],
+    after: [
+      "Every client has one place for files, tasks and notes.",
+      "Deadlines are flagged before they are missed.",
+      "Clients get status updates without chasing the team.",
+    ],
+  },
 ];

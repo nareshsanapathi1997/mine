@@ -3,6 +3,7 @@ import { BlogBrowser } from "@/components/blog/blog-browser";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
+import { newImages } from "@/content/new-images";
 import { siteConfig } from "@/content/site";
 import { getPosts } from "@/lib/blog";
 import { createMetadata } from "@/lib/seo";
@@ -22,6 +23,7 @@ export default function BlogPage() {
         eyebrow="Blog"
         title="Practical articles for business owners."
         description="Short, jargon-free reads on AI assistants, WhatsApp automation and software, with everyday examples from schools, hotels and small businesses."
+        photo={newImages.caseStudies}
       />
       <section className="section h-section">
         <Container>

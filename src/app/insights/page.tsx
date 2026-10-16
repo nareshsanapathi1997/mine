@@ -4,6 +4,7 @@ import { UiIcon, type UiIconName } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
+import { newImages } from "@/content/new-images";
 import { getPosts, tagLabel } from "@/lib/blog";
 import { createMetadata } from "@/lib/seo";
 
@@ -66,7 +67,7 @@ export default function InsightsPage() {
         eyebrow="Safety and quality"
         title="How we keep your software safe and working."
         description="You are trusting us with your students', guests' or customers' details. Here is what we do at each stage, in plain words."
-        photo={{ src: "/images/ai-agent-workspace.webp", alt: "A dark workstation with a monitor showing an abstract wave of light" }}
+        photo={newImages["cloud-devops"]}
       />
 
       <section className="section h-section" aria-labelledby="stages-heading">

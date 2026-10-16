@@ -174,6 +174,9 @@ export function Navbar() {
                     Talk to us
                   </Link>
                 </Button>
+                <Link href="/solutions" className="text-link mt-4 inline-flex" onClick={() => setMenu(null)}>
+                  All solutions <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
+                </Link>
               </div>
             </Container>
           </div>
@@ -228,6 +231,9 @@ export function Navbar() {
                 open={mobileSection === "solutions"}
                 onToggle={() => setMobileSection((current) => (current === "solutions" ? null : "solutions"))}
               >
+                <Link href="/solutions" className="nav-link w-full px-3 font-semibold" onClick={closeAll}>
+                  All solutions
+                </Link>
                 {solutionGroups.map((group) => (
                   <div key={group.id} className="px-2 py-2">
                     <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">{group.title}</p>
@@ -249,6 +255,9 @@ export function Navbar() {
                 open={mobileSection === "industries"}
                 onToggle={() => setMobileSection((current) => (current === "industries" ? null : "industries"))}
               >
+                <Link href="/industries" className="nav-link w-full px-3 font-semibold" onClick={closeAll}>
+                  All industries
+                </Link>
                 {industries.map((industry) => (
                   <Link
                     key={industry.slug}

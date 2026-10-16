@@ -85,11 +85,14 @@ export default function AboutPage() {
       </section>
 
       <section className="section h-section" aria-labelledby="team-heading">
-        <Container className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+        <Container className="grid gap-8 lg:grid-cols-12 lg:gap-12 lg:items-start">
           <div className="lg:col-span-5">
             <p className="eyebrow">The team</p>
             <h2 id="team-heading" className="text-h2 mt-3 text-ink">Who you will work with</h2>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            <div className="mt-5">
+              <SectionPhotoFrame photo={newImages.about} sizes="(max-width: 1024px) 100vw, 420px" />
+            </div>
+            <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               {[
                 { name: "Naresh Sanapathi", role: "Founder" },
                 { name: "Nageswara Rao", role: "Co-founder" },

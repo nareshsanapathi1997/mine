@@ -10,7 +10,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Examples",
-  description: "Sample scenarios for a school, a hotel, a factory and a clinic: the problem, what we would build, and what changes. Illustrations, not client results.",
+  description: "Sample scenarios for a school, a hotel, a factory, a clinic and a consultant: the problem, what we would build, and what changes. Illustrations, not client results.",
   path: "/case-studies",
 });
 
@@ -36,7 +36,7 @@ export default function CaseStudiesPage() {
       <PageHeader
         eyebrow="Examples"
         title="Sample projects: the problem, what we build, what changes."
-        description="Four everyday situations we hear about often. These are samples to show how we think, not real client projects, and they make no claims about results."
+        description="Everyday situations we hear about often. These are samples to show how we think, not real client projects, and they make no claims about results."
         photo={newImages.caseStudies}
       />
       <section className="section h-section" aria-label="Sample projects">

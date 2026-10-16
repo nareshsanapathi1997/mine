@@ -4,7 +4,7 @@ import { SocialGlyph, UiIcon } from "@/components/icons";
 import { CookieSettingsButton } from "@/components/consent/cookie-consent";
 import { Container } from "@/components/layout/container";
 import { footerIndustries } from "@/content/industries";
-import { companyLinks, legalLinks, resourceLinks } from "@/content/navigation";
+import { companyLinks, footerHubLinks, legalLinks, resourceLinks } from "@/content/navigation";
 import { footerServices } from "@/content/services";
 import { copyrightYear, siteConfig } from "@/content/site";
 
@@ -57,6 +57,7 @@ export function Footer() {
 
         <div className="grid gap-6 pt-6 sm:grid-cols-2 lg:grid-cols-5">
           <FooterColumn title="Solutions">
+            <FooterLink href={footerHubLinks.solutions.href}>{footerHubLinks.solutions.label}</FooterLink>
             {footerServices.map((service) => (
               <FooterLink key={service.slug} href={`/solutions/${service.slug}`}>
                 {service.footerLabel ?? service.title}
@@ -64,6 +65,7 @@ export function Footer() {
             ))}
           </FooterColumn>
           <FooterColumn title="Industries">
+            <FooterLink href={footerHubLinks.industries.href}>{footerHubLinks.industries.label}</FooterLink>
             {footerIndustries.map((industry) => (
               <FooterLink key={industry.slug} href={`/industries/${industry.slug}`}>
                 {industry.footerLabel ?? industry.title}

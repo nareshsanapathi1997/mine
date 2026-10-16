@@ -3059,8 +3059,10 @@ html[data-theme="light"] .text-gradient {
 @media (max-width: 639px) {
   .d-card-media { aspect-ratio: 16 / 7 !important; max-height: 9.5rem; }
   .cs-photo { aspect-ratio: 16 / 8; max-height: 11rem; }
-  .page-hero-photo { aspect-ratio: 16 / 7 !important; max-height: 9.5rem; }
+  .page-hero-photo,
+  .c-photo { aspect-ratio: 16 / 7 !important; max-height: 9.5rem; }
   .iw-media { aspect-ratio: 16 / 8; max-height: 11rem; }
+  .photo-hero { aspect-ratio: 16 / 8; max-height: 11rem; }
 }
 .page-hero-copy .cluster { margin-top: 0.75rem; }
 .page-hero-copy .cluster-lg { margin-top: 1rem; }
