@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/photo";
 import { EyebrowMark } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import type { SectionPhoto } from "@/content/section-photos";
@@ -31,7 +31,7 @@ export function PageHeader({
       <div className="page-hero-glow" aria-hidden="true" />
       <Container
         className={cn(
-          "relative grid gap-8 py-12 sm:py-14 lg:grid-cols-12 lg:items-center lg:gap-x-12 lg:py-16",
+          "relative grid gap-5 py-7 sm:gap-6 sm:py-9 lg:grid-cols-12 lg:items-center lg:gap-x-10 lg:py-11",
         )}
       >
         <div className={cn("page-hero-copy", photo ? "lg:col-span-7" : "lg:col-span-8")}>
@@ -58,7 +58,7 @@ export function PageHeader({
             className={cn("photo-frame page-hero-photo relative", !photo.width && "aspect-[16/9] lg:aspect-[4/3]")}
             style={photo.width && photo.height ? { aspectRatio: `${photo.width} / ${photo.height}` } : undefined}
           >
-            <Image src={photo.src} alt={photo.alt} fill sizes={photo.width ? `(max-width: 1024px) 100vw, ${photo.width}px` : "(max-width: 1024px) 100vw, 40vw"} priority className="object-cover" />
+            <Photo src={photo.src} alt={photo.alt} fill sizes="(max-width: 1024px) 100vw, 46vw" priority className="object-cover" />
           </figure>
           {art}
           </div>

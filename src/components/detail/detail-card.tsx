@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/photo";
 import Link from "next/link";
 import { IndustryArt, hasIndustryArt } from "@/components/art/industry-art";
 import { UiIcon } from "@/components/icons";
@@ -9,8 +9,11 @@ export function DetailCard({ page, photo = false, children }: { page: DetailPage
   return (
     <li className="card d-card flex h-full flex-col overflow-hidden p-0" data-reveal-child>
       {photo ? (
-        <div className="relative overflow-hidden" style={{ aspectRatio: `${page.photo.width ?? 16} / ${page.photo.height ?? 9}` }}>
-          <Image src={page.photo.src} alt={page.photo.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px" className="d-card-img object-cover" />
+        <div
+          className="d-card-media relative overflow-hidden"
+          style={{ aspectRatio: `${page.photo.width ?? 16} / ${page.photo.height ?? 9}` }}
+        >
+          <Photo src={page.photo.src} alt={page.photo.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px" className="d-card-img object-cover" />
         </div>
       ) : null}
       <div className="flex flex-1 flex-col p-5 sm:p-6">

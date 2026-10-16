@@ -107,7 +107,7 @@ export default function AIAutomationPage() {
             <p className="text-body text-muted">Each page has a sample and common questions.</p>
           </div>
           <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
-            {pages.map((page) => <DetailCard key={page.slug} page={page} />)}
+            {pages.map((page) => <DetailCard key={page.slug} page={page} photo />)}
           </ul>
         </Container>
       </section>

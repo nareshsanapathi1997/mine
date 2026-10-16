@@ -35,7 +35,7 @@ export default function SolutionsPage() {
             <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
               {group.slugs.map((slug) => {
                 const page = getDetail("solution", slug);
-                return page ? <DetailCard key={slug} page={page} /> : null;
+                return page ? <DetailCard key={slug} page={page} photo /> : null;
               })}
             </ul>
           </Container>

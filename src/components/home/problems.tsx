@@ -17,7 +17,7 @@ export function HomeProblems() {
             Most of these are small jobs done by hand, many times a day. Software can do them on time, every time.
           </p>
         </div>
-        <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
+        <ul className="stack grid gap-3 sm:grid-cols-2 xl:grid-cols-3" data-reveal-stagger>
           {homeProblems.map((item) => (
             <li key={item.who} className="card h-problem" data-reveal-child>
               <div className="flex items-center gap-2.5">

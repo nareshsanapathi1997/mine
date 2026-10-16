@@ -1,17 +1,32 @@
 "use client";
 
-import Image from "next/image";
+import { Photo } from "@/components/ui/photo";
 import Link from "next/link";
+import { useRef, useState } from "react";
 import { IndustryArt } from "@/components/art/industry-art";
-import { useState } from "react";
 import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { homeIndustries } from "@/content/home-page";
 import { cn } from "@/lib/cn";
 
+const KEYS = ["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight", "Home", "End"];
+
 export function HomeIndustries() {
-  const [active, setActive] = useState(homeIndustries[0].slug);
-  const current = homeIndustries.find((item) => item.slug === active) ?? homeIndustries[0];
+  const [active, setActive] = useState(0);
+  // Only mount images the visitor has actually opened, so the section costs one image up front.
+  const [seen, setSeen] = useState<Set<number>>(() => new Set([0]));
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const current = homeIndustries[active];
+
+  function select(index: number, focus = false) {
+    setActive(index);
+    setSeen((prev) => (prev.has(index) ? prev : new Set(prev).add(index)));
+    if (focus) {
+      const tab = tabs.current[index];
+      tab?.focus();
+      tab?.scrollIntoView({ block: "nearest", inline: "nearest" });
+    }
+  }
 
   return (
     <section className="section h-section" aria-labelledby="industries-heading">
@@ -26,65 +41,88 @@ export function HomeIndustries() {
           <p className="text-body text-muted">Pick your field to see the jobs we usually take off your team&apos;s hands.</p>
         </div>
 
-        <div className="stack grid gap-4 lg:grid-cols-12">
-          <div className="h-ind-tabs lg:col-span-4" role="tablist" aria-label="Industries" aria-orientation="vertical">
-            {homeIndustries.map((item) => {
-              const selected = item.slug === active;
+        <div className="iw stack">
+          <div className="iw-tabs" role="tablist" aria-label="Industries">
+            {homeIndustries.map((item, index) => {
+              const selected = index === active;
               return (
                 <button
                   key={item.slug}
+                  ref={(el) => {
+                    tabs.current[index] = el;
+                  }}
                   type="button"
                   role="tab"
-                  id={`ind-tab-${item.slug}`}
+                  id={`iw-tab-${item.slug}`}
                   aria-selected={selected}
-                  aria-controls="ind-panel"
+                  aria-controls="iw-panel"
                   tabIndex={selected ? 0 : -1}
-                  onClick={() => setActive(item.slug)}
+                  onClick={() => select(index)}
                   onKeyDown={(event) => {
-                    if (!["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
+                    if (!KEYS.includes(event.key)) return;
                     event.preventDefault();
-                    const i = homeIndustries.findIndex((x) => x.slug === active);
-                    const d = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1;
-                    const next = homeIndustries[(i + d + homeIndustries.length) % homeIndustries.length];
-                    setActive(next.slug);
-                    document.getElementById(`ind-tab-${next.slug}`)?.focus();
+                    const n = homeIndustries.length;
+                    const next =
+                      event.key === "Home" ? 0
+                      : event.key === "End" ? n - 1
+                      : event.key === "ArrowDown" || event.key === "ArrowRight" ? (index + 1) % n
+                      : (index - 1 + n) % n;
+                    select(next, true);
                   }}
-                  className={cn("h-ind-tab", selected && "is-active")}
+                  className={cn("iw-tab", selected && "is-active")}
                 >
-                  <span className="icon-chip icon-chip-sm">
-                    <UiIcon name={item.icon} />
+                  <span className="iw-tab-art" aria-hidden="true">
+                    <IndustryArt slug={item.slug} className="size-8" />
                   </span>
-                  <span className="text-sm font-semibold">{item.label}</span>
-                  <UiIcon name="arrow" className="ml-auto size-4 opacity-60" />
+                  <span className="iw-tab-label">{item.label}</span>
+                  <UiIcon name="arrow" className="iw-tab-arrow size-4" />
                 </button>
               );
             })}
           </div>
 
-          <div id="ind-panel" role="tabpanel" aria-labelledby={`ind-tab-${current.slug}`} className="h-ind-panel lg:col-span-8">
-            <div key={current.slug} className="h-ind-swap grid h-full gap-0">
-                <figure className="relative overflow-hidden" style={{ aspectRatio: `${current.photo.width ?? 16} / ${current.photo.height ?? 9}` }}>
-                  <Image src={current.photo.src} alt={current.photo.alt} fill sizes="(max-width: 640px) 100vw, 620px" className="object-cover" />
-                </figure>
-                <div className="flex flex-col p-5 sm:p-6">
-                  <div className="flex items-center gap-3">
-                    <IndustryArt slug={current.slug} className="size-11 shrink-0" />
-                    <h3 className="text-xl font-semibold tracking-tight text-ink">{current.heading}</h3>
-                  </div>
-                  <ul className="mt-4 space-y-2.5">
-                    {current.examples.map((example) => (
-                      <li key={example} className="flex items-start gap-2.5 text-sm text-ink">
-                        <UiIcon name="check" className="mt-0.5 size-4 shrink-0 text-accent-ink" />
-                        {example}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href={`/industries/${current.slug}`} className="text-link mt-auto pt-6">
-                    See more for {current.label.toLowerCase()}
-                    <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
-                  </Link>
-                </div>
-              </div>
+          <div id="iw-panel" role="tabpanel" aria-labelledby={`iw-tab-${current.slug}`} className="iw-panel" tabIndex={0}>
+            <figure className="iw-media">
+              {homeIndustries.map((item, index) =>
+                seen.has(index) ? (
+                  <Photo
+                    key={item.slug}
+                    src={item.photo.src}
+                    alt={index === active ? item.photo.alt : ""}
+                    aria-hidden={index === active ? undefined : true}
+                    fill
+                   
+                    sizes="(max-width: 1024px) 100vw, 820px"
+                    className={cn("iw-img object-cover", index === active && "is-active")}
+                  />
+                ) : null,
+              )}
+              <figcaption className="iw-caption">
+                <span className="iw-caption-art" aria-hidden="true">
+                  <IndustryArt slug={current.slug} className="size-7" />
+                </span>
+                {current.label}
+              </figcaption>
+            </figure>
+
+            <div key={current.slug} className="iw-body">
+              <h3 className="text-h3 text-ink">{current.heading}</h3>
+              <p className="mt-2 text-body text-muted">{current.summary}</p>
+              <ul className="iw-jobs">
+                {current.examples.map((example) => (
+                  <li key={example}>
+                    <span className="iw-check" aria-hidden="true">
+                      <UiIcon name="check" className="size-3.5" />
+                    </span>
+                    {example}
+                  </li>
+                ))}
+              </ul>
+              <Link href={`/industries/${current.slug}`} className="text-link mt-6">
+                See {current.label.toLowerCase()}
+                <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
+              </Link>
+            </div>
           </div>
         </div>
       </Container>

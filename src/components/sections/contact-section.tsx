@@ -1,7 +1,7 @@
 import { Glyph } from "@/components/icons";
 import { ContactDetails } from "@/components/contact/contact-details";
 import { ContactForm } from "@/components/contact/contact-form";
-import Image from "next/image";
+import { Photo } from "@/components/ui/photo";
 import { Container } from "@/components/layout/container";
 import { newImages } from "@/content/new-images";
 
@@ -38,7 +38,7 @@ export function ContactSection({ defaultNeed = "" }: { defaultNeed?: string }) {
             For example: admission enquiries, hotel bookings, an order sheet or a busy reception phone. Only your name, email, need and a short note are required.
           </p>
           <figure className="photo-frame relative mt-6" style={{ aspectRatio: `${newImages.contact.width} / ${newImages.contact.height}` }}>
-            <Image src={newImages.contact.src} alt={newImages.contact.alt} fill priority sizes="(max-width: 1024px) 100vw, 480px" className="object-cover" />
+            <Photo src={newImages.contact.src} alt={newImages.contact.alt} fill priority sizes="(max-width: 1024px) 100vw, 480px" className="object-cover" />
           </figure>
           <ul className="mt-6 space-y-3">
             {offers.map((item) => (

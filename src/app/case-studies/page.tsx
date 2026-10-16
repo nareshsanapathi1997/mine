@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/photo";
 import Link from "next/link";
 import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
@@ -45,7 +45,7 @@ export default function CaseStudiesPage() {
             {caseStudies.map((study, index) => (
               <li key={study.slug} id={study.slug} className={index % 2 ? "card cs-card cs-flip" : "card cs-card"} data-reveal-child>
                 <div className="cs-photo is-banner relative" style={{ "--ratio": `${study.photo.width} / ${study.photo.height}` } as React.CSSProperties}>
-                  <Image src={study.photo.src} alt={study.photo.alt} fill sizes="(max-width: 1024px) 100vw, 480px" className="object-cover" />
+                  <Photo src={study.photo.src} alt={study.photo.alt} fill sizes="(max-width: 1024px) 100vw, 560px" className="object-cover" />
                   <span className="sample-tag absolute left-3 top-3">Sample</span>
                 </div>
                 <div className="p-5 sm:p-7">

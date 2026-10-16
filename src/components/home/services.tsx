@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Photo } from "@/components/ui/photo";
 import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { homeServices, homeTools } from "@/content/home-page";
@@ -20,24 +21,35 @@ export function HomeServices() {
         </div>
         <ul className="stack h-bento" data-reveal-stagger>
           {homeServices.map((service, index) => (
-            <li key={service.title} className={index === 0 ? "card h-service h-service-lead" : "card h-service"} data-reveal-child>
-              <span className="icon-chip">
-                <UiIcon name={service.icon} />
-              </span>
-              <h3 className="mt-4 text-lg font-semibold tracking-tight text-ink">{service.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{service.body}</p>
-              <ul className="mt-4 space-y-1.5 text-sm text-ink">
-                {service.examples.map((example) => (
-                  <li key={example} className="flex items-start gap-2">
-                    <UiIcon name="check" className="mt-0.5 size-3.5 shrink-0 text-accent-ink" />
-                    {example}
-                  </li>
-                ))}
-              </ul>
-              <Link href={service.href} className="text-link mt-auto pt-5">
-                Learn more <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
-                <span className="sr-only"> about {service.title}</span>
-              </Link>
+            <li key={service.title} className={index === 0 ? "card h-service h-service-lead overflow-hidden p-0" : "card h-service overflow-hidden p-0"} data-reveal-child>
+              <div className="h-service-media relative">
+                <Photo
+                  src={service.photo.src}
+                  alt={service.photo.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5 sm:p-6">
+                <span className="icon-chip">
+                  <UiIcon name={service.icon} />
+                </span>
+                <h3 className="mt-4 text-lg font-semibold tracking-tight text-ink">{service.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{service.body}</p>
+                <ul className="mt-4 space-y-1.5 text-sm text-ink">
+                  {service.examples.map((example) => (
+                    <li key={example} className="flex items-start gap-2">
+                      <UiIcon name="check" className="mt-0.5 size-3.5 shrink-0 text-accent-ink" />
+                      {example}
+                    </li>
+                  ))}
+                </ul>
+                <Link href={service.href} className="text-link mt-auto pt-5">
+                  Learn more <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
+                  <span className="sr-only"> about {service.title}</span>
+                </Link>
+              </div>
             </li>
           ))}
         </ul>

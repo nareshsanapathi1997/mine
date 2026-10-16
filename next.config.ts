@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Next 16 only allows listed qualities. 85 is used for content photos so the
+  // optimiser's re-encode stays sharp; 75 is the default for everything else.
+  images: { qualities: [75, 85, 90] },
   // Lets `npm run dev` work at localhost, 127.0.0.1, and a Cloudflare quick tunnel.
   allowedDevOrigins: ["127.0.0.1", "*.trycloudflare.com"],
   // Old solution URLs. Sector pages now live under /industries.

@@ -58,7 +58,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="lg:col-span-5">
-            <SectionPhotoFrame photo={{ src: "/images/about-philosophy.webp", alt: "A closed laptop, a notebook and a plant on a quiet studio table" }} />
+            <SectionPhotoFrame photo={newImages["professional-services"]} />
           </div>
         </Container>
       </section>

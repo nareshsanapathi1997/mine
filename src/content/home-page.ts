@@ -3,20 +3,6 @@ import type { UiIconName } from "@/components/icons";
 
 /* Home page copy. Plain English, Indian examples, no invented numbers. */
 
-export const heroPoints = [
-  "Websites and mobile apps",
-  "School, hotel, factory and clinic software",
-  "WhatsApp replies and reminders",
-  "AI assistants that answer from your data",
-];
-
-export const heroChat = [
-  { from: "parent", text: "Hi, is admission open for Class 6?" },
-  { from: "bot", text: "Yes, admissions for Class 6 are open. May I have the student's name?" },
-  { from: "parent", text: "Aarav. When is the entrance test?" },
-  { from: "bot", text: "The next test is on Saturday at 10 AM. I have sent the form link and told the admissions office." },
-] as const;
-
 export type HomeProblem = { icon: UiIconName; who: string; problem: string; fix: string };
 
 export const homeProblems: HomeProblem[] = [
@@ -56,9 +42,22 @@ export const homeProblems: HomeProblem[] = [
     problem: "GST invoices and quotations are typed again from orders and chats.",
     fix: "Invoices and quotations are created from the order itself, and sent to the customer on email or WhatsApp.",
   },
+  {
+    icon: "clipboard",
+    who: "CAs, lawyers and consultants",
+    problem: "Client files, deadlines and document requests live in email and WhatsApp. Things get missed.",
+    fix: "Each client file, deadline and reminder sits in one place, and clients get updates automatically.",
+  },
 ];
 
-export type HomeService = { icon: UiIconName; title: string; body: string; examples: string[]; href: string };
+export type HomeService = {
+  icon: UiIconName;
+  title: string;
+  body: string;
+  examples: string[];
+  href: string;
+  photo: { src: string; alt: string; width?: number; height?: number };
+};
 
 export const homeServices: HomeService[] = [
   {
@@ -67,6 +66,7 @@ export const homeServices: HomeService[] = [
     body: "Fast websites that bring enquiries, and apps for parents, guests, staff or customers.",
     examples: ["School website with online admission form", "Hotel booking site", "Staff attendance app"],
     href: "/solutions/web-development",
+    photo: newImages["web-development"],
   },
   {
     icon: "blocks",
@@ -74,6 +74,7 @@ export const homeServices: HomeService[] = [
     body: "Simple software built around how your team already works, instead of a heavy package you have to adjust to.",
     examples: ["Student, fee and exam management", "Order and stock tracking", "Owner's dashboard"],
     href: "/solutions/business-software",
+    photo: newImages["business-software"],
   },
   {
     icon: "message",
@@ -81,6 +82,7 @@ export const homeServices: HomeService[] = [
     body: "Replies, reminders and updates go out on their own, from the details already in your software.",
     examples: ["Fee and payment reminders", "Booking confirmations", "Order and dispatch updates"],
     href: "/solutions/whatsapp-automation",
+    photo: newImages["whatsapp-automation"],
   },
   {
     icon: "bot",
@@ -88,6 +90,7 @@ export const homeServices: HomeService[] = [
     body: "A helper on WhatsApp, your website or phone that answers common questions from your own information, and passes anything important to a person.",
     examples: ["Course and fee questions", "Room availability", "Appointment booking"],
     href: "/ai-automation",
+    photo: newImages["ai-agents"],
   },
   {
     icon: "cloud",
@@ -95,6 +98,7 @@ export const homeServices: HomeService[] = [
     body: "We put your software online, keep backups, watch for problems and keep improving it after launch.",
     examples: ["Secure cloud hosting", "Regular backups", "Ongoing support"],
     href: "/solutions/cloud-devops",
+    photo: newImages["cloud-devops"],
   },
 ];
 
@@ -118,6 +122,7 @@ export type HomeIndustry = {
   label: string;
   icon: UiIconName;
   heading: string;
+  summary: string;
   examples: string[];
   photo: { src: string; alt: string; width?: number; height?: number };
 };
@@ -128,6 +133,7 @@ export const homeIndustries: HomeIndustry[] = [
     label: "Schools, colleges and coaching",
     icon: "graduation",
     heading: "From the first enquiry to the fee receipt.",
+    summary: "Admissions, fees, attendance and parent messages in one place, with WhatsApp doing the reminders.",
     examples: ["Admission enquiries and follow-ups", "Fee reminders and receipts", "Attendance and parent updates", "Batch and timetable management"],
     photo: newImages["education"],
   },
@@ -136,6 +142,7 @@ export const homeIndustries: HomeIndustry[] = [
     label: "Hotels and resorts",
     icon: "hotel",
     heading: "Answer every booking enquiry, day or night.",
+    summary: "Guests get quick answers and confirmations on WhatsApp, and the front desk sees every booking.",
     examples: ["Room availability on WhatsApp", "Booking confirmations", "Check-in and guest messages", "Front-desk dashboard"],
     photo: newImages["hospitality"],
   },
@@ -144,6 +151,7 @@ export const homeIndustries: HomeIndustry[] = [
     label: "Factories and manufacturers",
     icon: "factory",
     heading: "Know where every order stands.",
+    summary: "Orders, stock and production stages tracked in one system, so nobody has to call the floor.",
     examples: ["Purchase and sales orders", "Stock and material checks", "Production stages", "Dispatch updates to customers"],
     photo: newImages["manufacturing"],
   },
@@ -152,6 +160,7 @@ export const homeIndustries: HomeIndustry[] = [
     label: "Clinics and hospitals",
     icon: "heart",
     heading: "Fewer calls at reception, fewer missed appointments.",
+    summary: "Patients book and get reminders on WhatsApp, so reception spends less time on the phone.",
     examples: ["OPD appointment booking", "Reminders before the visit", "Report-ready messages", "Follow-up visit reminders"],
     photo: newImages["healthcare"],
   },
@@ -160,8 +169,18 @@ export const homeIndustries: HomeIndustry[] = [
     label: "Small and growing businesses",
     icon: "briefcase",
     heading: "Less typing, fewer missed follow-ups.",
+    summary: "Leads, quotes, invoices and approvals in one simple system that works on your phone.",
     examples: ["Lead tracking and follow-ups", "GST invoices and quotations", "Approvals on mobile", "Daily sales report"],
     photo: newImages["corporate-smes-alt"],
+  },
+  {
+    slug: "professional-services",
+    label: "CAs, lawyers and consultants",
+    icon: "briefcase",
+    heading: "Client work tracked, documents in order.",
+    summary: "Client files, deadlines and reminders in one place, with updates sent to clients automatically.",
+    examples: ["Client and case tracking", "Document collection on WhatsApp", "Deadline and renewal reminders", "Billing and payment follow-ups"],
+    photo: newImages["professional-services"],
   },
 ];
 
@@ -204,6 +223,18 @@ export const sampleFlows: SampleFlow[] = [
       { title: "Customer update", body: "The customer gets a dispatch message with the GST invoice attached." },
     ],
   },
+  {
+    id: "clinic",
+    label: "Clinic appointment",
+    title: "A patient books an OPD slot on WhatsApp",
+    steps: [
+      { title: "Patient sends a message", body: "\"Do you have a slot with Dr. Rao tomorrow morning?\" arrives on the clinic WhatsApp." },
+      { title: "Open slots shown", body: "The assistant shares the open morning slots from the clinic's own diary." },
+      { title: "Booking confirmed", body: "The patient picks a time. The slot is held and a confirmation is sent." },
+      { title: "Reception sees it", body: "Reception sees the new booking with the patient's name and number." },
+      { title: "Reminder before the visit", body: "A polite reminder goes out the evening before the appointment." },
+    ],
+  },
 ];
 
 export const homeSteps = [
@@ -230,7 +261,7 @@ export const homeSafety: { icon: UiIconName; label: string }[] = [
 ];
 
 export const homeFaq = [
-  { q: "What does Kyntriq Solutions do?", a: "We build websites, apps and software for schools, coaching centres, hotels, factories, clinics and small businesses. We also set up WhatsApp replies, reminders and AI assistants that work with your software." },
+  { q: "What does Kyntriq Solutions do?", a: "We build websites, apps and software for schools, coaching centres, hotels, factories, clinics, CAs, consultants and small businesses. We also set up WhatsApp replies, reminders and AI assistants that work with your software." },
   { q: "We already use Excel, Tally or another software. Do we have to stop?", a: "No. We usually connect to what you already use. Replacing a tool is your choice, and only if it really helps." },
   { q: "What is an AI assistant, in simple words?", a: "It is a helper that replies to common questions on WhatsApp, your website or phone, using your own information like fees, timings or room rates. When a question needs a person, it passes it to your staff." },
   { q: "Will the AI take decisions on its own?", a: "Only simple, approved actions like sharing a form link or booking an open slot. Discounts, refunds, fee waivers and anything important stay with your team." },

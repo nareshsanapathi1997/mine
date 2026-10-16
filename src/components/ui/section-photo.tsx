@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/photo";
 import type { SectionPhoto } from "@/content/section-photos";
 import { cn } from "@/lib/cn";
 
@@ -13,7 +13,7 @@ export function SectionPhotoFrame({
 }) {
   return (
     <figure className={cn("photo-frame photo-hero min-w-0", className)}>
-      <Image src={photo.src} alt={photo.alt} fill sizes={sizes} className="object-cover" />
+      <Photo src={photo.src} alt={photo.alt} fill sizes={sizes} className="object-cover" />
     </figure>
   );
 }
