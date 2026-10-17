@@ -15,7 +15,12 @@ const img = (file: string, width: number, height: number, alt: string): BannerIm
 export const newImages = {
   home: img("kyntriq-hero-automation", 1280, 720, "A professional in a glass office overlooking a city skyline at dusk, holding a tablet"),
   about: img("kyntriq-about-team", 1280, 720, "A small team collaborating around laptops in a bright modern office"),
+  aboutStory: img("kyntriq-about-story", 1280, 720, "A quiet desk with a notebook, laptop and phone, suggesting the manual work software replaces"),
+  aboutTeam: img("kyntriq-about-founders", 1280, 720, "Two founders standing together in a bright modern office"),
   caseStudies: img("kyntriq-case-studies1", 1280, 720, "A professional reviewing project results on a large monitor"),
+  blog: img("kyntriq-blog-header", 1280, 720, "A desk with a notebook, glasses and tablet ready for reading"),
+  insights: img("kyntriq-insights-safety", 1280, 720, "Hands typing on a laptop in a secure, softly lit office"),
+  industries: img("kyntriq-industries-overview", 1280, 720, "A modern business lobby with professionals walking through"),
   contact: img("kyntriq-contact", 1280, 720, "A support executive wearing a headset, smiling while working on a laptop"),
   "ai-agents": img("kyntriq-ai-agents", 1280, 720, "A support specialist at a desk with a laptop and phone showing a customer chat"),
   "voice-ai": img("kyntriq-voice-ai", 1280, 720, "A professional on a headset call in a modern office"),
@@ -29,9 +34,9 @@ export const newImages = {
   hospitality: img("kyntriq-hospitality", 1280, 720, "A hotel receptionist welcoming a guest at the front desk"),
   manufacturing: img("kyntriq-manufacturing", 1280, 720, "An engineer in a safety helmet using a tablet on a factory floor"),
   "corporate-smes": img("kyntriq-small-businesses", 1280, 720, "A shop owner using a laptop at the counter while serving customers"),
-  "corporate-smes-alt": img("kyntriq-small-businesses1", 1280, 720, "A small business owner managing daily work from a laptop at the counter"),
+  "corporate-smes-alt": img("kyntriq-small-businesses1", 1280, 720, "A retail counter with a phone stand and shelves in the background"),
   healthcare: img("kyntriq-healthcare", 1280, 720, "A clinician at a clinic reception desk with a laptop"),
-  "healthcare-alt": img("kyntriq-healthcare1", 1280, 720, "A doctor working at a calm clinic reception desk"),
+  "healthcare-alt": img("kyntriq-healthcare1", 1280, 720, "A calm clinic waiting area with soft morning light"),
   "professional-services": img("kyntriq-professional-services", 1280, 720, "Two professionals reviewing documents and a laptop in a meeting room"),
 } satisfies Record<string, BannerImage>;
 

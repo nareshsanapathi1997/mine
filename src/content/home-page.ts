@@ -171,7 +171,7 @@ export const homeIndustries: HomeIndustry[] = [
     heading: "Less typing, fewer missed follow-ups.",
     summary: "Leads, quotes, invoices and approvals in one simple system that works on your phone.",
     examples: ["Lead tracking and follow-ups", "GST invoices and quotations", "Approvals on mobile", "Daily sales report"],
-    photo: newImages["corporate-smes-alt"],
+    photo: newImages["corporate-smes"],
   },
   {
     slug: "professional-services",

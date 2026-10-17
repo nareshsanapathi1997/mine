@@ -23,7 +23,7 @@ export default function BlogPage() {
         eyebrow="Blog"
         title="Practical articles for business owners."
         description="Short, jargon-free reads on AI assistants, WhatsApp automation and software, with everyday examples from schools, hotels and small businesses."
-        photo={newImages.caseStudies}
+        photo={newImages.blog}
       />
       <section className="section h-section">
         <Container>

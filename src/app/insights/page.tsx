@@ -67,7 +67,7 @@ export default function InsightsPage() {
         eyebrow="Safety and quality"
         title="How we keep your software safe and working."
         description="You are trusting us with your students', guests' or customers' details. Here is what we do at each stage, in plain words."
-        photo={newImages["cloud-devops"]}
+        photo={newImages.insights}
       />
 
       <section className="section h-section" aria-labelledby="stages-heading">

@@ -22,7 +22,7 @@ export default function IndustriesPage() {
         eyebrow="Industries"
         title="Built for the way your sector works."
         description="A school, a hotel and a factory have very different days. Choose yours to see the problems we fix and a sample of how it works."
-        photo={newImages.education}
+        photo={newImages.industries}
       />
       <section className="section h-section" aria-label="Industries">
         <Container>

@@ -31,6 +31,8 @@ const promises = [
 
 export default function AboutPage() {
   const sectors = listDetails("industry").filter((page) => !page.parent);
+  /** Set to true to show the team section again. */
+  const showTeamSection = false;
   return (
     <>
       <PageHeader
@@ -58,7 +60,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="lg:col-span-5">
-            <SectionPhotoFrame photo={newImages["professional-services"]} />
+            <SectionPhotoFrame photo={newImages.aboutStory} />
           </div>
         </Container>
       </section>
@@ -84,13 +86,14 @@ export default function AboutPage() {
         </Container>
       </section>
 
+      {showTeamSection ? (
       <section className="section h-section" aria-labelledby="team-heading">
         <Container className="grid gap-8 lg:grid-cols-12 lg:gap-12 lg:items-start">
           <div className="lg:col-span-5">
             <p className="eyebrow">The team</p>
             <h2 id="team-heading" className="text-h2 mt-3 text-ink">Who you will work with</h2>
             <div className="mt-5">
-              <SectionPhotoFrame photo={newImages.about} sizes="(max-width: 1024px) 100vw, 420px" />
+              <SectionPhotoFrame photo={newImages.aboutTeam} sizes="(max-width: 1024px) 100vw, 420px" />
             </div>
             <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               {[
@@ -124,6 +127,7 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
+      ) : null}
 
       <section className="section-tight h-section border-t border-line" aria-labelledby="sectors-heading">
         <Container>
