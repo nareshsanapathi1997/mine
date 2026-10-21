@@ -41,12 +41,13 @@ export function RevealObserver() {
 
     const watch = () => {
       const nodes = collect();
-      if (reduce || !observer) {
+      const active = observer;
+      if (reduce || !active) {
         nodes.forEach(reveal);
         return;
       }
       nodes.forEach((node) => {
-        if (!isRevealed(node)) observer.observe(node);
+        if (!isRevealed(node)) active.observe(node);
       });
       markInView(nodes);
     };
