@@ -5,7 +5,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Privacy Policy",
-  description: `How ${siteConfig.name} handles enquiries submitted through this website.`,
+  description: `How ${siteConfig.name} collects and uses personal data from the contact form, analytics consent and related services.`,
   path: "/privacy",
 });
 

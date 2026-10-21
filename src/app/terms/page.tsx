@@ -5,7 +5,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Terms & Conditions",
-  description: `Terms for using the ${siteConfig.name} website. Enquiries are not a contract until work is agreed in writing.`,
+  description: `Terms for using the ${siteConfig.name} website and engaging us for software, automation and related services — including scope, payments, support and liability.`,
   path: "/terms",
 });
 
@@ -14,7 +14,7 @@ export default function TermsPage() {
     <LegalDocument
       eyebrow="Terms"
       title="Terms & Conditions"
-      description={`The terms for using the ${siteConfig.name} website.`}
+      description={`Website use and service engagement terms for ${siteConfig.name}.`}
       sections={termsSections()}
     />
   );

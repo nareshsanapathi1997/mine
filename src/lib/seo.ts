@@ -11,19 +11,28 @@ export function createMetadata({
   path: string;
 }): Metadata {
   const fullTitle = `${title} · ${siteConfig.name}`;
+  const canonical = path.startsWith("http") ? path : new URL(path, siteConfig.url).toString();
 
   return {
     title,
     description,
     alternates: { canonical: path },
     openGraph: {
+      type: "website",
+      locale: siteConfig.locale,
+      siteName: siteConfig.name,
       title: fullTitle,
       description,
-      url: path,
+      url: canonical,
     },
     twitter: {
+      card: "summary_large_image",
       title: fullTitle,
       description,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }

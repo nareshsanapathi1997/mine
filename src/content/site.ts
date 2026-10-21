@@ -27,11 +27,9 @@ export const siteConfig = {
   tagline:
     "Software, WhatsApp automation and AI assistants that take routine work off your team's plate.",
   locale: "en_IN",
-  /** Placeholder profiles. Replace with the real accounts before launch. */
+  /** Public profiles linked in the footer and structured data. */
   social: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/varasena-technologies-315798445" },
-    { label: "Instagram", href: "https://www.instagram.com/varasena.technologies" },
-    { label: "X", href: "https://x.com/varasena" },
   ],
 } as const;
 
