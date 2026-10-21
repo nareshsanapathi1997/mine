@@ -39,7 +39,7 @@ const hints: Record<EnquiryField, string> = {
   message: "What happens today, what tools you use, and what you would like to change.",
 };
 
-const needOptions = [
+const defaultNeedOptions = [
   "Website",
   "Mobile app",
   "Business software",
@@ -48,9 +48,26 @@ const needOptions = [
   "Automation",
   "Hosting and support",
   "Not sure yet",
-] as const;
+];
 
-export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed?: string; compact?: boolean }) {
+export function ContactForm({
+  defaultNeed = "",
+  compact = false,
+  copy,
+}: {
+  defaultNeed?: string;
+  compact?: boolean;
+  copy?: {
+    labels: Record<EnquiryField, string>;
+    hints: Record<EnquiryField, string>;
+    needOptions: string[];
+    submitLabel: string;
+  };
+}) {
+  const fieldLabels = copy?.labels ?? labels;
+  const fieldHints = copy?.hints ?? hints;
+  const needOptions = copy?.needOptions ?? defaultNeedOptions;
+  const submitLabel = copy?.submitLabel ?? "Send message";
   const formId = useId();
   const successRef = useRef<HTMLDivElement>(null);
   const startedAt = useRef(0);
@@ -157,8 +174,8 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
           id={`${formId}-name`}
           name="name"
           required
-          label={labels.name}
-          hint={hints.name}
+          label={fieldLabels.name}
+          hint={fieldHints.name}
           quiet={compact}
           error={errors.name}
           autoComplete="name"
@@ -168,8 +185,8 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
         <Field
           id={`${formId}-company`}
           name="company"
-          label={labels.company}
-          hint={hints.company}
+          label={fieldLabels.company}
+          hint={fieldHints.company}
           quiet={compact}
           error={errors.company}
           autoComplete="organization"
@@ -180,8 +197,8 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
           id={`${formId}-email`}
           name="email"
           required
-          label={labels.email}
-          hint={hints.email}
+          label={fieldLabels.email}
+          hint={fieldHints.email}
           quiet={compact}
           error={errors.email}
           type="email"
@@ -192,8 +209,8 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
         <Field
           id={`${formId}-phone`}
           name="phone"
-          label={labels.phone}
-          hint={hints.phone}
+          label={fieldLabels.phone}
+          hint={fieldHints.phone}
           quiet={compact}
           error={errors.phone}
           type="tel"
@@ -205,14 +222,14 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
           id={`${formId}-need`}
           name="need"
           required
-          label={labels.need}
-          hint={hints.need}
+          label={fieldLabels.need}
+          hint={fieldHints.need}
           quiet={compact}
           error={errors.need}
           value={values.need}
           placeholder="Select what you need"
           options={
-            values.need && !needOptions.includes(values.need as (typeof needOptions)[number])
+            values.need && !needOptions.includes(values.need)
               ? [values.need, ...needOptions]
               : needOptions
           }
@@ -221,10 +238,10 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
         />
         <div className="sm:col-span-2">
           <Label htmlFor={`${formId}-message`}>
-            {labels.message} <span className="text-danger">*</span>
+            {fieldLabels.message} <span className="text-danger">*</span>
           </Label>
           <p id={`${formId}-message-hint`} className={cn("mt-1 text-small text-muted", compact && "sr-only")}>
-            {hints.message}
+            {fieldHints.message}
           </p>
           <Textarea
             id={`${formId}-message`}
@@ -270,7 +287,7 @@ export function ContactForm({ defaultNeed = "", compact = false }: { defaultNeed
       ) : null}
 
       <Button type="submit" size="md" className="mt-2 w-full" loading={pending} arrow>
-        {pending ? "Sending…" : "Send message"}
+        {pending ? "Sending…" : submitLabel}
       </Button>
     </form>
   );

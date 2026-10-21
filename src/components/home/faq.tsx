@@ -1,20 +1,26 @@
 import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
-import { homeFaq } from "@/content/home-page";
 
 export function HomeFaq({
-  items = homeFaq,
+  items,
   title = "Common questions",
-}: { items?: { q: string; a: string }[]; title?: string } = {}) {
+  eyebrow = "FAQ",
+  intro = "Did not find your answer? Call or WhatsApp us, we are happy to explain.",
+}: {
+  items: { q: string; a: string }[];
+  title?: string;
+  eyebrow?: string;
+  intro?: string;
+}) {
   return (
     <section className="section h-section" aria-labelledby="faq-heading">
       <Container className="grid items-start gap-6 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-4">
-          <p className="eyebrow">FAQ</p>
+          <p className="eyebrow">{eyebrow}</p>
           <h2 id="faq-heading" className="text-h2 mt-3 text-ink">
             {title}
           </h2>
-          <p className="text-body cluster text-muted">Did not find your answer? Call or WhatsApp us, we are happy to explain.</p>
+          <p className="text-body cluster text-muted">{intro}</p>
         </div>
         <div className="h-faq lg:col-span-8">
           {items.map((item) => (

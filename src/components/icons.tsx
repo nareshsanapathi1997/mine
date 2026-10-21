@@ -194,6 +194,39 @@ export function SocialGlyph({ label, className = "size-3.5 shrink-0" }: { label:
       </svg>
     );
   }
+  if (label === "Facebook") {
+    return (
+      <svg {...glyphProps} className={`ki ${className}`}>
+        <rect className="ki-t" stroke="none" x="4" y="4" width="16" height="16" rx="3" />
+        <rect x="4" y="4" width="16" height="16" rx="3" />
+        <path d="M13 8.5V10h2.2l-.4 2.2H13V18h-2.4v-5.8H9V10h1.6V8.7c0-1.9 1-3 3.1-3H15.5V8h-1.4c-.7 0-1.1.3-1.1.9Z" />
+      </svg>
+    );
+  }
+  if (label === "YouTube") {
+    return (
+      <svg {...glyphProps} className={`ki ${className}`}>
+        <rect className="ki-t" stroke="none" x="3" y="6" width="18" height="12" rx="3" />
+        <rect x="3" y="6" width="18" height="12" rx="3" />
+        <path d="m10.5 9.5 5 2.5-5 2.5Z" />
+      </svg>
+    );
+  }
+  if (label === "X" || label === "Twitter") {
+    return (
+      <svg {...glyphProps} className={`ki ${className}`}>
+        <path d="M5 5.5 10.4 12 5.2 18.5M19 5.5 13.5 12l5.3 6.5" />
+      </svg>
+    );
+  }
+  if (label === "WhatsApp") {
+    return (
+      <svg {...glyphProps} className={`ki ${className}`}>
+        <path d="M7.2 16.6 6 19.5l3-1.1A7.5 7.5 0 1 0 7.2 16.6Z" />
+        <path d="M9.2 10.2c.2-.5.3-.5.6-.5h.5c.2 0 .4.1.5.4l.5 1.2c.1.3 0 .5-.2.7l-.4.4c-.1.1-.1.3 0 .5.3.5.8 1 1.3 1.3.2.1.4.1.5 0l.4-.4c.2-.2.4-.3.7-.2l1.2.5c.3.1.4.3.4.5v.5c0 .3 0 .4-.5.6-1 .5-2.4.3-4-.8-1.4-1-2.1-2.3-2.2-3.4Z" />
+      </svg>
+    );
+  }
   return (
     <svg {...glyphProps} className={`ki ${className}`}>
       <path d="M5 5.5 10.4 12 5.2 18.5M19 5.5 13.5 12l5.3 6.5" />

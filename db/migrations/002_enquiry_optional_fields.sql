@@ -1,15 +1,16 @@
 -- Optional company, phone, industry and budget. New budget ranges.
 -- Older budget values remain valid so existing rows still satisfy the check.
 
-alter table enquiries drop constraint if exists enquiries_company_check;
-alter table enquiries drop constraint if exists enquiries_phone_check;
-alter table enquiries drop constraint if exists enquiries_industry_check;
-alter table enquiries drop constraint if exists enquiries_budget_range_check;
+alter table enquiries drop constraint enquiries_company_check;
+alter table enquiries drop constraint enquiries_phone_check;
+alter table enquiries drop constraint enquiries_industry_check;
+alter table enquiries drop constraint enquiries_budget_range_check;
 
-alter table enquiries alter column company drop not null;
-alter table enquiries alter column phone drop not null;
-alter table enquiries alter column industry drop not null;
-alter table enquiries alter column budget_range drop not null;
+alter table enquiries
+  modify company varchar(120) null,
+  modify phone varchar(20) null,
+  modify industry varchar(64) null,
+  modify budget_range varchar(40) null;
 
 alter table enquiries add constraint enquiries_company_check
   check (company is null or char_length(company) between 2 and 120);
@@ -17,7 +18,7 @@ alter table enquiries add constraint enquiries_company_check
 alter table enquiries add constraint enquiries_phone_check
   check (
     phone is null
-    or (char_length(phone) between 7 and 20 and phone ~ '^[0-9+()[:space:]-]{7,20}$')
+    or (char_length(phone) between 7 and 20 and phone regexp '^[0-9+()[[:space:]]-]{7,20}$')
   );
 
 alter table enquiries add constraint enquiries_industry_check

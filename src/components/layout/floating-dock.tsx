@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { useConsent } from "@/components/consent/cookie-consent";
+import { useSite } from "@/components/cms/site-provider";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 function WhatsAppGlyph() {
@@ -25,6 +25,7 @@ function WhatsAppGlyph() {
 const noop = () => () => {};
 
 export function FloatingDock() {
+  const { site, chrome } = useSite();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const mounted = useSyncExternalStore(noop, () => true, () => false);
@@ -47,7 +48,7 @@ export function FloatingDock() {
           <button
             type="button"
             className="grid size-11 place-items-center rounded-full border border-line bg-surface text-ink shadow-[0_10px_30px_-16px_rgba(0,0,0,0.6)]"
-            aria-label="Back to top"
+            aria-label={chrome.dock.backToTopLabel}
             onClick={() => {
               const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
               window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
@@ -56,14 +57,14 @@ export function FloatingDock() {
             <Glyph name="arrow-up" className="size-5" />
           </button>
         ) : null}
-        <a href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp (opens in a new tab)" className="wa-fab">
+        <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" aria-label={chrome.dock.whatsappLabel} className="wa-fab">
           <WhatsAppGlyph />
         </a>
       </div>
       {showBar ? (
         <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 py-3 pr-20 pl-4 backdrop-blur-md lg:hidden">
           <Button asChild arrow className="w-full">
-            <Link href="/contact">Talk to us</Link>
+            <Link href={chrome.header.ctaHref}>{chrome.dock.talkLabel}</Link>
           </Button>
         </div>
       ) : null}

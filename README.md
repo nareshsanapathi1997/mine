@@ -26,19 +26,19 @@ Node.js 20.9 or newer is required.
 
 ## Database setup (Windows)
 
-Install PostgreSQL from the [official Windows installer](https://www.postgresql.org/download/windows/) and note the password you set for the `postgres` user. The database commands are Node scripts, so they run in Command Prompt or PowerShell.
+Install MySQL 8 from the [official Windows installer](https://dev.mysql.com/downloads/installer/) and note the password you set for the `root` user. The database commands are Node scripts, so they run in Command Prompt or PowerShell.
 
 1. Copy the example env file if you have not already: `copy .env.example .env.local`
-2. Set the `PG_*` values in `.env.local`. `PG_HOST=localhost`, `PG_PORT=5432`, `PG_USER=postgres`, `PG_PASSWORD` to the password you chose, `PG_DATABASE=varasena`. `PG_MAX_CONNECTIONS` is the pool size (default 20). `PG_IDLE_TIMEOUT` is how long an idle connection stays open, in milliseconds (default 300000).
+2. Set the `MYSQL_*` values in `.env.local`. `MYSQL_HOST=localhost`, `MYSQL_PORT=3306`, `MYSQL_USER=root`, `MYSQL_PASSWORD` to the password you chose, `MYSQL_DATABASE=varasena`. `MYSQL_MAX_CONNECTIONS` is the pool size (default 20). `MYSQL_IDLE_TIMEOUT` is how long an idle connection stays open, in milliseconds (default 300000).
 3. From the project folder, create the database and apply migrations:
 
 ```bat
 npm run db:setup
 ```
 
-`npm run db:create` only creates the database (it connects to the `postgres` maintenance database). `npm run db:migrate` only applies new files in `db/migrations/`. `npm run db:setup` does both. Applied files are recorded in `schema_migrations`.
+`npm run db:create` only creates the database. `npm run db:migrate` only applies new files in `db/migrations/`. `npm run db:setup` does both. Applied files are recorded in `schema_migrations`.
 
-View stored enquiries in psql (`psql -U postgres -d varasena`):
+View stored enquiries in the MySQL client (`mysql -u root -p varasena`):
 
 ```sql
 select id, name, company, email, status, created_at
@@ -46,13 +46,13 @@ from enquiries
 order by created_at desc;
 ```
 
-The table stores a SHA-256 hash of the visitor IP, not the raw address. If Postgres is stopped or the `PG_*` variables are empty, the contact form still tries email and the webhook. `GET /api/health` reports `database` as `up`, `down`, or `unconfigured` and does not include connection details.
+The table stores a SHA-256 hash of the visitor IP, not the raw address. If MySQL is stopped or the `MYSQL_*` variables are empty, the contact form still tries email and the webhook. `GET /api/health` reports `database` as `up`, `down`, or `unconfigured` and does not include connection details.
 
 ## Before launch
 
 - Replace the placeholders in `src/content/site.ts`: email, phone, location and business hours. Confirm the public inbox before treating it as monitored.
 - Set the real public URL with `NEXT_PUBLIC_SITE_URL` (see `.env.example`). Canonical links, the sitemap and Open Graph use it.
-- Set the contact delivery variables. Email needs `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL`. An optional `CONTACT_WEBHOOK_URL` posts the same enquiry as JSON for n8n, a CRM, a sheet or a messaging workflow. Set `PG_HOST` and `PG_USER` (and run `npm run db:setup`) to store each enquiry in PostgreSQL. If none of these are set, the API logs the enquiry and returns a clear message instead of crashing.
+- Set the contact delivery variables. Email needs `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL`. An optional `CONTACT_WEBHOOK_URL` posts the same enquiry as JSON for n8n, a CRM, a sheet or a messaging workflow. Set `MYSQL_HOST` and `MYSQL_USER` (and run `npm run db:setup`) to store each enquiry in MySQL. If none of these are set, the API logs the enquiry and returns a clear message instead of crashing.
 - Optional: set `NEXT_PUBLIC_GA_ID` to a Google Analytics 4 measurement ID (`G-` followed by letters and numbers). The script loads only after a visitor accepts analytics in the cookie banner.
 - Review `/privacy`, `/terms` and `/cookies` with counsel. The privacy page still asks you to name the real providers, storage location and retention period.
 - Replace the placeholder case studies in `src/content/case-studies.ts`. They are examples of the page structure, not client results.
@@ -70,15 +70,15 @@ The table stores a SHA-256 hash of the visitor IP, not the raw address. If Postg
 | `CONTACT_TO_EMAIL` | For email | Inbox that receives enquiries. |
 | `CONTACT_FROM_EMAIL` | For email | From address on the notification. |
 | `CONTACT_WEBHOOK_URL` | No | `http` or `https` URL that receives the enquiry JSON. |
-| `PG_HOST` | For the database | PostgreSQL host. |
-| `PG_PORT` | For the database | PostgreSQL port. Defaults to `5432` when empty. |
-| `PG_USER` | For the database | PostgreSQL user. |
-| `PG_PASSWORD` | For the database | PostgreSQL password. |
-| `PG_DATABASE` | For the database | Database name. Defaults to `varasena` when empty. |
-| `PG_MAX_CONNECTIONS` | No | Pool size. Defaults to `20`. |
-| `PG_IDLE_TIMEOUT` | No | Idle connection timeout in milliseconds. Defaults to `300000`. |
+| `MYSQL_HOST` | For the database | MySQL host. |
+| `MYSQL_PORT` | For the database | MySQL port. Defaults to `3306` when empty. |
+| `MYSQL_USER` | For the database | MySQL user. |
+| `MYSQL_PASSWORD` | For the database | MySQL password. |
+| `MYSQL_DATABASE` | For the database | Database name. Defaults to `varasena` when empty. |
+| `MYSQL_MAX_CONNECTIONS` | No | Pool size. Defaults to `20`. |
+| `MYSQL_IDLE_TIMEOUT` | No | Idle connection timeout in milliseconds. Defaults to `300000`. |
 
-Email is sent only when all six SMTP variables are non-empty. A partial SMTP setup is logged and skipped. The enquiry is written to PostgreSQL when `PG_HOST` and `PG_USER` are set. If the database is down, that failure is logged and is not shown to the visitor. A stored enquiry, a sent email, or a successful webhook is enough for the form to succeed. If email and the webhook are both configured, a success on either one is enough for the visitor to see a sent confirmation. The other failure is logged.
+Email is sent only when all six SMTP variables are non-empty. A partial SMTP setup is logged and skipped. The enquiry is written to MySQL when `MYSQL_HOST` and `MYSQL_USER` are set. If the database is down, that failure is logged and is not shown to the visitor. A stored enquiry, a sent email, or a successful webhook is enough for the form to succeed. If email and the webhook are both configured, a success on either one is enough for the visitor to see a sent confirmation. The other failure is logged.
 
 Spam controls on `POST /api/contact`: a honeypot field, a minimum time of 3 seconds from when the form was opened, and an in-memory limit of 8 submissions per 10 minutes per IP. The limit lives in the server process. It resets on restart and is not shared across multiple instances. Requests with no IP share one bucket.
 

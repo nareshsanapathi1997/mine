@@ -2,25 +2,23 @@ import Link from "next/link";
 import { Photo } from "@/components/ui/photo";
 import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
-import { homeServices, homeTools } from "@/content/home-page";
+import type { HomeContent } from "@/lib/cms/types";
 
-export function HomeServices() {
+export function HomeServices({ content }: { content: HomeContent["services"] }) {
   return (
     <section id="what-we-build" className="section h-section h-band-soft scroll-mt-24" aria-labelledby="build-heading">
       <Container>
         <div className="home-head">
           <div>
-            <p className="eyebrow">What we build</p>
+            <p className="eyebrow">{content.eyebrow}</p>
             <h2 id="build-heading" className="text-h2 mt-3 text-ink">
-              Five things we build, alone or together.
+              {content.title}
             </h2>
           </div>
-          <p className="text-body text-muted">
-            Start with one. Each piece shares the same information, so you never type the same detail twice.
-          </p>
+          <p className="text-body text-muted">{content.intro}</p>
         </div>
         <ul className="stack h-bento" data-reveal-stagger>
-          {homeServices.map((service, index) => (
+          {content.items.map((service, index) => (
             <li key={service.title} className={index === 0 ? "card h-service h-service-lead overflow-hidden p-0" : "card h-service overflow-hidden p-0"} data-reveal-child>
               <div className="h-service-media relative">
                 <Photo
@@ -54,9 +52,9 @@ export function HomeServices() {
           ))}
         </ul>
         <div className="h-tools mt-6">
-          <p className="text-sm font-semibold text-ink">Works with the tools you already use</p>
-          <ul className="mt-3 flex flex-wrap gap-2" aria-label="Tools we can connect with">
-            {homeTools.map((tool) => (
+          <p className="text-sm font-semibold text-ink">{content.toolsTitle}</p>
+          <ul className="mt-3 flex flex-wrap gap-2" aria-label={content.toolsTitle}>
+            {content.tools.map((tool) => (
               <li key={tool} className="chip">
                 {tool}
               </li>

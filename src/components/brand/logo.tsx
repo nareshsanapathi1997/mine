@@ -1,28 +1,34 @@
 import Image from "next/image";
 import { cn } from "@/lib/cn";
-import { siteConfig } from "@/content/site";
+import type { SiteBrand } from "@/content/site";
 
 /** Light lockup reads larger at the same height, so it stays smaller than dark. */
 const frameLight = "h-9 w-auto max-h-full object-contain sm:h-10";
 const frameDark = "h-12 w-auto max-h-full object-contain sm:h-14";
-const alt = siteConfig.name;
 
-/** Official lockups from public/varasena-brand-pack */
-const assets = {
-  logo: "/varasena-brand-pack/varasena-logo-light.png",
+const fallbackBrand: SiteBrand = {
+  logoLight: "/varasena-brand-pack/varasena-logo-light.png",
   logoDark: "/varasena-brand-pack/varasena-logo-dark.png",
   icon: "/varasena-brand-pack/varasena-v-mark.png",
-} as const;
+  mark: "/varasena-brand-pack/varasena-v-mark.png",
+  favicon: "/icon.png",
+};
 
 export function Logo({
+  name,
+  brand,
   variant = "default",
   priority = false,
   compact = false,
 }: {
+  name: string;
+  brand?: Partial<SiteBrand>;
   variant?: "default" | "inverse" | "ink";
   priority?: boolean;
   compact?: boolean;
 }) {
+  const assets = { ...fallbackBrand, ...brand };
+  const alt = name;
   if (compact) {
     return (
       <Image
@@ -39,7 +45,7 @@ export function Logo({
   if (variant === "ink") {
     return (
       <Image
-        src={assets.logo}
+        src={assets.logoLight}
         alt={alt}
         width={1400}
         height={332}
@@ -67,7 +73,7 @@ export function Logo({
   return (
     <>
       <Image
-        src={assets.logo}
+        src={assets.logoLight}
         alt={alt}
         width={1400}
         height={332}

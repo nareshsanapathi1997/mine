@@ -1,14 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Manrope } from "next/font/google";
+import { SiteProvider } from "@/components/cms/site-provider";
 import { ConsentProvider } from "@/components/consent/cookie-consent";
 import { Footer } from "@/components/layout/footer";
 import { FloatingDock } from "@/components/layout/floating-dock";
 import { Navbar } from "@/components/layout/navbar";
+import { PublicChrome } from "@/components/layout/public-chrome";
 import { Splash } from "@/components/layout/splash";
 import { RevealObserver } from "@/components/layout/reveal-observer";
 import { MotionStage } from "@/components/motion/stage";
 import { JsonLd } from "@/components/seo/json-ld";
-import { siteConfig } from "@/content/site";
+import { getCms } from "@/lib/cms";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import { themeBootScript } from "@/lib/theme";
 import "./globals.css";
@@ -25,48 +27,55 @@ const inter = Inter({
   display: "swap",
 });
 
-const title = `${siteConfig.name} | AI, Software & Business Automation`;
+export const revalidate = 60;
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: title,
-    template: `%s · ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  applicationName: siteConfig.name,
-  authors: [{ name: siteConfig.name }],
-  creator: siteConfig.name,
-  openGraph: {
-    type: "website",
-    locale: siteConfig.locale,
-    siteName: siteConfig.name,
-    title,
-    description: siteConfig.description,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description: siteConfig.description,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  icons: {
-    icon: [{ url: "/icon.png", type: "image/png", sizes: "32x32" }],
-    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
-  },
-  formatDetection: {
-    telephone: false,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getCms();
+  const title = `${site.name} | AI, Software & Business Automation`;
+  return {
+    metadataBase: new URL(site.url),
+    title: {
+      default: title,
+      template: `%s · ${site.name}`,
+    },
+    description: site.description,
+    applicationName: site.name,
+    authors: [{ name: site.name }],
+    creator: site.name,
+    openGraph: {
+      type: "website",
+      locale: site.locale,
+      siteName: site.name,
+      title,
+      description: site.description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: site.description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    icons: {
+      icon: [{ url: site.brand?.favicon || "/icon.png" }],
+      apple: [{ url: site.brand?.icon || "/apple-icon.png" }],
+    },
+    formatDetection: {
+      telephone: false,
+    },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#070b14",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const cms = await getCms();
+  const { site, chrome } = cms;
+
   return (
     <html
       lang="en"
@@ -79,9 +88,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script id="theme-boot" dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
       <body className="flex min-h-full flex-col">
-        <Splash />
-        <JsonLd data={organizationJsonLd()} />
-        <JsonLd data={websiteJsonLd()} />
+        <PublicChrome>
+          <Splash />
+        </PublicChrome>
+        <JsonLd data={organizationJsonLd(site)} />
+        <JsonLd data={websiteJsonLd(site)} />
         <noscript>
           <style>
             {`[data-reveal],[data-reveal-stagger] [data-reveal-child]{opacity:1!important;filter:none!important;transform:none!important}`}
@@ -89,17 +100,33 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </noscript>
         <RevealObserver />
         <MotionStage />
-        <a href="#main" className="skip-link">
-          Skip to content
-        </a>
-        <ConsentProvider>
-          <Navbar />
-          <main id="main" tabIndex={-1} className="flex-1 outline-none">
-            {children}
-          </main>
-          <FloatingDock />
-          <Footer />
-        </ConsentProvider>
+        <PublicChrome>
+          <a href="#main" className="skip-link">
+            {chrome.skipLabel}
+          </a>
+        </PublicChrome>
+        <SiteProvider site={site} chrome={chrome}>
+          <ConsentProvider>
+            <PublicChrome>
+              <Navbar
+                siteName={site.name}
+                brand={site.brand}
+                chrome={chrome}
+                primaryNav={cms.navigation.primary}
+                solutionGroups={cms.solutionGroups}
+                services={cms.services}
+                industries={cms.industries}
+              />
+            </PublicChrome>
+            <main id="main" tabIndex={-1} className="flex-1 outline-none">
+              {children}
+            </main>
+            <PublicChrome>
+              <FloatingDock />
+              <Footer />
+            </PublicChrome>
+          </ConsentProvider>
+        </SiteProvider>
       </body>
     </html>
   );

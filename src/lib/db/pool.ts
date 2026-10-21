@@ -1,19 +1,43 @@
-import { Pool } from "pg";
+import mysql from "mysql2/promise";
 import { isDatabaseConfigured, poolConfig } from "@/lib/db/config";
 
-const globalForPg = globalThis as unknown as { pgPool?: Pool };
+const globalForMysql = globalThis as unknown as {
+  mysqlPool?: mysql.Pool;
+  mysqlPoolKey?: string;
+};
 
-/** One pool per process. Cached on globalThis so dev hot reload does not open another. */
+function poolKey() {
+  const config = poolConfig();
+  return `${config.host}|${config.port}|${config.user}|${config.database}`;
+}
+
+function resetPool() {
+  const existing = globalForMysql.mysqlPool;
+  globalForMysql.mysqlPool = undefined;
+  globalForMysql.mysqlPoolKey = undefined;
+  if (existing) {
+    existing.end().catch(() => undefined);
+  }
+}
+
+/** One pool per process. Rebuilt when MYSQL_* env values change (dev env reload). */
 export function getPool() {
-  if (!isDatabaseConfigured()) return null;
-  if (!globalForPg.pgPool) {
-    const pool = new Pool(poolConfig());
+  if (!isDatabaseConfigured()) {
+    resetPool();
+    return null;
+  }
+  const key = poolKey();
+  if (!globalForMysql.mysqlPool || globalForMysql.mysqlPoolKey !== key) {
+    resetPool();
+    const pool = mysql.createPool(poolConfig());
     pool.on("error", (error) => {
       console.error("[db] Idle client error.", error instanceof Error ? error.message : "Unknown database error");
+      resetPool();
     });
-    globalForPg.pgPool = pool;
+    globalForMysql.mysqlPool = pool;
+    globalForMysql.mysqlPoolKey = key;
   }
-  return globalForPg.pgPool;
+  return globalForMysql.mysqlPool;
 }
 
 export async function checkDatabase(): Promise<"up" | "down" | "unconfigured"> {
@@ -24,6 +48,7 @@ export async function checkDatabase(): Promise<"up" | "down" | "unconfigured"> {
     return "up";
   } catch (error) {
     console.error("[db] Health check failed.", error instanceof Error ? error.message : "Unknown database error");
+    resetPool();
     return "down";
   }
 }

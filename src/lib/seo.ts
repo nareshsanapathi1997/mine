@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/content/site";
+import { getSite } from "@/lib/cms";
 
-export function createMetadata({
+export async function createMetadata({
   title,
   description,
   path,
@@ -9,9 +9,10 @@ export function createMetadata({
   title: string;
   description: string;
   path: string;
-}): Metadata {
-  const fullTitle = `${title} · ${siteConfig.name}`;
-  const canonical = path.startsWith("http") ? path : new URL(path, siteConfig.url).toString();
+}): Promise<Metadata> {
+  const site = await getSite();
+  const fullTitle = `${title} · ${site.name}`;
+  const canonical = path.startsWith("http") ? path : new URL(path, site.url).toString();
 
   return {
     title,
@@ -19,8 +20,8 @@ export function createMetadata({
     alternates: { canonical },
     openGraph: {
       type: "website",
-      locale: siteConfig.locale,
-      siteName: siteConfig.name,
+      locale: site.locale,
+      siteName: site.name,
       title: fullTitle,
       description,
       url: canonical,

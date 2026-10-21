@@ -6,17 +6,29 @@ import { useRef, useState } from "react";
 import { IndustryArt } from "@/components/art/industry-art";
 import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
-import { homeIndustries } from "@/content/home-page";
+import type { HomeIndustry } from "@/content/home-page";
 import { cn } from "@/lib/cn";
 
 const KEYS = ["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight", "Home", "End"];
 
-export function HomeIndustries() {
+export function HomeIndustries({
+  items,
+  eyebrow,
+  title,
+  intro,
+}: {
+  items: HomeIndustry[];
+  eyebrow: string;
+  title: string;
+  intro: string;
+}) {
+  const homeIndustries = items;
   const [active, setActive] = useState(0);
   // Only mount images the visitor has actually opened, so the section costs one image up front.
   const [seen, setSeen] = useState<Set<number>>(() => new Set([0]));
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const current = homeIndustries[active];
+  if (!current) return null;
 
   function select(index: number, focus = false) {
     setActive(index);
@@ -33,12 +45,12 @@ export function HomeIndustries() {
       <Container>
         <div className="home-head">
           <div>
-            <p className="eyebrow">Who we work with</p>
+            <p className="eyebrow">{eyebrow}</p>
             <h2 id="industries-heading" className="text-h2 mt-3 text-ink">
-              Built for the way your kind of business runs.
+              {title}
             </h2>
           </div>
-          <p className="text-body text-muted">Pick your field to see the jobs we usually take off your team&apos;s hands.</p>
+          <p className="text-body text-muted">{intro}</p>
         </div>
 
         <div className="iw stack">

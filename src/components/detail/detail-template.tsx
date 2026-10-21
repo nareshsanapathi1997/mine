@@ -9,10 +9,10 @@ import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
-import { detailLinks, type DetailPage } from "@/content/details";
-import { siteConfig } from "@/content/site";
+import type { DetailPage } from "@/content/details";
+import { getCms, relatedDetailLinks } from "@/lib/cms";
 
-export function DetailTemplate({
+export async function DetailTemplate({
   page,
   crumbs,
   jsonLd,
@@ -21,10 +21,11 @@ export function DetailTemplate({
   page: DetailPage;
   crumbs: Crumb[];
   jsonLd: unknown;
-  /** Extra links, such as sub-pages of an industry. */
   extraLinks?: { title: string; links: { href: string; title: string; description: string }[] };
 }) {
-  const related = detailLinks("solution", page.related);
+  const { site, chrome, details } = await getCms();
+  const related = relatedDetailLinks(details, page.related);
+  const ui = chrome.detail;
   const eyebrow = page.kind === "solution" ? "Solution" : page.parent ? page.parent.name : "Industry";
 
   return (
@@ -35,12 +36,12 @@ export function DetailTemplate({
         art={page.kind === "industry" && hasIndustryArt(page.slug) ? <span className="ia-badge"><IndustryArt slug={page.slug} /></span> : undefined}
       >
         <Button asChild size="lg" arrow className="w-full sm:w-auto">
-          <Link href={`/contact?need=${encodeURIComponent(page.name)}` as "/contact"}>Talk to us</Link>
+          <Link href={`/contact?need=${encodeURIComponent(page.name)}` as "/contact"}>{ui.talkLabel}</Link>
         </Button>
         <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
-          <a href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer">
+          <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer">
             <UiIcon name="message" className="size-4" />
-            WhatsApp us
+            {ui.whatsappLabel}
           </a>
         </Button>
       </PageHeader>
@@ -49,10 +50,10 @@ export function DetailTemplate({
         <Container>
           <div className="home-head">
             <div>
-              <p className="eyebrow">Problems we fix</p>
-              <h2 id="d-problems" className="text-h2 mt-3 text-ink">Sound familiar?</h2>
+              <p className="eyebrow">{ui.problems.eyebrow}</p>
+              <h2 id="d-problems" className="text-h2 mt-3 text-ink">{ui.problems.title}</h2>
             </div>
-            <p className="text-body text-muted">Three common problems we hear, and what changes once the right software is in place.</p>
+            <p className="text-body text-muted">{ui.problems.intro}</p>
           </div>
           <ul className="stack grid gap-3 md:grid-cols-3" data-reveal-stagger>
             {page.problems.map((item, index) => (
@@ -62,7 +63,7 @@ export function DetailTemplate({
                 <p className="h-fix mt-4 text-sm leading-relaxed text-muted">
                   <span className="h-fix-label">
                     <UiIcon name="arrow" className="size-3.5" />
-                    What changes
+                    {ui.fixLabel}
                   </span>
                   {item.fix}
                 </p>
@@ -76,10 +77,10 @@ export function DetailTemplate({
         <Container>
           <div className="home-head">
             <div>
-              <p className="eyebrow">What we build</p>
-              <h2 id="d-build" className="text-h2 mt-3 text-ink">What we can build for you</h2>
+              <p className="eyebrow">{ui.builds.eyebrow}</p>
+              <h2 id="d-build" className="text-h2 mt-3 text-ink">{ui.builds.title}</h2>
             </div>
-            <p className="text-body text-muted">Start with the one that saves the most time. The rest can be added later.</p>
+            <p className="text-body text-muted">{ui.builds.intro}</p>
           </div>
           <ul className="stack grid gap-3 sm:grid-cols-2" data-reveal-stagger>
             {page.builds.map((item) => (
@@ -99,9 +100,9 @@ export function DetailTemplate({
 
       <HomeSampleFlow
         flows={[{ id: page.slug, label: page.name, ...page.sample }]}
-        eyebrow="Sample walkthrough"
+        eyebrow={ui.sampleEyebrow}
         title={page.sample.title}
-        intro="An example of how this could work, step by step. It is an illustration, not a client result."
+        intro={ui.sampleIntro}
         moreHref="/case-studies"
       />
 
@@ -123,12 +124,12 @@ export function DetailTemplate({
         </section>
       ) : null}
 
-      <HomeFaq items={page.faqs} title="Questions people ask" />
+      <HomeFaq items={page.faqs} title={ui.faqTitle} />
 
       {related.length ? (
         <section className="section-tight h-section border-t border-line" aria-labelledby="d-related">
           <Container>
-            <h2 id="d-related" className="text-h3 text-ink">Often used together</h2>
+            <h2 id="d-related" className="text-h3 text-ink">{ui.relatedTitle}</h2>
             <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((link) => (
                 <li key={link.href}>
@@ -146,7 +147,7 @@ export function DetailTemplate({
         </section>
       ) : null}
 
-      <CtaBand title={page.cta.title} description={page.cta.description} primaryLabel="Talk to us" primaryHref={`/contact?need=${encodeURIComponent(page.name)}`} showWhatsapp />
+      <CtaBand title={page.cta.title} description={page.cta.description} primaryLabel={ui.talkLabel} primaryHref={`/contact?need=${encodeURIComponent(page.name)}`} showWhatsapp />
     </>
   );
 }

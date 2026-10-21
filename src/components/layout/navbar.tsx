@@ -9,10 +9,12 @@ import { Glyph, Icon, UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { industries } from "@/content/industries";
-import { primaryNav } from "@/content/navigation";
-import { servicesInGroup, solutionGroups } from "@/content/services";
-import { siteConfig } from "@/content/site";
+import type { Industry } from "@/content/industries";
+import type { NavItem } from "@/content/navigation";
+import type { Service } from "@/content/services";
+import type { SiteBrand } from "@/content/site";
+import { servicesInGroup } from "@/lib/cms/helpers";
+import type { ChromeContent, SolutionGroup } from "@/lib/cms/types";
 import { cn } from "@/lib/cn";
 
 type MenuId = "solutions" | "industries";
@@ -22,8 +24,25 @@ function isCurrent(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function Navbar() {
+export function Navbar({
+  siteName,
+  brand,
+  chrome,
+  primaryNav,
+  solutionGroups,
+  services,
+  industries,
+}: {
+  siteName: string;
+  brand?: SiteBrand;
+  chrome: ChromeContent;
+  primaryNav: NavItem[];
+  solutionGroups: SolutionGroup[];
+  services: Service[];
+  industries: Industry[];
+}) {
   const pathname = usePathname();
+  const header = chrome.header;
   const [openPath, setOpenPath] = useState<string | null>(null);
   const mobileOpen = openPath === pathname;
   const [menu, setMenu] = useState<MenuId | null>(null);
@@ -76,19 +95,19 @@ export function Navbar() {
       onMouseLeave={() => setMenu(null)}
     >
       <Container className="nav-shell flex items-center justify-between gap-4">
-        <Link href="/" aria-label={`${siteConfig.name} home`} className="inline-flex items-center overflow-visible rounded-md" onClick={closeAll}>
+        <Link href="/" aria-label={`${siteName} home`} className="inline-flex items-center overflow-visible rounded-md" onClick={closeAll}>
           <span className="sm:hidden">
-            <Logo compact priority />
+            <Logo name={siteName} brand={brand} compact priority />
           </span>
           <span className="hidden sm:inline-flex items-center overflow-visible">
-            <Logo priority />
+            <Logo name={siteName} brand={brand} priority />
           </span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
           <MenuButton
             id={solutionsId}
-            label="Solutions"
+            label={header.solutionsLabel}
             open={menu === "solutions"}
             current={isCurrent(pathname, "/solutions")}
             onOpen={() => setMenu("solutions")}
@@ -96,7 +115,7 @@ export function Navbar() {
           />
           <MenuButton
             id={industriesId}
-            label="Industries"
+            label={header.industriesLabel}
             open={menu === "industries"}
             current={isCurrent(pathname, "/industries")}
             onOpen={() => setMenu("industries")}
@@ -122,7 +141,7 @@ export function Navbar() {
           <ThemeToggle />
           <div className="hidden lg:block">
             <Button asChild arrow>
-              <Link href="/contact">Talk to us</Link>
+              <Link href={header.ctaHref}>{header.ctaLabel}</Link>
             </Button>
           </div>
           <button
@@ -147,7 +166,7 @@ export function Navbar() {
                 <div key={group.id} className="col-span-3">
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">{group.title}</p>
                   <ul className="mt-3 space-y-1">
-                    {servicesInGroup(group.slugs).map((service) => (
+                    {servicesInGroup(services, group).map((service) => (
                       <li key={service.slug}>
                         <Link
                           href={`/solutions/${service.slug}`}
@@ -168,15 +187,15 @@ export function Navbar() {
                 </div>
               ))}
               <div className="col-span-3 rounded-xl bg-canvas p-5">
-                <p className="text-sm font-semibold text-ink">Not sure what you need?</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted">Tell us the problem. We will suggest what fits.</p>
+                <p className="text-sm font-semibold text-ink">{header.megaUnsureTitle}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{header.megaUnsureBody}</p>
                 <Button asChild arrow className="mt-4 w-full">
-                  <Link href="/contact" onClick={() => setMenu(null)}>
-                    Talk to us
+                  <Link href={header.ctaHref} onClick={() => setMenu(null)}>
+                    {header.ctaLabel}
                   </Link>
                 </Button>
                 <Link href="/solutions" className="text-link mt-4 inline-flex" onClick={() => setMenu(null)}>
-                  All solutions <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
+                  {header.allSolutionsLabel} <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
                 </Link>
               </div>
             </Container>
@@ -205,7 +224,7 @@ export function Navbar() {
                 ))}
               </ul>
               <Link href="/industries" className="text-link mt-4" onClick={() => setMenu(null)}>
-                All industries <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
+                {header.allIndustriesLabel} <span className="text-link-arrow" aria-hidden="true"><UiIcon name="arrow" /></span>
               </Link>
             </Container>
           </div>
@@ -228,18 +247,18 @@ export function Navbar() {
           <Container className="flex max-h-[calc(100dvh-4.75rem)] flex-col gap-1 overflow-y-auto py-3">
             <nav aria-label="Mobile" className="flex flex-col">
               <MobileGroup
-                label="Solutions"
+                label={header.solutionsLabel}
                 open={mobileSection === "solutions"}
                 onToggle={() => setMobileSection((current) => (current === "solutions" ? null : "solutions"))}
               >
                 <Link href="/solutions" className="nav-link w-full px-3 font-semibold" onClick={closeAll}>
-                  All solutions
+                  {header.allSolutionsLabel}
                 </Link>
                 {solutionGroups.map((group) => (
                   <div key={group.id} className="px-2 py-2">
                     <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">{group.title}</p>
                     <ul className="mt-1">
-                      {servicesInGroup(group.slugs).map((service) => (
+                      {servicesInGroup(services, group).map((service) => (
                         <li key={service.slug}>
                           <Link href={`/solutions/${service.slug}`} className="nav-link w-full gap-2 px-1" onClick={closeAll}>
                             <Icon name={service.icon} className="size-3.5 text-accent-ink" />
@@ -252,12 +271,12 @@ export function Navbar() {
                 ))}
               </MobileGroup>
               <MobileGroup
-                label="Industries"
+                label={header.industriesLabel}
                 open={mobileSection === "industries"}
                 onToggle={() => setMobileSection((current) => (current === "industries" ? null : "industries"))}
               >
                 <Link href="/industries" className="nav-link w-full px-3 font-semibold" onClick={closeAll}>
-                  All industries
+                  {header.allIndustriesLabel}
                 </Link>
                 {industries.map((industry) => (
                   <Link
@@ -282,13 +301,13 @@ export function Navbar() {
                   {item.label}
                 </Link>
               ))}
-              <Link href="/contact" className="nav-link w-full rounded-lg px-2" onClick={closeAll}>
-                Contact
+              <Link href={header.ctaHref} className="nav-link w-full rounded-lg px-2" onClick={closeAll}>
+                {header.contactLabel}
               </Link>
             </nav>
             <Button asChild arrow className="mt-2 w-full">
-              <Link href="/contact" onClick={closeAll}>
-                Talk to us
+              <Link href={header.ctaHref} onClick={closeAll}>
+                {header.ctaLabel}
               </Link>
             </Button>
           </Container>

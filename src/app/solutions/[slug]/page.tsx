@@ -1,26 +1,27 @@
 import { notFound } from "next/navigation";
 import { DetailTemplate } from "@/components/detail/detail-template";
-import { getDetail, listDetails } from "@/content/details";
+import { getCms, getDetailPage, listDetailPages } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 import { serviceJsonLd } from "@/lib/structured-data";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return listDetails("solution").map((page) => ({ slug: page.slug }));
+export async function generateStaticParams() {
+  return (await listDetailPages("solution")).map((page) => ({ slug: page.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const page = getDetail("solution", slug);
+  const page = await getDetailPage("solution", slug);
   if (!page) return {};
   return createMetadata({ title: page.name, description: page.intro, path: `/solutions/${page.slug}` });
 }
 
 export default async function SolutionDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const page = getDetail("solution", slug);
+  const page = await getDetailPage("solution", slug);
   if (!page) notFound();
+  const { site } = await getCms();
 
   return (
     <DetailTemplate
@@ -30,7 +31,7 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
         { label: "Solutions", href: "/solutions" },
         { label: page.name, href: `/solutions/${page.slug}` },
       ]}
-      jsonLd={serviceJsonLd({ name: page.name, description: page.intro, path: `/solutions/${page.slug}` })}
+      jsonLd={serviceJsonLd(site, { name: page.name, description: page.intro, path: `/solutions/${page.slug}` })}
     />
   );
 }

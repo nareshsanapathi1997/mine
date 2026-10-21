@@ -3,26 +3,11 @@ import { ContactDetails } from "@/components/contact/contact-details";
 import { ContactForm } from "@/components/contact/contact-form";
 import { Photo } from "@/components/ui/photo";
 import { Container } from "@/components/layout/container";
-import { newImages } from "@/content/new-images";
+import { getCms } from "@/lib/cms";
 
-const offers = ["Websites and apps", "Business software", "WhatsApp and AI", "Hosting and support"];
+export async function ContactSection({ defaultNeed = "" }: { defaultNeed?: string }) {
+  const { site, contact } = await getCms();
 
-const nextSteps = [
-  {
-    title: "We read your message",
-    body: "We read every message ourselves. If something is unclear, we ask a question or two by email or WhatsApp.",
-  },
-  {
-    title: "A short call",
-    body: "You tell us how the work happens today and where it gets stuck. We listen and ask simple questions.",
-  },
-  {
-    title: "A simple written plan",
-    body: "You get a plain-English plan for the first version and a cost estimate. No obligation to go ahead.",
-  },
-];
-
-export function ContactSection({ defaultNeed = "" }: { defaultNeed?: string }) {
   return (
     <section id="contact" className="hero-stage relative scroll-mt-28 overflow-hidden">
       <div className="hero-grid" aria-hidden="true" />
@@ -31,29 +16,27 @@ export function ContactSection({ defaultNeed = "" }: { defaultNeed?: string }) {
         <div className="col-span-12 lg:col-span-5">
           <p className="eyebrow">
             <span className="eyebrow-mark" aria-hidden="true" />
-            Contact
+            {contact.eyebrow}
           </p>
-          <h1 className="text-h1 cluster text-ink">Tell us what you need.</h1>
-          <p className="text-body mt-3 text-muted">
-            For example: admission enquiries, hotel bookings, an order sheet or a busy reception phone. Only your name, email, need and a short note are required.
-          </p>
-          <figure className="photo-frame page-hero-photo c-photo relative mt-5" style={{ aspectRatio: `${newImages.contact.width} / ${newImages.contact.height}` }}>
-            <Photo src={newImages.contact.src} alt={newImages.contact.alt} fill priority sizes="(max-width: 1024px) 100vw, 480px" className="object-cover" />
+          <h1 className="text-h1 cluster text-ink">{contact.title}</h1>
+          <p className="text-body mt-3 text-muted">{contact.description}</p>
+          <figure className="photo-frame page-hero-photo c-photo relative mt-5" style={{ aspectRatio: `${contact.photo.width} / ${contact.photo.height}` }}>
+            <Photo src={contact.photo.src} alt={contact.photo.alt} fill priority sizes="(max-width: 1024px) 100vw, 480px" className="object-cover" />
           </figure>
           <ul className="mt-6 space-y-3">
-            {offers.map((item) => (
+            {contact.offers.map((item) => (
               <li key={item} className="flex items-center gap-2 text-sm font-semibold text-ink">
                 <Glyph name="check" className="size-4 text-accent" />
                 {item}
               </li>
             ))}
           </ul>
-          <ContactDetails />
-          <p className="mt-2 text-small text-muted">We reply to the email you enter.</p>
+          <ContactDetails site={site} />
+          <p className="mt-2 text-small text-muted">{contact.replyNote}</p>
           <div className="mt-8 border-t border-line pt-6">
-            <h2 className="text-h3 text-ink">What happens next</h2>
+            <h2 className="text-h3 text-ink">{contact.nextTitle}</h2>
             <ol className="c-timeline mt-5" data-reveal-stagger>
-              {nextSteps.map((step, index) => (
+              {contact.nextSteps.map((step, index) => (
                 <li key={step.title} className="c-timeline-item" data-reveal-child>
                   <span className="c-timeline-badge" aria-hidden="true">
                     {index + 1}
@@ -69,7 +52,7 @@ export function ContactSection({ defaultNeed = "" }: { defaultNeed?: string }) {
         </div>
         <div className="col-span-12 lg:col-span-7">
           <div className="border-t border-line pt-6">
-            <ContactForm defaultNeed={defaultNeed} />
+            <ContactForm defaultNeed={defaultNeed} copy={contact.form} />
           </div>
         </div>
       </Container>

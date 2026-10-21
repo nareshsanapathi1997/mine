@@ -8,24 +8,27 @@ function positiveInt(value: string, fallback: number) {
   return parsed;
 }
 
-/** Database name from PG_DATABASE, or `varasena` when that variable is empty. */
+/** Database name from MYSQL_DATABASE, or `varasena` when that variable is empty. */
 export function databaseName() {
-  return read("PG_DATABASE") || "varasena";
+  return read("MYSQL_DATABASE") || "varasena";
 }
 
-/** True when a host and user are set. Password may be empty for local trust auth. */
+/** True when a host and user are set. Password may be empty for local setups. */
 export function isDatabaseConfigured() {
-  return read("PG_HOST") !== "" && read("PG_USER") !== "";
+  return read("MYSQL_HOST") !== "" && read("MYSQL_USER") !== "";
 }
 
 export function poolConfig(database = databaseName()) {
   return {
-    host: read("PG_HOST"),
-    port: positiveInt(read("PG_PORT"), 5432),
-    user: read("PG_USER"),
-    password: read("PG_PASSWORD"),
+    host: read("MYSQL_HOST"),
+    port: positiveInt(read("MYSQL_PORT"), 3306),
+    user: read("MYSQL_USER"),
+    password: read("MYSQL_PASSWORD"),
     database,
-    max: positiveInt(read("PG_MAX_CONNECTIONS"), 20),
-    idleTimeoutMillis: positiveInt(read("PG_IDLE_TIMEOUT"), 300_000),
+    charset: "utf8mb4",
+    waitForConnections: true,
+    connectionLimit: positiveInt(read("MYSQL_MAX_CONNECTIONS"), 20),
+    idleTimeout: positiveInt(read("MYSQL_IDLE_TIMEOUT"), 300_000),
+    enableKeepAlive: true,
   };
 }

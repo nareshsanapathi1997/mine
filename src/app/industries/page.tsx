@@ -3,26 +3,29 @@ import { DetailCard } from "@/components/detail/detail-card";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
-import { newImages } from "@/content/new-images";
-import { listDetails } from "@/content/details";
+import { getCms } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 
-export const metadata = createMetadata({
-  title: "Industries",
-  description: "Software and automation for schools, colleges, coaching centres, hotels, factories, clinics and small businesses in India.",
-  path: "/industries",
-});
+export async function generateMetadata() {
+  const { industriesHub } = await getCms();
+  return createMetadata({
+    title: industriesHub.metaTitle,
+    description: industriesHub.metaDescription,
+    path: "/industries",
+  });
+}
 
-export default function IndustriesPage() {
-  const all = listDetails("industry");
+export default async function IndustriesPage() {
+  const { industriesHub, details } = await getCms();
+  const all = details.filter((page) => page.kind === "industry");
   const main = all.filter((page) => !page.parent);
   return (
     <>
       <PageHeader
-        eyebrow="Industries"
-        title="Built for the way your sector works."
-        description="A school, a hotel and a factory have very different days. Choose yours to see the problems we fix and a sample of how it works."
-        photo={newImages.industries}
+        eyebrow={industriesHub.header.eyebrow}
+        title={industriesHub.header.title}
+        description={industriesHub.header.description}
+        photo={industriesHub.header.photo}
       />
       <section className="section h-section" aria-label="Industries">
         <Container>
@@ -46,7 +49,7 @@ export default function IndustriesPage() {
           </ul>
         </Container>
       </section>
-      <CtaBand title="Do not see your industry?" description="The same problems show up everywhere: missed enquiries, manual reminders, scattered data. Tell us about yours." primaryLabel="Talk to us" showWhatsapp />
+      <CtaBand title={industriesHub.cta.title} description={industriesHub.cta.description} primaryLabel={industriesHub.cta.primaryLabel} showWhatsapp />
     </>
   );
 }

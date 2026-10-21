@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
-import { siteConfig } from "@/content/site";
+import { getSite } from "@/lib/cms";
+import { enquiryAckHtml, enquiryAckText, enquiryHtml, enquiryText } from "@/lib/email/enquiry-mail";
 import type { Enquiry } from "@/lib/enquiry";
 
 const SMTP_KEYS = [
@@ -11,18 +12,11 @@ const SMTP_KEYS = [
   "CONTACT_FROM_EMAIL",
 ] as const;
 
-/** Safe public defaults when Vercel env vars are not set yet. */
-const ENV_DEFAULTS: Partial<Record<(typeof SMTP_KEYS)[number], string>> = {
-  SMTP_PORT: "587",
-  CONTACT_TO_EMAIL: siteConfig.email,
-  CONTACT_FROM_EMAIL: siteConfig.email,
-};
-
-function env(name: (typeof SMTP_KEYS)[number] | "CONTACT_WEBHOOK_URL") {
+function env(name: (typeof SMTP_KEYS)[number] | "CONTACT_WEBHOOK_URL", fallback = "") {
   const value = process.env[name]?.trim() ?? "";
   if (value) return value;
   if (name === "CONTACT_WEBHOOK_URL") return "";
-  return ENV_DEFAULTS[name] ?? "";
+  return fallback;
 }
 
 function subjectSafe(value: string) {
@@ -35,7 +29,11 @@ export type DeliveryResult =
   | { ok: false; status: number; message: string };
 
 export async function deliverEnquiry(enquiry: Enquiry): Promise<DeliveryResult> {
-  const missing = SMTP_KEYS.filter((key) => env(key) === "");
+  const site = await getSite();
+  const missing = SMTP_KEYS.filter((key) => {
+    const fallback = key === "SMTP_PORT" ? "587" : key === "CONTACT_TO_EMAIL" || key === "CONTACT_FROM_EMAIL" ? site.email : "";
+    return env(key, fallback) === "";
+  });
   const smtpReady = missing.length === 0;
   const webhook = env("CONTACT_WEBHOOK_URL");
   const webhookReady = webhook !== "";
@@ -58,7 +56,7 @@ export async function deliverEnquiry(enquiry: Enquiry): Promise<DeliveryResult> 
       delivered: false,
       message: development
         ? "Enquiry accepted in development. Set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, CONTACT_TO_EMAIL and CONTACT_FROM_EMAIL, or CONTACT_WEBHOOK_URL, to deliver it."
-        : `We received your enquiry, but email delivery is not set up on this server yet. Please write to ${siteConfig.email}.`,
+        : `We received your enquiry, but email delivery is not set up on this server yet. Please write to ${site.email}.`,
       ...(development ? { missing: [...missing, "CONTACT_WEBHOOK_URL"] } : {}),
     };
   }
@@ -68,7 +66,7 @@ export async function deliverEnquiry(enquiry: Enquiry): Promise<DeliveryResult> 
 
   if (smtpReady) {
     try {
-      const port = Number(env("SMTP_PORT"));
+      const port = Number(env("SMTP_PORT", "587"));
       if (!Number.isInteger(port) || port < 1 || port > 65535) {
         throw new Error("SMTP_PORT is not a valid port number.");
       }
@@ -83,23 +81,34 @@ export async function deliverEnquiry(enquiry: Enquiry): Promise<DeliveryResult> 
         },
       });
 
+      const from = process.env.MAIL_FROM?.trim() || env("CONTACT_FROM_EMAIL", site.email);
+      const inbox = env("CONTACT_TO_EMAIL", site.email);
+      const who = enquiry.company ? `${enquiry.name} (${enquiry.company})` : enquiry.name;
+
       await transporter.sendMail({
-        from: env("CONTACT_FROM_EMAIL"),
-        to: env("CONTACT_TO_EMAIL"),
+        from,
+        to: inbox,
         replyTo: enquiry.email,
-        subject: subjectSafe(`Enquiry from ${enquiry.name} (${enquiry.company})`),
-        text: [
-          `Name: ${enquiry.name}`,
-          `Company: ${enquiry.company}`,
-          `Email: ${enquiry.email}`,
-          `Phone: ${enquiry.phone}`,
-          `Industry: ${enquiry.industry}`,
-          `Need: ${enquiry.need}`,
-          `Budget: ${enquiry.budget}`,
-          "",
-          enquiry.message,
-        ].join("\n"),
+        subject: subjectSafe(`New enquiry from ${who}`),
+        text: enquiryText(enquiry, site),
+        html: enquiryHtml(enquiry, site),
       });
+
+      try {
+        await transporter.sendMail({
+          from,
+          to: enquiry.email,
+          replyTo: inbox,
+          subject: subjectSafe(`We received your enquiry · ${site.name}`),
+          text: enquiryAckText(enquiry, site),
+          html: enquiryAckHtml(enquiry, site),
+        });
+      } catch (error) {
+        console.error(
+          "[contact] Confirmation email failed.",
+          error instanceof Error ? error.message : "Unknown SMTP error",
+        );
+      }
       delivered.push("email");
     } catch (error) {
       console.error(
@@ -129,7 +138,7 @@ export async function deliverEnquiry(enquiry: Enquiry): Promise<DeliveryResult> 
           Accept: "application/json",
         },
         body: JSON.stringify({
-          source: siteConfig.name,
+          source: site.name,
           receivedAt: new Date().toISOString(),
           enquiry,
         }),
@@ -161,6 +170,6 @@ export async function deliverEnquiry(enquiry: Enquiry): Promise<DeliveryResult> 
   return {
     ok: false,
     status: 502,
-    message: `We could not deliver your enquiry just now. Please try again, or email ${siteConfig.email}.`,
+    message: `We could not deliver your enquiry just now. Please try again, or email ${site.email}.`,
   };
 }

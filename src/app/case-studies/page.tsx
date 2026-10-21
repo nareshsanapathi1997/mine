@@ -4,15 +4,8 @@ import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { CtaBand } from "@/components/sections/cta-band";
-import { newImages } from "@/content/new-images";
-import { caseStudies } from "@/content/case-studies";
+import { getCms } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
-
-export const metadata = createMetadata({
-  title: "Examples",
-  description: "Sample scenarios for a school, a hotel, a factory, a clinic and a consultant: the problem, what we would build, and what changes. Illustrations, not client results.",
-  path: "/case-studies",
-});
 
 function List({ title, items, icon, tone }: { title: string; items: string[]; icon: "minus" | "check"; tone: string }) {
   return (
@@ -30,33 +23,43 @@ function List({ title, items, icon, tone }: { title: string; items: string[]; ic
   );
 }
 
-export default function CaseStudiesPage() {
+export async function generateMetadata() {
+  const { caseStudies } = await getCms();
+  return createMetadata({
+    title: caseStudies.metaTitle,
+    description: caseStudies.metaDescription,
+    path: "/case-studies",
+  });
+}
+
+export default async function CaseStudiesPage() {
+  const { caseStudies } = await getCms();
   return (
     <>
       <PageHeader
-        eyebrow="Examples"
-        title="Sample projects: the problem, what we build, what changes."
-        description="Everyday situations we hear about often. These are samples to show how we think, not real client projects, and they make no claims about results."
-        photo={newImages.caseStudies}
+        eyebrow={caseStudies.header.eyebrow}
+        title={caseStudies.header.title}
+        description={caseStudies.header.description}
+        photo={caseStudies.header.photo}
       />
       <section className="section h-section" aria-label="Sample projects">
         <Container>
           <ul className="grid gap-5" data-reveal-stagger>
-            {caseStudies.map((study, index) => (
+            {caseStudies.items.map((study, index) => (
               <li key={study.slug} id={study.slug} className={index % 2 ? "card cs-card cs-flip" : "card cs-card"} data-reveal-child>
                 <div className="cs-photo is-banner relative" style={{ "--ratio": `${study.photo.width} / ${study.photo.height}` } as React.CSSProperties}>
                   <Photo src={study.photo.src} alt={study.photo.alt} fill sizes="(max-width: 1024px) 100vw, 560px" className="object-cover" />
-                  <span className="sample-tag absolute left-3 top-3">Sample</span>
+                  <span className="sample-tag absolute left-3 top-3">{caseStudies.sampleTag}</span>
                 </div>
                 <div className="p-5 sm:p-7">
                   <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent-ink">{study.industry}</p>
                   <h2 className="text-h3 mt-2 text-ink">{study.title}</h2>
                   <div className="mt-5 grid gap-5 md:grid-cols-2">
-                    <List title="Today" items={study.before} icon="minus" tone="text-muted" />
-                    <List title="After" items={study.after} icon="check" tone="text-accent-ink" />
+                    <List title={caseStudies.todayLabel} items={study.before} icon="minus" tone="text-muted" />
+                    <List title={caseStudies.afterLabel} items={study.after} icon="check" tone="text-accent-ink" />
                   </div>
                   <div className="mt-5 border-t border-line pt-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">What we would build</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">{caseStudies.builtLabel}</p>
                     <ul className="mt-3 flex flex-wrap gap-2">
                       {study.built.map((item) => <li key={item} className="chip">{item}</li>)}
                     </ul>
@@ -70,7 +73,7 @@ export default function CaseStudiesPage() {
           </ul>
         </Container>
       </section>
-      <CtaBand title="Does one of these sound like you?" description="Tell us what your version looks like. Every business is a little different." primaryLabel="Talk to us" showWhatsapp />
+      <CtaBand title={caseStudies.cta.title} description={caseStudies.cta.description} primaryLabel={caseStudies.cta.primaryLabel} showWhatsapp />
     </>
   );
 }

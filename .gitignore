@@ -37,6 +37,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Admin-uploaded logos and page photos. Keep the folders, ignore the files.
+/public/uploads/brand/*
+!/public/uploads/brand/.gitkeep
+/public/uploads/content/*
+!/public/uploads/content/.gitkeep
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

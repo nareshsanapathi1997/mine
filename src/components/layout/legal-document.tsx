@@ -1,28 +1,33 @@
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
-import { legalEffectiveDate, type LegalSection } from "@/content/legal";
-import { siteConfig } from "@/content/site";
+import type { LegalSection } from "@/content/legal";
+import { getCms } from "@/lib/cms";
 
-export function LegalDocument({
+export async function LegalDocument({
   eyebrow,
   title,
   description,
   sections,
+  effectiveDate,
 }: {
   eyebrow: string;
   title: string;
   description: string;
   sections: LegalSection[];
+  effectiveDate?: string;
 }) {
+  const { site, legal } = await getCms();
+  const date = effectiveDate ?? legal.effectiveDate;
+
   return (
     <>
       <PageHeader eyebrow={eyebrow} title={title} description={description} />
       <article className="section bg-surface">
         <Container className="max-w-3xl">
           <p className="rounded-xl border border-line bg-canvas px-4 py-3 text-small leading-relaxed text-muted">
-            Effective {legalEffectiveDate}. Operated by {siteConfig.name}, {siteConfig.location}. For questions:{" "}
-            <a className="text-link" href={`mailto:${siteConfig.email}`}>
-              {siteConfig.email}
+            Effective {date}. Operated by {site.name}, {site.location}. For questions:{" "}
+            <a className="text-link" href={`mailto:${site.email}`}>
+              {site.email}
             </a>
             .
           </p>

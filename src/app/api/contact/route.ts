@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { siteConfig } from "@/content/site";
+import { getSite } from "@/lib/cms";
 import { insertEnquiry } from "@/lib/db";
 import { deliverEnquiry } from "@/lib/deliver-enquiry";
 import { validateEnquiry } from "@/lib/enquiry";
@@ -89,10 +89,11 @@ export async function POST(request: Request) {
   const delivery = await deliverEnquiry(result.data);
   if (!delivery.ok) {
     if (stored) {
+      const site = await getSite();
       return json({
         ok: true,
         delivered: false,
-        message: `We received your enquiry. If you do not hear back, please email ${siteConfig.email}.`,
+        message: `We received your enquiry. If you do not hear back, please email ${site.email}.`,
       });
     }
     return json({ ok: false, message: delivery.message }, delivery.status);

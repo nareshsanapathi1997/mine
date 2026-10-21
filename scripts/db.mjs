@@ -1,9 +1,8 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import pg from "pg";
+import mysql from "mysql2/promise";
 
-const { Pool } = pg;
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 function parseEnv(text) {
@@ -49,80 +48,88 @@ function positiveInt(value, fallback) {
 }
 
 function databaseName() {
-  return read("PG_DATABASE") || "varasena";
+  return read("MYSQL_DATABASE") || "varasena";
 }
 
 function assertIdentifier(name) {
   if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) {
-    throw new Error("PG_DATABASE must be a simple identifier (letters, numbers, underscore).");
+    throw new Error("MYSQL_DATABASE must be a simple identifier (letters, numbers, underscore).");
   }
 }
 
 function quoteIdent(name) {
-  return `"${name.replaceAll('"', '""')}"`;
+  return `\`${name.replaceAll("`", "``")}\``;
 }
 
 function connection(database) {
   return {
-    host: read("PG_HOST"),
-    port: positiveInt(read("PG_PORT"), 5432),
-    user: read("PG_USER"),
-    password: read("PG_PASSWORD"),
-    database,
-    max: 1,
+    host: read("MYSQL_HOST"),
+    port: positiveInt(read("MYSQL_PORT"), 3306),
+    user: read("MYSQL_USER"),
+    password: read("MYSQL_PASSWORD"),
+    charset: "utf8mb4",
+    ...(database ? { database } : {}),
+    connectionLimit: 1,
+    multipleStatements: true,
   };
 }
 
 async function createDatabase() {
   const name = databaseName();
   assertIdentifier(name);
-  const pool = new Pool(connection("postgres"));
+  const pool = mysql.createPool(connection());
   try {
-    const existing = await pool.query("select 1 from pg_database where datname = $1", [name]);
-    if (existing.rowCount && existing.rowCount > 0) {
+    const [existing] = await pool.query(
+      "select schema_name from information_schema.schemata where schema_name = ?",
+      [name],
+    );
+    if (Array.isArray(existing) && existing.length > 0) {
       console.log(`Database ${name} already exists.`);
       return;
     }
-    await pool.query(`create database ${quoteIdent(name)}`);
+    await pool.query(`create database ${quoteIdent(name)} default character set utf8mb4 collate utf8mb4_unicode_ci`);
     console.log(`Created database ${name}.`);
   } finally {
     await pool.end();
   }
 }
 
-async function migrate() {
+async function applySqlFiles(kind, dirName) {
   const name = databaseName();
   assertIdentifier(name);
-  const pool = new Pool(connection(name));
+  const pool = mysql.createPool(connection(name));
   try {
     await pool.query(`
       create table if not exists schema_migrations (
-        id text primary key,
-        applied_at timestamptz not null default now()
+        id varchar(255) primary key,
+        applied_at timestamp not null default current_timestamp
       )
     `);
-    const applied = await pool.query("select id from schema_migrations");
-    const done = new Set(applied.rows.map((row) => row.id));
-    const dir = path.join(root, "db", "migrations");
+    const [applied] = await pool.query("select id from schema_migrations");
+    const done = new Set(
+      Array.isArray(applied) ? applied.map((row) => row.id) : [],
+    );
+    const dir = path.join(root, "db", dirName);
     const files = readdirSync(dir)
       .filter((file) => file.endsWith(".sql"))
       .sort((a, b) => a.localeCompare(b, "en"));
 
     for (const file of files) {
-      if (done.has(file)) {
+      const id = `${kind}:${file}`;
+      if (done.has(id) || done.has(file)) {
         console.log(`Already applied ${file}.`);
         continue;
       }
       const sql = readFileSync(path.join(dir, file), "utf8");
-      const client = await pool.connect();
+      const client = await pool.getConnection();
       try {
-        await client.query("begin");
+        await client.beginTransaction();
         await client.query(sql);
-        await client.query("insert into schema_migrations (id) values ($1)", [file]);
-        await client.query("commit");
+        await client.query("insert into schema_migrations (id) values (?)", [id]);
+        await client.commit();
         console.log(`Applied ${file}.`);
       } catch (error) {
-        await client.query("rollback");
+        await client.rollback();
         throw error;
       } finally {
         client.release();
@@ -133,6 +140,14 @@ async function migrate() {
   }
 }
 
+async function migrate() {
+  await applySqlFiles("migration", "migrations");
+}
+
+async function seed() {
+  await applySqlFiles("seed", "seeds");
+}
+
 loadEnv();
 
 const command = process.argv[2];
@@ -141,11 +156,14 @@ try {
     await createDatabase();
   } else if (command === "migrate") {
     await migrate();
+  } else if (command === "seed") {
+    await seed();
   } else if (command === "setup") {
     await createDatabase();
     await migrate();
+    await seed();
   } else {
-    console.error("Usage: node scripts/db.mjs <create|migrate|setup>");
+    console.error("Usage: node scripts/db.mjs <create|migrate|seed|setup>");
     process.exitCode = 1;
   }
 } catch (error) {

@@ -6,7 +6,36 @@
  *
  * `url` is the public origin. Set NEXT_PUBLIC_SITE_URL when the production domain is confirmed.
  */
-export const siteConfig = {
+export type SiteSocialLink = { label: string; href: string };
+
+export type SiteBrand = {
+  logoLight: string;
+  logoDark: string;
+  icon: string;
+  mark: string;
+  favicon: string;
+};
+
+export type SiteConfig = {
+  name: string;
+  email: string;
+  supportEmail: string;
+  phoneDisplay: string;
+  phoneHref: string;
+  whatsappHref: string;
+  location: string;
+  hours: string;
+  url: string;
+  description: string;
+  positioning: string;
+  nameMeaning: string;
+  tagline: string;
+  locale: string;
+  social: SiteSocialLink[];
+  brand: SiteBrand;
+};
+
+export const siteConfig: SiteConfig = {
   name: "VARASENA Technologies",
   /** General enquiries — shown in footer, contact, legal and JSON-LD. */
   email: "info@varasena.com",
@@ -31,7 +60,14 @@ export const siteConfig = {
   social: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/varasena-technologies-315798445" },
   ],
-} as const;
+  brand: {
+    logoLight: "/varasena-brand-pack/varasena-logo-light.png",
+    logoDark: "/varasena-brand-pack/varasena-logo-dark.png",
+    icon: "/varasena-brand-pack/varasena-v-mark.png",
+    mark: "/varasena-brand-pack/varasena-v-mark.png",
+    favicon: "/icon.png",
+  },
+};
 
 export function copyrightYear(date = new Date()) {
   return date.getFullYear();

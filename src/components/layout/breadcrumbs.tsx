@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { JsonLd } from "@/components/seo/json-ld";
+import { getSite } from "@/lib/cms";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export type Crumb = {
@@ -8,11 +9,15 @@ export type Crumb = {
   href: string;
 };
 
-export function Breadcrumbs({ items }: { items: Crumb[] }) {
+export async function Breadcrumbs({ items }: { items: Crumb[] }) {
+  const site = await getSite();
   return (
     <nav aria-label="Breadcrumb" className="border-b border-line bg-surface">
       <JsonLd
-        data={breadcrumbJsonLd(items.map((item) => ({ name: item.label, path: item.href })))}
+        data={breadcrumbJsonLd(
+          site,
+          items.map((item) => ({ name: item.label, path: item.href })),
+        )}
       />
       <Container className="py-3">
         <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">

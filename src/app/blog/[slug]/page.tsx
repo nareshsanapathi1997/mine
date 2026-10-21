@@ -8,6 +8,7 @@ import { Container } from "@/components/layout/container";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { formatPostDate, getPost, getPosts, tagLabel } from "@/lib/blog";
+import { getSite } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 import { articleJsonLd } from "@/lib/structured-data";
 
@@ -33,6 +34,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getPost(slug);
   if (!post) notFound();
 
+  const site = await getSite();
   const others = getPosts()
     .filter((item) => item.slug !== post.slug)
     .sort((a, b) => {
@@ -44,7 +46,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <>
       <JsonLd
-        data={articleJsonLd({
+        data={articleJsonLd(site, {
           title: post.title,
           description: post.description,
           path: `/blog/${post.slug}`,

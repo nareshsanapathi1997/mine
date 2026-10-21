@@ -1,9 +1,9 @@
-import { listDetails } from "@/content/details";
 import type { MetadataRoute } from "next";
-import { siteConfig } from "@/content/site";
+import { getCms } from "@/lib/cms";
 import { getPosts, getTags } from "@/lib/blog";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { site, details } = await getCms();
   const lastModified = new Date();
   const staticPaths = [
     "/",
@@ -21,25 +21,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const pages: MetadataRoute.Sitemap = staticPaths.map((path) => ({
-    url: new URL(path, siteConfig.url).toString(),
+    url: new URL(path, site.url).toString(),
     lastModified,
     changeFrequency: path === "/" ? "weekly" : "monthly",
     priority: path === "/" ? 1 : 0.7,
   }));
 
   try {
-    for (const { slug } of listDetails("solution")) {
+    for (const page of details.filter((item) => item.kind === "solution")) {
       pages.push({
-        url: new URL(`/solutions/${slug}`, siteConfig.url).toString(),
+        url: new URL(`/solutions/${page.slug}`, site.url).toString(),
         lastModified,
         changeFrequency: "monthly",
         priority: 0.7,
       });
     }
 
-    for (const { slug } of listDetails("industry")) {
+    for (const page of details.filter((item) => item.kind === "industry")) {
       pages.push({
-        url: new URL(`/industries/${slug}`, siteConfig.url).toString(),
+        url: new URL(`/industries/${page.slug}`, site.url).toString(),
         lastModified,
         changeFrequency: "monthly",
         priority: 0.7,
@@ -48,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const post of getPosts()) {
       pages.push({
-        url: new URL(`/blog/${post.slug}`, siteConfig.url).toString(),
+        url: new URL(`/blog/${post.slug}`, site.url).toString(),
         lastModified: new Date(`${post.date}T00:00:00.000Z`),
         changeFrequency: "monthly",
         priority: 0.6,
@@ -57,7 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const tag of getTags()) {
       pages.push({
-        url: new URL(`/blog/tag/${tag}`, siteConfig.url).toString(),
+        url: new URL(`/blog/tag/${tag}`, site.url).toString(),
         lastModified,
         changeFrequency: "monthly",
         priority: 0.5,

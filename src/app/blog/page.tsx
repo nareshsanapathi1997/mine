@@ -3,38 +3,41 @@ import { BlogBrowser } from "@/components/blog/blog-browser";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
-import { newImages } from "@/content/new-images";
-import { siteConfig } from "@/content/site";
+import { getCms } from "@/lib/cms";
 import { getPosts } from "@/lib/blog";
 import { createMetadata } from "@/lib/seo";
 
-export const metadata = createMetadata({
-  title: "Blog",
-  description: `Simple, practical articles from ${siteConfig.name} on AI assistants, WhatsApp automation and business software for Indian businesses.`,
-  path: "/blog",
-});
+export async function generateMetadata() {
+  const { blog } = await getCms();
+  return createMetadata({
+    title: blog.metaTitle,
+    description: blog.metaDescription,
+    path: "/blog",
+  });
+}
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const { blog } = await getCms();
   const posts = getPosts();
 
   return (
     <>
       <PageHeader
-        eyebrow="Blog"
-        title="Practical articles for business owners."
-        description="Short, jargon-free reads on AI assistants, WhatsApp automation and software, with everyday examples from schools, hotels and small businesses."
-        photo={newImages.blog}
+        eyebrow={blog.header.eyebrow}
+        title={blog.header.title}
+        description={blog.header.description}
+        photo={blog.header.photo}
       />
       <section className="section h-section">
         <Container>
           {posts.length === 0 ? (
             <div className="rounded-xl border border-dashed border-line bg-surface px-6 py-12 text-center">
-              <h2 className="text-h3 text-ink">Nothing published yet</h2>
+              <h2 className="text-h3 text-ink">{blog.emptyTitle}</h2>
               <p className="mx-auto mt-3 max-w-lg text-base leading-relaxed text-muted">
-                When the first notes are ready, they will appear here.
+                {blog.emptyBody}
               </p>
               <Button asChild arrow className="mt-6">
-                <Link href="/contact">Talk to us</Link>
+                <Link href="/contact">{blog.ctaLabel}</Link>
               </Button>
             </div>
           ) : (

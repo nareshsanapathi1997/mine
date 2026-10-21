@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
-import { siteConfig } from "@/content/site";
+import { getSite } from "@/lib/cms";
 import { formatPostDate, getPostsByTag, getTags, tagLabel } from "@/lib/blog";
 import { createMetadata } from "@/lib/seo";
 
@@ -15,9 +15,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ tag: string }> }) {
   const { tag } = await params;
   const label = tagLabel(tag);
+  const site = await getSite();
   return createMetadata({
     title: `${label} articles`,
-    description: `Notes from ${siteConfig.name} tagged ${label}.`,
+    description: `Notes from ${site.name} tagged ${label}.`,
     path: `/blog/tag/${tag}`,
   });
 }

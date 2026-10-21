@@ -1,21 +1,25 @@
 import { LegalDocument } from "@/components/layout/legal-document";
-import { termsSections } from "@/content/legal";
-import { siteConfig } from "@/content/site";
+import { getCms } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 
-export const metadata = createMetadata({
-  title: "Terms & Conditions",
-  description: `Terms for using the ${siteConfig.name} website and engaging us for software, automation and related services — including scope, payments, support and liability.`,
-  path: "/terms",
-});
+export async function generateMetadata() {
+  const { legal } = await getCms();
+  return createMetadata({
+    title: legal.terms.metaTitle,
+    description: legal.terms.metaDescription,
+    path: "/terms",
+  });
+}
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const { legal } = await getCms();
   return (
     <LegalDocument
-      eyebrow="Terms"
-      title="Terms & Conditions"
-      description={`Website use and service engagement terms for ${siteConfig.name}.`}
-      sections={termsSections()}
+      eyebrow={legal.terms.eyebrow}
+      title={legal.terms.title}
+      description={legal.terms.description}
+      sections={legal.terms.sections}
+      effectiveDate={legal.effectiveDate}
     />
   );
 }

@@ -1,7 +1,10 @@
-import { services } from "@/content/services";
-import { siteConfig } from "@/content/site";
+import type { Service } from "@/content/services";
+import type { SiteConfig } from "@/content/site";
 
-export function serviceJsonLd(input: { name: string; description: string; path: string }) {
+export function serviceJsonLd(
+  site: SiteConfig,
+  input: { name: string; description: string; path: string },
+) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -11,14 +14,14 @@ export function serviceJsonLd(input: { name: string; description: string; path: 
     areaServed: "IN",
     provider: {
       "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
+      name: site.name,
+      url: site.url,
     },
-    url: new URL(input.path, siteConfig.url).toString(),
+    url: new URL(input.path, site.url).toString(),
   };
 }
 
-export function breadcrumbJsonLd(items: { name: string; path?: string }[]) {
+export function breadcrumbJsonLd(site: SiteConfig, items: { name: string; path?: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -26,21 +29,24 @@ export function breadcrumbJsonLd(items: { name: string; path?: string }[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      ...(item.path ? { item: new URL(item.path, siteConfig.url).toString() } : {}),
+      ...(item.path ? { item: new URL(item.path, site.url).toString() } : {}),
     })),
   };
 }
 
-export function articleJsonLd(input: {
-  title: string;
-  description: string;
-  path: string;
-  datePublished: string;
-  author: string;
-}) {
+export function articleJsonLd(
+  site: SiteConfig,
+  input: {
+    title: string;
+    description: string;
+    path: string;
+    datePublished: string;
+    author: string;
+  },
+) {
   const author =
-    input.author === siteConfig.name
-      ? { "@type": "Organization", name: siteConfig.name, url: siteConfig.url }
+    input.author === site.name
+      ? { "@type": "Organization", name: site.name, url: site.url }
       : { "@type": "Person", name: input.author };
 
   return {
@@ -52,47 +58,47 @@ export function articleJsonLd(input: {
     author,
     publisher: {
       "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
+      name: site.name,
+      url: site.url,
       logo: {
         "@type": "ImageObject",
-        url: new URL("/varasena-brand-pack/varasena-logo-dark.png", siteConfig.url).toString(),
+        url: new URL("/varasena-brand-pack/varasena-logo-dark.png", site.url).toString(),
       },
     },
-    mainEntityOfPage: new URL(input.path, siteConfig.url).toString(),
+    mainEntityOfPage: new URL(input.path, site.url).toString(),
   };
 }
 
-export function websiteJsonLd() {
+export function websiteJsonLd(site: SiteConfig) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: siteConfig.name,
-    url: siteConfig.url,
-    description: siteConfig.description,
+    name: site.name,
+    url: site.url,
+    description: site.description,
   };
 }
 
-export function organizationJsonLd() {
+export function organizationJsonLd(site: SiteConfig) {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: siteConfig.name,
-    url: siteConfig.url,
-    email: siteConfig.email,
-    ...(siteConfig.phoneHref ? { telephone: siteConfig.phoneHref.replace(/^tel:/, "") } : {}),
-    ...(siteConfig.location ? { address: siteConfig.location } : {}),
-    sameAs: siteConfig.social.map((item) => item.href),
-    logo: new URL("/varasena-brand-pack/varasena-logo-dark.png", siteConfig.url).toString(),
-    description: siteConfig.description,
+    name: site.name,
+    url: site.url,
+    email: site.email,
+    ...(site.phoneHref ? { telephone: site.phoneHref.replace(/^tel:/, "") } : {}),
+    ...(site.location ? { address: site.location } : {}),
+    sameAs: site.social.map((item) => item.href),
+    logo: new URL("/varasena-brand-pack/varasena-logo-dark.png", site.url).toString(),
+    description: site.description,
   };
 }
 
-export function servicesJsonLd() {
+export function servicesJsonLd(site: SiteConfig, services: Service[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: `${siteConfig.name} services`,
+    name: `${site.name} services`,
     itemListElement: services.map((service, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -104,10 +110,10 @@ export function servicesJsonLd() {
         areaServed: "IN",
         provider: {
           "@type": "Organization",
-          name: siteConfig.name,
-          url: siteConfig.url,
+          name: site.name,
+          url: site.url,
         },
-        url: new URL(`/solutions/${service.slug}`, siteConfig.url).toString(),
+        url: new URL(`/solutions/${service.slug}`, site.url).toString(),
       },
     })),
   };

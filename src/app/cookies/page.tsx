@@ -1,21 +1,25 @@
 import { LegalDocument } from "@/components/layout/legal-document";
-import { cookieSections } from "@/content/legal";
-import { siteConfig } from "@/content/site";
+import { getCms } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 
-export const metadata = createMetadata({
-  title: "Cookie Policy",
-  description: `Cookie notice for the ${siteConfig.name} website. The site does not set advertising cookies.`,
-  path: "/cookies",
-});
+export async function generateMetadata() {
+  const { legal } = await getCms();
+  return createMetadata({
+    title: legal.cookies.metaTitle,
+    description: legal.cookies.metaDescription,
+    path: "/cookies",
+  });
+}
 
-export default function CookiesPage() {
+export default async function CookiesPage() {
+  const { legal } = await getCms();
   return (
     <LegalDocument
-      eyebrow="Cookies"
-      title="Cookie Policy"
-      description="What this website stores in the browser, and what it does not."
-      sections={cookieSections()}
+      eyebrow={legal.cookies.eyebrow}
+      title={legal.cookies.title}
+      description={legal.cookies.description}
+      sections={legal.cookies.sections}
+      effectiveDate={legal.effectiveDate}
     />
   );
 }

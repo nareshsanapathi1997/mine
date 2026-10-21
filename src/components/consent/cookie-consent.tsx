@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useContext, useRef, useState, useSyncExternalStore, createContext } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -147,8 +148,9 @@ function AnalyticsScripts() {
 function CookieBanner({ onPreferences }: { onPreferences: () => void }) {
   // Rendered on the server so it paints with the page instead of after hydration.
   // The boot script in layout hides it at once for visitors who already chose.
+  const pathname = usePathname();
   const consent = useConsent();
-  if (consent) return null;
+  if (consent || pathname.startsWith("/admin")) return null;
 
   return (
     <div className="cookie-banner fixed inset-x-0 bottom-0 z-50 p-3 sm:p-4">

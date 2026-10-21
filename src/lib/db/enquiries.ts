@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import type { Enquiry } from "@/lib/enquiry";
 import { getPool } from "@/lib/db/pool";
 
@@ -13,19 +13,20 @@ function ipHash(ip: string) {
   return createHash("sha256").update(ip.slice(0, 64)).digest("hex");
 }
 
-/** Insert one enquiry. Returns false when Postgres is not configured. Throws on a query failure. */
+/** Insert one enquiry. Returns false when MySQL is not configured. Throws on a query failure. */
 export async function insertEnquiry(record: EnquiryRecord) {
   const pool = getPool();
   if (!pool) {
-    console.warn("[db] Postgres is not configured. Enquiry was not stored.");
+    console.warn("[db] MySQL is not configured. Enquiry was not stored.");
     return false;
   }
 
   await pool.query(
     `insert into enquiries (
-      name, company, email, phone, industry, need, budget_range, message, source_page, user_agent, ip_hash
-    ) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+      id, name, company, email, phone, industry, need, budget_range, message, source_page, user_agent, ip_hash
+    ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
+      randomUUID(),
       record.enquiry.name,
       record.enquiry.company || null,
       record.enquiry.email,
