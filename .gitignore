@@ -41,5 +41,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# cursor
-.cursor
+# cursor / local editor agent state
+.cursor/
+.cursor/**
+.claude/
+.claude/**
+.idea/
+.vscode/
+*.swp
+Thumbs.db
