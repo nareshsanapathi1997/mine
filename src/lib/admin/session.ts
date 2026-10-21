@@ -1,5 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 const COOKIE = "vs_admin";
 const WEEK = 60 * 60 * 24 * 7;
@@ -41,12 +41,20 @@ export async function getAdminSession() {
   return readSession(jar.get(COOKIE)?.value);
 }
 
+async function cookieSecure() {
+  if (process.env.ADMIN_COOKIE_SECURE === "0") return false;
+  const proto = (await headers()).get("x-forwarded-proto")?.split(",")[0]?.trim();
+  if (proto === "https") return true;
+  if (proto === "http") return false;
+  return process.env.NODE_ENV === "production";
+}
+
 export async function setAdminSession(username: string) {
   const jar = await cookies();
   jar.set(COOKIE, signSession(username), {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: await cookieSecure(),
     path: "/",
     maxAge: WEEK,
   });

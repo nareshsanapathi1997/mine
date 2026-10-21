@@ -16,9 +16,29 @@ export async function findAdmin(username: string) {
 export async function countAdmins() {
   const pool = getPool();
   if (!pool) return 0;
-  const [rows] = await pool.query("select count(*) as n from admin_users");
-  const row = Array.isArray(rows) ? (rows[0] as { n: number }) : null;
-  return Number(row?.n ?? 0);
+  try {
+    const [rows] = await pool.query("select count(*) as n from admin_users");
+    const row = Array.isArray(rows) ? (rows[0] as { n: number }) : null;
+    return Number(row?.n ?? 0);
+  } catch {
+    await ensureAdminTable();
+    const [rows] = await pool.query("select count(*) as n from admin_users");
+    const row = Array.isArray(rows) ? (rows[0] as { n: number }) : null;
+    return Number(row?.n ?? 0);
+  }
+}
+
+async function ensureAdminTable() {
+  const pool = getPool();
+  if (!pool) return;
+  await pool.query(`
+    create table if not exists admin_users (
+      id int unsigned not null auto_increment primary key,
+      username varchar(80) not null unique,
+      password_hash varchar(255) not null,
+      created_at timestamp not null default current_timestamp
+    ) default character set utf8mb4 collate utf8mb4_unicode_ci
+  `);
 }
 
 export async function createAdmin(username: string, password: string) {

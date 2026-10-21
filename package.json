@@ -4,12 +4,12 @@
   "private": true,
   "description": "Marketing website for VARASENA Technologies, a B2B software and AI company.",
   "engines": {
-    "node": "24.x"
+    "node": ">=20"
   },
   "scripts": {
     "dev": "next dev --port 6001",
     "build": "next build --webpack",
-    "start": "next start",
+    "start": "next start --hostname 0.0.0.0",
     "lint": "eslint",
     "db:create": "node scripts/db.mjs create",
     "db:migrate": "node scripts/db.mjs migrate",
