@@ -30,10 +30,6 @@ export function getPool() {
   if (!globalForMysql.mysqlPool || globalForMysql.mysqlPoolKey !== key) {
     resetPool();
     const pool = mysql.createPool(poolConfig());
-    pool.on("error", (error) => {
-      console.error("[db] Idle client error.", error instanceof Error ? error.message : "Unknown database error");
-      resetPool();
-    });
     globalForMysql.mysqlPool = pool;
     globalForMysql.mysqlPoolKey = key;
   }
