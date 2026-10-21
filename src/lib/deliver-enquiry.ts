@@ -11,8 +11,18 @@ const SMTP_KEYS = [
   "CONTACT_FROM_EMAIL",
 ] as const;
 
-function env(name: string) {
-  return process.env[name]?.trim() ?? "";
+/** Safe public defaults when Vercel env vars are not set yet. */
+const ENV_DEFAULTS: Partial<Record<(typeof SMTP_KEYS)[number], string>> = {
+  SMTP_PORT: "587",
+  CONTACT_TO_EMAIL: siteConfig.email,
+  CONTACT_FROM_EMAIL: siteConfig.email,
+};
+
+function env(name: (typeof SMTP_KEYS)[number] | "CONTACT_WEBHOOK_URL") {
+  const value = process.env[name]?.trim() ?? "";
+  if (value) return value;
+  if (name === "CONTACT_WEBHOOK_URL") return "";
+  return ENV_DEFAULTS[name] ?? "";
 }
 
 function subjectSafe(value: string) {

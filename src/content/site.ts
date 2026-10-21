@@ -18,7 +18,7 @@ export const siteConfig = {
   /** Placeholder until the public office address is confirmed. */
   location: "Visakhapatnam, India",
   hours: "",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://varasena.com",
+  url: (process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://varasena.com"),
   description:
     "VARASENA Technologies builds websites, apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and small businesses in India.",
   positioning: "Websites · Apps · Software · AI · Automation",
