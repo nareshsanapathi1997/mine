@@ -16,7 +16,7 @@ export function createMetadata({
   return {
     title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical },
     openGraph: {
       type: "website",
       locale: siteConfig.locale,
