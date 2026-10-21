@@ -20,7 +20,7 @@ export function privacySections(): LegalSection[] {
     {
       heading: "What we collect",
       paragraphs: [
-        "Contact form: name, company, email, phone, industry, what you need help with, budget range and message. Only name, email, need and message are required; other fields are optional.",
+        "Contact form: name, company, email, phone, what you need help with, and message. Only name, email, need and message are required; other fields are optional.",
         "Technical notes: we may keep a hashed form of the visitor IP for spam control, a short user-agent string, the page you submitted from, and the time of submission.",
         "The form includes a hidden field that people are not asked to fill. It exists only to reduce automated spam.",
         "Browser preference: if you use Cookie settings, we store your analytics choice in this browser’s localStorage so we remember Accept or Reject. That preference is not an advertising cookie.",
