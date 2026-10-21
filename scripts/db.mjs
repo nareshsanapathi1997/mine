@@ -49,7 +49,7 @@ function positiveInt(value, fallback) {
 }
 
 function databaseName() {
-  return read("PG_DATABASE") || "kyntriq";
+  return read("PG_DATABASE") || "varasena";
 }
 
 function assertIdentifier(name) {

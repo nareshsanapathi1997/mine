@@ -8,9 +8,9 @@ function positiveInt(value: string, fallback: number) {
   return parsed;
 }
 
-/** Database name from PG_DATABASE, or `kyntriq` when that variable is empty. */
+/** Database name from PG_DATABASE, or `varasena` when that variable is empty. */
 export function databaseName() {
-  return read("PG_DATABASE") || "kyntriq";
+  return read("PG_DATABASE") || "varasena";
 }
 
 /** True when a host and user are set. Password may be empty for local trust auth. */

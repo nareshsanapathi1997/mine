@@ -1,6 +1,6 @@
-# Kyntriq website
+# VARASENA Technologies website
 
-Marketing site for Kyntriq, a B2B software and AI company. It is a Next.js app (App Router) with TypeScript and Tailwind CSS. Copy lives in `src/content/`. Components render that data and do not hard-code the company name.
+Marketing site for VARASENA Technologies, a B2B software and AI company. It is a Next.js app (App Router) with TypeScript and Tailwind CSS. Copy lives in `src/content/`. Components render that data and do not hard-code the company name.
 
 ## Run it on Windows
 
@@ -29,7 +29,7 @@ Node.js 20.9 or newer is required.
 Install PostgreSQL from the [official Windows installer](https://www.postgresql.org/download/windows/) and note the password you set for the `postgres` user. The database commands are Node scripts, so they run in Command Prompt or PowerShell.
 
 1. Copy the example env file if you have not already: `copy .env.example .env.local`
-2. Set the `PG_*` values in `.env.local`. `PG_HOST=localhost`, `PG_PORT=5432`, `PG_USER=postgres`, `PG_PASSWORD` to the password you chose, `PG_DATABASE=kyntriq`. `PG_MAX_CONNECTIONS` is the pool size (default 20). `PG_IDLE_TIMEOUT` is how long an idle connection stays open, in milliseconds (default 300000).
+2. Set the `PG_*` values in `.env.local`. `PG_HOST=localhost`, `PG_PORT=5432`, `PG_USER=postgres`, `PG_PASSWORD` to the password you chose, `PG_DATABASE=varasena`. `PG_MAX_CONNECTIONS` is the pool size (default 20). `PG_IDLE_TIMEOUT` is how long an idle connection stays open, in milliseconds (default 300000).
 3. From the project folder, create the database and apply migrations:
 
 ```bat
@@ -38,7 +38,7 @@ npm run db:setup
 
 `npm run db:create` only creates the database (it connects to the `postgres` maintenance database). `npm run db:migrate` only applies new files in `db/migrations/`. `npm run db:setup` does both. Applied files are recorded in `schema_migrations`.
 
-View stored enquiries in psql (`psql -U postgres -d kyntriq`):
+View stored enquiries in psql (`psql -U postgres -d varasena`):
 
 ```sql
 select id, name, company, email, status, created_at
@@ -50,7 +50,7 @@ The table stores a SHA-256 hash of the visitor IP, not the raw address. If Postg
 
 ## Before launch
 
-- Replace the placeholders in `src/content/site.ts`: email, phone, location and business hours. `hello@kyntriq.com` is a placeholder address and is not a monitored inbox until you connect it.
+- Replace the placeholders in `src/content/site.ts`: email, phone, location and business hours. Confirm the public inbox before treating it as monitored.
 - Set the real public URL with `NEXT_PUBLIC_SITE_URL` (see `.env.example`). Canonical links, the sitemap and Open Graph use it.
 - Set the contact delivery variables. Email needs `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL`. An optional `CONTACT_WEBHOOK_URL` posts the same enquiry as JSON for n8n, a CRM, a sheet or a messaging workflow. Set `PG_HOST` and `PG_USER` (and run `npm run db:setup`) to store each enquiry in PostgreSQL. If none of these are set, the API logs the enquiry and returns a clear message instead of crashing.
 - Optional: set `NEXT_PUBLIC_GA_ID` to a Google Analytics 4 measurement ID (`G-` followed by letters and numbers). The script loads only after a visitor accepts analytics in the cookie banner.
@@ -61,7 +61,7 @@ The table stores a SHA-256 hash of the visitor IP, not the raw address. If Postg
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | No | Public origin for canonical URLs, sitemap and social cards. Defaults to `https://kyntriq.com`. |
+| `NEXT_PUBLIC_SITE_URL` | No | Public origin for canonical URLs, sitemap and social cards. Defaults to `https://varasena.com`. |
 | `NEXT_PUBLIC_GA_ID` | No | GA4 measurement ID. Ignored unless it matches `G-` plus letters and numbers, and the visitor has accepted analytics. |
 | `SMTP_HOST` | For email | SMTP server hostname. |
 | `SMTP_PORT` | For email | SMTP port. `465` is treated as TLS. |
@@ -74,7 +74,7 @@ The table stores a SHA-256 hash of the visitor IP, not the raw address. If Postg
 | `PG_PORT` | For the database | PostgreSQL port. Defaults to `5432` when empty. |
 | `PG_USER` | For the database | PostgreSQL user. |
 | `PG_PASSWORD` | For the database | PostgreSQL password. |
-| `PG_DATABASE` | For the database | Database name. Defaults to `kyntriq` when empty. |
+| `PG_DATABASE` | For the database | Database name. Defaults to `varasena` when empty. |
 | `PG_MAX_CONNECTIONS` | No | Pool size. Defaults to `20`. |
 | `PG_IDLE_TIMEOUT` | No | Idle connection timeout in milliseconds. Defaults to `300000`. |
 
@@ -116,7 +116,7 @@ src/
     ui/               button, input, label, textarea
   content/            site config, page copy, blog posts
   lib/                validation, delivery, database access, metadata, structured data
-public/mark.svg       logo file used by structured data
+public/varasena-brand-pack/  logo assets used by header, footer and structured data
 ```
 
 ## Routes

@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { industries } from "@/content/industries";
 import { primaryNav } from "@/content/navigation";
 import { servicesInGroup, solutionGroups } from "@/content/services";
+import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 type MenuId = "solutions" | "industries";
@@ -75,11 +76,11 @@ export function Navbar() {
       onMouseLeave={() => setMenu(null)}
     >
       <Container className="nav-shell flex items-center justify-between gap-4">
-        <Link href="/" aria-label="Kyntriq Solutions home" className="inline-flex min-h-11 items-center rounded-md" onClick={closeAll}>
+        <Link href="/" aria-label={`${siteConfig.name} home`} className="inline-flex items-center overflow-visible rounded-md" onClick={closeAll}>
           <span className="sm:hidden">
             <Logo compact priority />
           </span>
-          <span className="hidden sm:inline-flex">
+          <span className="hidden sm:inline-flex items-center overflow-visible">
             <Logo priority />
           </span>
         </Link>
@@ -224,7 +225,7 @@ export function Navbar() {
         )}
       >
         <div className={cn(!mobileOpen && "pointer-events-none")} {...(mobileOpen ? {} : { inert: true })}>
-          <Container className="flex max-h-[calc(100dvh-3.75rem)] flex-col gap-1 overflow-y-auto py-3">
+          <Container className="flex max-h-[calc(100dvh-4.75rem)] flex-col gap-1 overflow-y-auto py-3">
             <nav aria-label="Mobile" className="flex flex-col">
               <MobileGroup
                 label="Solutions"

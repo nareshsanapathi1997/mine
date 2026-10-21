@@ -48,6 +48,10 @@ export function Footer() {
               <UiIcon name="mail" className="size-3.5" />
               {siteConfig.email}
             </a>
+            <a href={`mailto:${siteConfig.supportEmail}`} className="footer-link inline-flex w-fit items-center gap-2 break-all">
+              <UiIcon name="mail" className="size-3.5" />
+              {siteConfig.supportEmail}
+            </a>
             <span className="inline-flex items-center gap-2 text-mist">
               <UiIcon name="pin" className="size-3.5" />
               {siteConfig.location}

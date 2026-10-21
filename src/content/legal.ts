@@ -87,7 +87,7 @@ export function termsSections(): LegalSection[] {
     {
       heading: "Governing law",
       paragraphs: [
-        "These terms are governed by the laws of India. Courts in Hyderabad, Telangana have jurisdiction over any dispute arising from the use of this website.",
+        "These terms are governed by the laws of India. Courts in Visakhapatnam, Andhra Pradesh have jurisdiction over any dispute arising from the use of this website.",
       ],
     },
   ];

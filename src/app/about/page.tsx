@@ -11,7 +11,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "About",
-  description: `${siteConfig.name} is a Hyderabad-based team building websites, software, WhatsApp automation and AI assistants for Indian schools, hotels, factories and small businesses.`,
+  description: `${siteConfig.name} is a Visakhapatnam-based team building websites, software, WhatsApp automation and AI assistants for Indian schools, hotels, factories and small businesses.`,
   path: "/about",
 });
 
@@ -37,7 +37,7 @@ export default function AboutPage() {
     <>
       <PageHeader
         eyebrow="About us"
-        title="A small Hyderabad team that builds practical software."
+        title="A small Visakhapatnam team that builds practical software."
         description={`${siteConfig.name} builds websites, apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and growing businesses across India.`}
         photo={newImages.about}
       />
@@ -55,7 +55,7 @@ export default function AboutPage() {
                 We build software that does those in-between steps for you, so your team spends less time typing and chasing, and more time with students, guests and customers.
               </p>
               <p className="text-sm">
-                The name KYNTRIQ comes from {siteConfig.nameMeaning}.
+                {siteConfig.name} stands for {siteConfig.nameMeaning}.
               </p>
             </div>
           </div>
@@ -121,8 +121,10 @@ export default function AboutPage() {
               ))}
             </ul>
             <p className="text-body mt-6 text-muted">
-              Want to speak to us directly? Call <a className="text-link" href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a> or email{" "}
-              <a className="text-link break-all" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+              Want to speak to us directly? Call <a className="text-link" href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a>, email{" "}
+              <a className="text-link break-all" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              {" "}or support at{" "}
+              <a className="text-link break-all" href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a>.
             </p>
           </div>
         </Container>

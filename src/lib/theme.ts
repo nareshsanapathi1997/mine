@@ -1,4 +1,4 @@
-export const THEME_STORAGE_KEY = "kyntriq-theme";
+export const THEME_STORAGE_KEY = "varasena-theme";
 
 export type Theme = "light" | "dark";
 
@@ -7,7 +7,7 @@ const themeColor: Record<Theme, string> = {
   dark: "#070b14",
 };
 
-export const themeBootScript = `(function(){try{var k=${JSON.stringify(THEME_STORAGE_KEY)};var t=localStorage.getItem(k);if(t!=="light"&&t!=="dark"){t="dark"}var d=document.documentElement;d.setAttribute("data-theme",t);var c=t==="light"?"#ffffff":"#070b14";var m=document.querySelector('meta[name="theme-color"]');if(!m){m=document.createElement("meta");m.setAttribute("name","theme-color");document.head.appendChild(m)}m.setAttribute("content",c);if(localStorage.getItem("kyntriq-consent"))d.setAttribute("data-consent","set")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();`;
+export const themeBootScript = `(function(){try{var k=${JSON.stringify(THEME_STORAGE_KEY)};var t=localStorage.getItem(k);if(t!=="light"&&t!=="dark"){t="dark"}var d=document.documentElement;d.setAttribute("data-theme",t);var c=t==="light"?"#ffffff":"#070b14";var m=document.querySelector('meta[name="theme-color"]');if(!m){m=document.createElement("meta");m.setAttribute("name","theme-color");document.head.appendChild(m)}m.setAttribute("content",c);if(localStorage.getItem("varasena-consent"))d.setAttribute("data-consent","set")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();`;
 
 export function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);

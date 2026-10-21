@@ -42,7 +42,7 @@ export function HomeWhy() {
               Why owners and principals work with us.
             </h2>
           </div>
-          <p className="text-body text-muted">A small, hands-on team in Hyderabad. You talk directly to the people who build your software.</p>
+          <p className="text-body text-muted">A small, hands-on team in Visakhapatnam. You talk directly to the people who build your software.</p>
         </div>
         <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
           {homeReasons.map((item) => (

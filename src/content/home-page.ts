@@ -1,4 +1,5 @@
 import { newImages } from "@/content/new-images";
+import { siteConfig } from "@/content/site";
 import type { UiIconName } from "@/components/icons";
 
 /* Home page copy. Plain English, Indian examples, no invented numbers. */
@@ -261,7 +262,7 @@ export const homeSafety: { icon: UiIconName; label: string }[] = [
 ];
 
 export const homeFaq = [
-  { q: "What does Kyntriq Solutions do?", a: "We build websites, apps and software for schools, coaching centres, hotels, factories, clinics, CAs, consultants and small businesses. We also set up WhatsApp replies, reminders and AI assistants that work with your software." },
+  { q: `What does ${siteConfig.name} do?`, a: "We build websites, apps and software for schools, coaching centres, hotels, factories, clinics, CAs, consultants and small businesses. We also set up WhatsApp replies, reminders and AI assistants that work with your software." },
   { q: "We already use Excel, Tally or another software. Do we have to stop?", a: "No. We usually connect to what you already use. Replacing a tool is your choice, and only if it really helps." },
   { q: "What is an AI assistant, in simple words?", a: "It is a helper that replies to common questions on WhatsApp, your website or phone, using your own information like fees, timings or room rates. When a question needs a person, it passes it to your staff." },
   { q: "Will the AI take decisions on its own?", a: "Only simple, approved actions like sharing a form link or booking an open slot. Discounts, refunds, fee waivers and anything important stay with your team." },

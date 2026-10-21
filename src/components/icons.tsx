@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { IconName } from "@/content/types";
 
 /*
- * Kyntriq icon family.
+ * VARASENA icon family.
  * 24px grid, 1.6 stroke, round caps and joins, 2px safe padding.
  * Duotone: `t` shapes are a soft brand tint (blue), `d` marks are a cyan
  * accent dot; strokes use currentColor so the icon follows text colour in

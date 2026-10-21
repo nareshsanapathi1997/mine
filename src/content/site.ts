@@ -7,29 +7,31 @@
  * `url` is the public origin. Set NEXT_PUBLIC_SITE_URL when the production domain is confirmed.
  */
 export const siteConfig = {
-  name: "Kyntriq Solutions",
-  email: "nareshsanapathi1997@gmail.com",
+  name: "VARASENA Technologies",
+  /** General enquiries — shown in footer, contact, legal and JSON-LD. */
+  email: "info@varasena.com",
+  /** Support inbox — shown alongside info on contact surfaces. */
+  supportEmail: "support@varasena.com",
   phoneDisplay: "+91 88863 62977",
   phoneHref: "tel:+918886362977",
   whatsappHref: "https://wa.me/918886362977",
   /** Placeholder until the public office address is confirmed. */
-  location: "Hyderabad, India",
+  location: "Visakhapatnam, India",
   hours: "",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kyntriqsolutions.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://varasena.com",
   description:
-    "Kyntriq Solutions builds websites, apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and small businesses in India.",
+    "VARASENA Technologies builds websites, apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and small businesses in India.",
   positioning: "Websites · Apps · Software · AI · Automation",
-  /** Full name, kept in the brand story rather than the public lockup. */
-  nameMeaning:
-    "Knowledge · Yield · Networking · Technology · Research · Innovation · Quality",
+  /** Brand promise shown in the about story. */
+  nameMeaning: "Ideas · Innovation · Impact",
   tagline:
     "Software, WhatsApp automation and AI assistants that take routine work off your team's plate.",
   locale: "en_IN",
   /** Placeholder profiles. Replace with the real accounts before launch. */
   social: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/company/kyntriq-solutions" },
-    { label: "Instagram", href: "https://www.instagram.com/kyntriq.solutions" },
-    { label: "X", href: "https://x.com/kyntriq" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/varasena-technologies-315798445" },
+    { label: "Instagram", href: "https://www.instagram.com/varasena.technologies" },
+    { label: "X", href: "https://x.com/varasena" },
   ],
 } as const;
 

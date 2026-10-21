@@ -1,6 +1,6 @@
 /**
- * Photos for page banners and the home hero. Originals live in public/newImages;
- * the site uses optimised WebP copies in public/newImages/optimized (max 1600px
+ * Photos for page banners and the home hero.
+ * The site uses optimised WebP copies in public/newImages/optimized (max 1600px
  * wide) with 640 / 960 / 1280 responsive variants.
  */
 export type BannerImage = { src: string; alt: string; width: number; height: number };

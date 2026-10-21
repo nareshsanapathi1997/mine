@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useCallback, useContext, useRef, useState, useSyncExternalStore, createContext } from "react";
 import { Button } from "@/components/ui/button";
 
-const STORAGE_KEY = "kyntriq-consent";
+const STORAGE_KEY = "varasena-consent";
 
 type Consent = {
   necessary: true;
