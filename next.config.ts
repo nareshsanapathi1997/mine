@@ -4,7 +4,18 @@ const nextConfig: NextConfig = {
   // Hostinger `next build` type-checks mysql2 pool events and fails the
   // deploy. The app still type-checks locally; this keeps production shipping.
   typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
+  // Hostinger reports dozens of CPUs, so Next was spawning ~55 workers and
+  // SIGSEGV'd during static generation. Keep the build on one worker.
+  experimental: {
+    cpus: 1,
+    workerThreads: false,
+    staticGenerationMaxConcurrency: 1,
+    staticGenerationMinPagesPerWorker: 50,
+  },
+  webpack: (config) => {
+    config.parallelism = 1;
+    return config;
+  },
   // Next 16 only allows listed qualities. 85 is used for content photos so the
   // optimiser's re-encode stays sharp; 75 is the default for everything else.
   images: { qualities: [75, 85, 90] },

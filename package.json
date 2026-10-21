@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev --port 6001",
-    "build": "next build --webpack",
+    "build": "node --max-old-space-size=2048 ./node_modules/next/dist/bin/next build --webpack",
     "start": "next start --hostname 0.0.0.0",
     "lint": "eslint",
     "db:create": "node scripts/db.mjs create",
