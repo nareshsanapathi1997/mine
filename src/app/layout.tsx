@@ -61,6 +61,9 @@ export async function generateMetadata(): Promise<Metadata> {
       index: true,
       follow: true,
     },
+    verification: {
+      google: "jDh6G9aBy1Ya1ggGPkNiKBW8toKFcH-0K60wYyUFt9I",
+    },
     icons: {
       icon: [{ url: site.brand?.favicon || "/icon.png" }],
       apple: [{ url: site.brand?.icon || "/apple-icon.png" }],
