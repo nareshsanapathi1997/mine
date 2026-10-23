@@ -14,7 +14,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const page = await getDetailPage("solution", slug);
   if (!page) return {};
-  return createMetadata({ title: page.name, description: page.intro, path: `/solutions/${page.slug}` });
+  return createMetadata({
+    title: page.name,
+    description: page.intro,
+    path: `/solutions/${page.slug}`,
+    keywords: [
+      `${page.name} Visakhapatnam`,
+      `${page.name} Vizag`,
+      `${page.name} India`,
+      `${page.name} Andhra Pradesh`,
+    ],
+  });
 }
 
 export default async function SolutionDetailPage({ params }: { params: Promise<{ slug: string }> }) {

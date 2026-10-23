@@ -10,8 +10,9 @@ import { Splash } from "@/components/layout/splash";
 import { RevealObserver } from "@/components/layout/reveal-observer";
 import { MotionStage } from "@/components/motion/stage";
 import { JsonLd } from "@/components/seo/json-ld";
+import { geoMetaTags, keywordsForPath } from "@/content/seo";
 import { getCms } from "@/lib/cms";
-import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
+import { localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import { themeBootScript } from "@/lib/theme";
 import "./globals.css";
 
@@ -31,7 +32,7 @@ export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getCms();
-  const title = `${site.name} | AI, Software & Business Automation`;
+  const title = `${site.name} | AI, Software & Business Automation Visakhapatnam`;
   return {
     metadataBase: new URL(site.url),
     title: {
@@ -39,6 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s · ${site.name}`,
     },
     description: site.description,
+    keywords: keywordsForPath("/"),
     applicationName: site.name,
     authors: [{ name: site.name }],
     creator: site.name,
@@ -48,6 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: site.name,
       title,
       description: site.description,
+      url: site.url,
     },
     twitter: {
       card: "summary_large_image",
@@ -64,6 +67,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     formatDetection: {
       telephone: false,
+    },
+    other: {
+      ...geoMetaTags(),
     },
   };
 }
@@ -92,6 +98,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           <Splash />
         </PublicChrome>
         <JsonLd data={organizationJsonLd(site)} />
+        <JsonLd data={localBusinessJsonLd(site)} />
         <JsonLd data={websiteJsonLd(site)} />
         <noscript>
           <style>

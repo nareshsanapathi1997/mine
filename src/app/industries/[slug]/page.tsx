@@ -14,7 +14,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const page = await getDetailPage("industry", slug);
   if (!page) return {};
-  return createMetadata({ title: page.name, description: page.intro, path: `/industries/${page.slug}` });
+  return createMetadata({
+    title: page.name,
+    description: page.intro,
+    path: `/industries/${page.slug}`,
+    keywords: [
+      `${page.name} software Visakhapatnam`,
+      `${page.name} automation India`,
+      `${page.name} digital solutions Vizag`,
+    ],
+  });
 }
 
 export default async function IndustryDetailPage({ params }: { params: Promise<{ slug: string }> }) {

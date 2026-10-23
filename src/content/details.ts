@@ -42,7 +42,7 @@ const solutionInput: DetailInput[] = [
     name: "Websites",
     icon: "globe",
     heading: "Websites that bring you enquiries, not just visitors.",
-    intro: "A clear, fast website for your school, hotel, clinic or business, with forms and WhatsApp buttons that send every enquiry straight to your team.",
+    intro: "A clear, fast website for your school, hotel, clinic or business in Visakhapatnam or anywhere in India, with forms and WhatsApp buttons that send every enquiry straight to your team.",
     forWho: ["Schools and colleges", "Hotels", "Clinics", "Factories", "Small businesses"],
     problems: [
       { problem: "The website looks old and parents or customers call to ask basic questions.", fix: "Fees, timings, courses, room types or products are easy to find on any phone." },
@@ -222,7 +222,7 @@ const solutionInput: DetailInput[] = [
     name: "WhatsApp automation",
     icon: "message",
     heading: "WhatsApp messages that go out on their own, at the right time.",
-    intro: "Fee reminders, booking confirmations, appointment reminders and order updates sent automatically from your software on WhatsApp Business.",
+    intro: "Fee reminders, booking confirmations, appointment reminders and order updates sent automatically from your software on WhatsApp Business — a common request from Vizag schools, hotels and clinics.",
     forWho: ["Schools and coaching", "Hotels", "Clinics", "Factories", "Shops"],
     problems: [
       { problem: "Staff send reminders one by one from their own phones.", fix: "Reminders go out automatically from your official number." },
@@ -333,7 +333,7 @@ const industryInput: DetailInput[] = [
     name: "Education",
     icon: "graduation",
     heading: "Software for schools, colleges and coaching centres.",
-    intro: "From the first admission enquiry to fee receipts, attendance and parent updates, all in one place your office can trust.",
+    intro: "From the first admission enquiry to fee receipts, attendance and parent updates — built by our Visakhapatnam team for education offices across India.",
     forWho: ["Schools", "Colleges", "Coaching centres", "Training institutes"],
     problems: [
       { problem: "Admission enquiries come from the website, WhatsApp, calls and walk-ins, and some are never followed up.", fix: "All enquiries go into one admission list with a follow-up date." },

@@ -49,16 +49,32 @@ export const siteConfig: SiteConfig = {
   hours: "",
   url: (process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://varasena.com"),
   description:
-    "VARASENA Technologies builds websites, apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and small businesses in India.",
+    "VARASENA Technologies — Visakhapatnam / Vizag software company for website development, mobile apps, business software, WhatsApp automation, AI assistants and cloud hosting for schools, hotels, factories, clinics and SMEs across Andhra Pradesh and India.",
   positioning: "Websites · Apps · Software · AI · Automation",
   /** Brand promise shown in the about story. */
   nameMeaning: "Ideas · Innovation · Impact",
   tagline:
     "Software, WhatsApp automation and AI assistants that take routine work off your team's plate.",
   locale: "en_IN",
-  /** Public profiles linked in the footer and structured data. */
+  /**
+   * Public profiles for footer + schema.org sameAs.
+   * Only real live profiles — empty hrefs are ignored.
+   * Set NEXT_PUBLIC_GOOGLE_BUSINESS_URL / NEXT_PUBLIC_YOUTUBE_URL when those exist.
+   */
   social: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/varasena-technologies-315798445" },
+    ...(process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_URL?.trim()
+      ? [{ label: "Google Business", href: process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_URL.trim() }]
+      : []),
+    ...(process.env.NEXT_PUBLIC_YOUTUBE_URL?.trim()
+      ? [{ label: "YouTube", href: process.env.NEXT_PUBLIC_YOUTUBE_URL.trim() }]
+      : []),
+    ...(process.env.NEXT_PUBLIC_INSTAGRAM_URL?.trim()
+      ? [{ label: "Instagram", href: process.env.NEXT_PUBLIC_INSTAGRAM_URL.trim() }]
+      : []),
+    ...(process.env.NEXT_PUBLIC_FACEBOOK_URL?.trim()
+      ? [{ label: "Facebook", href: process.env.NEXT_PUBLIC_FACEBOOK_URL.trim() }]
+      : []),
   ],
   brand: {
     logoLight: "/varasena-brand-pack/varasena-logo-light.png",

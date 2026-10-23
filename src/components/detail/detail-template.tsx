@@ -11,6 +11,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import type { DetailPage } from "@/content/details";
 import { getCms, relatedDetailLinks } from "@/lib/cms";
+import { faqJsonLd } from "@/lib/structured-data";
 
 export async function DetailTemplate({
   page,
@@ -31,6 +32,7 @@ export async function DetailTemplate({
   return (
     <>
       <JsonLd data={jsonLd} />
+      {page.faqs.length ? <JsonLd data={faqJsonLd(page.faqs)} /> : null}
       <Breadcrumbs items={crumbs} />
       <PageHeader eyebrow={eyebrow} title={page.heading} description={page.intro} photo={page.photo} points={page.forWho}
         art={page.kind === "industry" && hasIndustryArt(page.slug) ? <span className="ia-badge"><IndustryArt slug={page.slug} /></span> : undefined}

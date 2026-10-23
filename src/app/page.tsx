@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { HomeFaq } from "@/components/home/faq";
 import { HomeHero } from "@/components/home/hero";
 import { HomeIndustries } from "@/components/home/industries";
@@ -10,10 +9,16 @@ import { HomeSteps, HomeWhy } from "@/components/home/why";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getCms } from "@/lib/cms";
-import { servicesJsonLd } from "@/lib/structured-data";
+import { createMetadata } from "@/lib/seo";
+import { faqJsonLd, servicesJsonLd } from "@/lib/structured-data";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return { alternates: { canonical: "/" } };
+export async function generateMetadata() {
+  const { site } = await getCms();
+  return createMetadata({
+    title: "AI, Software & Business Automation Visakhapatnam",
+    description: site.description,
+    path: "/",
+  });
 }
 
 export default async function HomePage() {
@@ -23,6 +28,7 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd data={servicesJsonLd(site, services)} />
+      {home.faq.items.length ? <JsonLd data={faqJsonLd(home.faq.items)} /> : null}
       <HomeHero content={home.hero} positioning={site.positioning} />
       <StatsStrip stats={stats} />
       <HomeProblems content={home.problems} fixLabel={chrome.detail.fixLabel} />

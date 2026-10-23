@@ -1,5 +1,46 @@
 import type { Service } from "@/content/services";
+import { siteGeo } from "@/content/seo";
 import type { SiteConfig } from "@/content/site";
+
+function postalAddress() {
+  return {
+    "@type": "PostalAddress",
+    addressLocality: siteGeo.city,
+    addressRegion: siteGeo.region,
+    addressCountry: siteGeo.countryCode,
+  };
+}
+
+function geoCoordinates() {
+  return {
+    "@type": "GeoCoordinates",
+    latitude: siteGeo.latitude,
+    longitude: siteGeo.longitude,
+  };
+}
+
+function areaServedPlaces() {
+  return siteGeo.areasServed.map((name) => ({
+    "@type": "Place",
+    name,
+  }));
+}
+
+export function faqJsonLd(items: { q: string; a: string }[]) {
+  if (!items.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+}
 
 export function serviceJsonLd(
   site: SiteConfig,
@@ -11,11 +52,12 @@ export function serviceJsonLd(
     name: input.name,
     description: input.description,
     serviceType: input.name,
-    areaServed: "IN",
+    areaServed: areaServedPlaces(),
     provider: {
       "@type": "Organization",
       name: site.name,
       url: site.url,
+      address: postalAddress(),
     },
     url: new URL(input.path, site.url).toString(),
   };
@@ -76,6 +118,12 @@ export function websiteJsonLd(site: SiteConfig) {
     name: site.name,
     url: site.url,
     description: site.description,
+    inLanguage: "en-IN",
+    publisher: {
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+    },
   };
 }
 
@@ -87,10 +135,52 @@ export function organizationJsonLd(site: SiteConfig) {
     url: site.url,
     email: site.email,
     ...(site.phoneHref ? { telephone: site.phoneHref.replace(/^tel:/, "") } : {}),
-    ...(site.location ? { address: site.location } : {}),
-    sameAs: site.social.map((item) => item.href),
+    address: postalAddress(),
+    areaServed: areaServedPlaces(),
+    sameAs: sameAsLinks(site),
     logo: new URL("/varasena-brand-pack/varasena-logo-dark.png", site.url).toString(),
     description: site.description,
+    knowsLanguage: ["en", "en-IN"],
+  };
+}
+
+function sameAsLinks(site: SiteConfig) {
+  return site.social.map((item) => item.href).filter((href) => Boolean(href?.trim()));
+}
+
+/** Local / GEO schema for Visakhapatnam-based software services. */
+export function localBusinessJsonLd(site: SiteConfig) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${site.url}/#localbusiness`,
+    name: site.name,
+    url: site.url,
+    image: new URL("/varasena-brand-pack/varasena-logo-dark.png", site.url).toString(),
+    logo: new URL("/varasena-brand-pack/varasena-logo-dark.png", site.url).toString(),
+    description: site.description,
+    email: site.email,
+    ...(site.phoneHref ? { telephone: site.phoneHref.replace(/^tel:/, "") } : {}),
+    address: postalAddress(),
+    geo: geoCoordinates(),
+    areaServed: areaServedPlaces(),
+    priceRange: "$$",
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "09:30",
+      closes: "18:30",
+    },
+    sameAs: sameAsLinks(site),
+    knowsLanguage: ["en", "en-IN"],
+    knowsAbout: [
+      "Web development",
+      "Mobile app development",
+      "Business software",
+      "WhatsApp automation",
+      "AI assistants",
+      "Cloud hosting",
+    ],
   };
 }
 
@@ -107,11 +197,12 @@ export function servicesJsonLd(site: SiteConfig, services: Service[]) {
         name: service.title,
         description: service.description,
         serviceType: service.title,
-        areaServed: "IN",
+        areaServed: areaServedPlaces(),
         provider: {
           "@type": "Organization",
           name: site.name,
           url: site.url,
+          address: postalAddress(),
         },
         url: new URL(`/solutions/${service.slug}`, site.url).toString(),
       },

@@ -99,7 +99,7 @@ export function cmsDefaults(): CmsBundle {
         titleHighlight: "follow-up work",
         titleAfter: " for you.",
         subtitle:
-          "Websites, apps, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and growing businesses.",
+          "Visakhapatnam (Vizag) team building websites, apps, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and growing businesses across Andhra Pradesh and India.",
         primaryLabel: "Talk to us",
         primaryHref: "/contact",
         secondaryLabel: "See what we build",
@@ -110,13 +110,15 @@ export function cmsDefaults(): CmsBundle {
       problems: {
         eyebrow: "Problems we fix",
         title: "Everyday problems we fix for Indian businesses.",
-        intro: "Most of these are small jobs done by hand, many times a day. Software can do them on time, every time.",
+        intro:
+          "From Visakhapatnam to clients across India — most of these are small jobs done by hand, many times a day. Software can do them on time, every time.",
         items: homeProblems,
       },
       services: {
         eyebrow: "What we build",
         title: "Five things we build, alone or together.",
-        intro: "Start with one. Each piece shares the same information, so you never type the same detail twice.",
+        intro:
+          "Websites, apps, business software, WhatsApp automation and AI — start with one. Each piece shares the same information, so you never type the same detail twice.",
         items: homeServices,
         toolsTitle: "Works with the tools you already use",
         tools: [...homeTools],
@@ -168,8 +170,8 @@ export function cmsDefaults(): CmsBundle {
       metaDescription: `${siteConfig.name} is a Visakhapatnam-based team building websites, software, WhatsApp automation and AI assistants for Indian schools, hotels, factories and small businesses.`,
       header: {
         eyebrow: "About us",
-        title: "A small Visakhapatnam team that builds practical software.",
-        description: `${siteConfig.name} builds websites, apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and growing businesses across India.`,
+        title: "A small Visakhapatnam (Vizag) team that builds practical software.",
+        description: `${siteConfig.name} is a Visakhapatnam software company building websites, apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and growing businesses across Andhra Pradesh and India.`,
         photo: newImages.about,
       },
       story: {
@@ -236,7 +238,7 @@ export function cmsDefaults(): CmsBundle {
       eyebrow: "Contact",
       title: "Tell us what you need.",
       description:
-        "For example: admission enquiries, hotel bookings, an order sheet or a busy reception phone. Only your name, email, need and a short note are required.",
+        "Based in Visakhapatnam — for example admission enquiries, hotel bookings, an order sheet or a busy reception phone. Only your name, email, need and a short note are required.",
       photo: newImages.contact,
       offers: ["Websites and apps", "Business software", "WhatsApp and AI", "Hosting and support"],
       replyNote: "We reply to the email you enter.",
@@ -292,12 +294,12 @@ export function cmsDefaults(): CmsBundle {
     solutionsHub: {
       metaTitle: "Solutions",
       metaDescription:
-        "Websites, mobile apps, business software, AI assistants, WhatsApp automation and hosting, explained in plain English.",
+        "Website development, mobile apps, business software, AI assistants, WhatsApp automation and hosting from VARASENA Technologies in Visakhapatnam (Vizag).",
       header: {
         eyebrow: "Solutions",
-        title: "What we build, in plain words.",
+        title: "What we build in Visakhapatnam, in plain words.",
         description:
-          "Pick the problem you want to solve. Each page explains what we build, shows a sample of how it works and answers common questions.",
+          "Pick the problem you want to solve — websites, apps, WhatsApp automation or AI. Each page explains what we build, shows a sample of how it works and answers common questions.",
         photo: newImages["business-software"],
       },
       cta: {
@@ -309,12 +311,12 @@ export function cmsDefaults(): CmsBundle {
     industriesHub: {
       metaTitle: "Industries",
       metaDescription:
-        "Software and automation for schools, colleges, coaching centres, hotels, factories, clinics and small businesses in India.",
+        "School, hotel, factory, clinic and SME software and WhatsApp automation from our Visakhapatnam team for businesses across India.",
       header: {
         eyebrow: "Industries",
-        title: "Built for the way your sector works.",
+        title: "Built for how your sector works in India.",
         description:
-          "A school, a hotel and a factory have very different days. Choose yours to see the problems we fix and a sample of how it works.",
+          "A school in Vizag, a hotel on the coast or a factory in Andhra Pradesh — each has a different day. Choose yours to see the problems we fix and a sample of how it works.",
         photo: newImages.industries,
       },
       cta: {
@@ -327,12 +329,12 @@ export function cmsDefaults(): CmsBundle {
     caseStudies: {
       metaTitle: "Examples",
       metaDescription:
-        "Sample scenarios for a school, a hotel, a factory, a clinic and a consultant: the problem, what we would build, and what changes. Illustrations, not client results.",
+        "Sample Visakhapatnam-style scenarios for schools, hotels, factories, clinics and consultants: the problem, what we would build, and what changes. Illustrations, not client results.",
       header: {
         eyebrow: "Examples",
         title: "Sample projects: the problem, what we build, what changes.",
         description:
-          "Everyday situations we hear about often. These are samples to show how we think, not real client projects, and they make no claims about results.",
+          "Everyday situations we hear from businesses in Visakhapatnam and across India. These are samples to show how we think, not real client projects, and they make no claims about results.",
         photo: newImages.caseStudies,
       },
       todayLabel: "Today",
@@ -349,12 +351,12 @@ export function cmsDefaults(): CmsBundle {
     aiAutomation: {
       metaTitle: "AI & Automation",
       metaDescription:
-        "AI assistants, phone assistants, WhatsApp messages and automation explained simply: what they can do, what they should not do, and a sample of how they work.",
+        "AI assistants, voice AI, WhatsApp automation and business automation from VARASENA Technologies in Visakhapatnam — what they can do, what they should not do, and a sample of how they work.",
       header: {
         eyebrow: "AI & Automation",
         title: "AI that does real work, with your team in charge.",
         description:
-          "An AI assistant is useful when it finishes a job, like booking a slot or sending a reminder, and passes everything else to a person.",
+          "Built in Visakhapatnam for Indian businesses: an AI assistant is useful when it finishes a job — booking a slot or sending a WhatsApp reminder — and passes everything else to a person.",
         photo: newImages["ai-agents"],
       },
       canTitle: "It can",
@@ -497,10 +499,10 @@ export function cmsDefaults(): CmsBundle {
     },
     blog: {
       metaTitle: "Blog",
-      metaDescription: `Simple, practical articles from ${siteConfig.name} on AI assistants, WhatsApp automation and business software for Indian businesses.`,
+      metaDescription: `Practical articles from ${siteConfig.name} in Visakhapatnam on AI assistants, WhatsApp automation and business software for Indian schools, hotels, factories and SMEs.`,
       header: {
         eyebrow: "Blog",
-        title: "Practical articles for business owners.",
+        title: "Practical articles for business owners in India.",
         description:
           "Short, jargon-free reads on AI assistants, WhatsApp automation and software, with everyday examples from schools, hotels and small businesses.",
         photo: newImages.blog,
