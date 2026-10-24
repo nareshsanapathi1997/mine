@@ -95,11 +95,11 @@ export function cmsDefaults(): CmsBundle {
     },
     home: {
       hero: {
-        titleBefore: "Software that does the ",
-        titleHighlight: "follow-up work",
-        titleAfter: " for you.",
-        subtitle:
-          "Visakhapatnam (Vizag) team building websites, apps, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and growing businesses across Andhra Pradesh and India.",
+        titleBefore: "Software company in ",
+        titleHighlight: "Visakhapatnam",
+        titleAfter: "Building websites, apps and AI automation.",
+        subtitle: "Software that does the follow-up work for you.",
+        lede: "VARASENA Technologies is a Visakhapatnam (Vizag), Andhra Pradesh software company that builds websites, apps, WhatsApp automation and AI assistants for schools, hotels, clinics and factories.",
         primaryLabel: "Talk to us",
         primaryHref: "/contact",
         secondaryLabel: "See what we build",
@@ -111,14 +111,14 @@ export function cmsDefaults(): CmsBundle {
         eyebrow: "Problems we fix",
         title: "Everyday problems we fix for Indian businesses.",
         intro:
-          "From Visakhapatnam to clients across India — most of these are small jobs done by hand, many times a day. Software can do them on time, every time.",
+          "From our Visakhapatnam (Vizag) team to clients across Andhra Pradesh and India — most of these are small jobs done by hand, many times a day. Software can do them on time, every time.",
         items: homeProblems,
       },
       services: {
         eyebrow: "What we build",
         title: "Five things we build, alone or together.",
         intro:
-          "Websites, apps, business software, WhatsApp automation and AI — start with one. Each piece shares the same information, so you never type the same detail twice.",
+          "Websites, apps, business software, WhatsApp automation and AI for schools, hotels, clinics and factories in Visakhapatnam (Vizag). Start with one. Each piece shares the same information, so you never type the same detail twice.",
         items: homeServices,
         toolsTitle: "Works with the tools you already use",
         tools: [...homeTools],
@@ -126,7 +126,8 @@ export function cmsDefaults(): CmsBundle {
       industries: {
         eyebrow: "Who we work with",
         title: "Built for the way your kind of business runs.",
-        intro: "Pick your field to see the jobs we usually take off your team's hands.",
+        intro:
+          "Schools, hotels, factories, clinics and small businesses in Vizag and across Andhra Pradesh. Pick your field to see the jobs we usually take off your team's hands.",
         items: homeIndustries,
       },
       sample: {
@@ -146,7 +147,7 @@ export function cmsDefaults(): CmsBundle {
       why: {
         eyebrow: "Why choose us",
         title: "Why owners and principals work with us.",
-        intro: "A small, hands-on team in Visakhapatnam. You talk directly to the people who build your software.",
+        intro: "A small, hands-on team in Visakhapatnam (Vizag). You talk directly to the people who build your software.",
         items: homeReasons,
         safetyTitle: "Your data stays safe and stays yours",
         safetyIntro: "Built into every project, switched on to suit your work.",
@@ -166,8 +167,9 @@ export function cmsDefaults(): CmsBundle {
       },
     },
     about: {
-      metaTitle: "About",
-      metaDescription: `${siteConfig.name} is a Visakhapatnam-based team building websites, software, WhatsApp automation and AI assistants for Indian schools, hotels, factories and small businesses.`,
+      metaTitle: "About VARASENA | Software Company in Vizag",
+      metaDescription:
+        "VARASENA Technologies is a Visakhapatnam (Vizag) software company building websites, apps, WhatsApp automation and AI for schools, hotels and clinics.",
       header: {
         eyebrow: "About us",
         title: "A small Visakhapatnam (Vizag) team that builds practical software.",
@@ -208,7 +210,7 @@ export function cmsDefaults(): CmsBundle {
         ],
       },
       team: {
-        show: false,
+        show: true,
         eyebrow: "The team",
         title: "Who you will work with",
         photo: newImages.aboutTeam,
@@ -233,8 +235,9 @@ export function cmsDefaults(): CmsBundle {
       },
     },
     contact: {
-      metaTitle: "Contact",
-      metaDescription: `Call, WhatsApp or write to ${siteConfig.name} in Visakhapatnam about a website, app, software, WhatsApp automation or AI assistant.`,
+      metaTitle: "Contact a Software Company in Vizag",
+      metaDescription:
+        "Call or WhatsApp VARASENA in Visakhapatnam (Vizag) about a website, app, school ERP, clinic booking or WhatsApp automation.",
       eyebrow: "Contact",
       title: "Tell us what you need.",
       description:
@@ -292,9 +295,9 @@ export function cmsDefaults(): CmsBundle {
       },
     },
     solutionsHub: {
-      metaTitle: "Solutions",
+      metaTitle: "Websites, Apps and Software in Vizag",
       metaDescription:
-        "Website development, mobile apps, business software, AI assistants, WhatsApp automation and hosting from VARASENA Technologies in Visakhapatnam (Vizag).",
+        "Website development, mobile apps, business software, WhatsApp automation and AI assistants from a Visakhapatnam (Vizag) software company.",
       header: {
         eyebrow: "Solutions",
         title: "What we build in Visakhapatnam, in plain words.",
@@ -309,9 +312,9 @@ export function cmsDefaults(): CmsBundle {
       },
     },
     industriesHub: {
-      metaTitle: "Industries",
+      metaTitle: "School, Hotel and Clinic Software in Vizag",
       metaDescription:
-        "School, hotel, factory, clinic and SME software and WhatsApp automation from our Visakhapatnam team for businesses across India.",
+        "School ERP, hotel booking, factory tracking and clinic appointment software for Visakhapatnam (Vizag) and Andhra Pradesh.",
       header: {
         eyebrow: "Industries",
         title: "Built for how your sector works in India.",
@@ -327,9 +330,9 @@ export function cmsDefaults(): CmsBundle {
       },
     },
     caseStudies: {
-      metaTitle: "Examples",
+      metaTitle: "Software Examples for Vizag Businesses",
       metaDescription:
-        "Sample Visakhapatnam-style scenarios for schools, hotels, factories, clinics and consultants: the problem, what we would build, and what changes. Illustrations, not client results.",
+        "Sample situations for schools, hotels, factories and clinics in Visakhapatnam. Illustrations of the problem and the fix, not client results.",
       header: {
         eyebrow: "Examples",
         title: "Sample projects: the problem, what we build, what changes.",
@@ -349,9 +352,9 @@ export function cmsDefaults(): CmsBundle {
       },
     },
     aiAutomation: {
-      metaTitle: "AI & Automation",
+      metaTitle: "AI and WhatsApp Automation in Vizag",
       metaDescription:
-        "AI assistants, voice AI, WhatsApp automation and business automation from VARASENA Technologies in Visakhapatnam — what they can do, what they should not do, and a sample of how they work.",
+        "AI assistants and WhatsApp automation from VARASENA in Visakhapatnam: what they can do, what they should not do, and how a sample works.",
       header: {
         eyebrow: "AI & Automation",
         title: "AI that does real work, with your team in charge.",
@@ -424,9 +427,9 @@ export function cmsDefaults(): CmsBundle {
       },
     },
     insights: {
-      metaTitle: "Safety and quality",
+      metaTitle: "Software Safety and Support in Vizag",
       metaDescription:
-        "How we keep your data safe, test software before it goes live, and look after it afterwards, in plain English.",
+        "How VARASENA in Visakhapatnam keeps your data safe, tests software before it goes live, and looks after it afterwards.",
       header: {
         eyebrow: "Safety and quality",
         title: "How we keep your software safe and working.",
@@ -498,8 +501,9 @@ export function cmsDefaults(): CmsBundle {
       },
     },
     blog: {
-      metaTitle: "Blog",
-      metaDescription: `Practical articles from ${siteConfig.name} in Visakhapatnam on AI assistants, WhatsApp automation and business software for Indian schools, hotels, factories and SMEs.`,
+      metaTitle: "Software and AI Articles from Vizag",
+      metaDescription:
+        "Practical articles from VARASENA in Visakhapatnam on school software, WhatsApp automation, AI assistants and small-business tools.",
       header: {
         eyebrow: "Blog",
         title: "Practical articles for business owners in India.",

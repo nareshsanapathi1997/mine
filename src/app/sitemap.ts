@@ -20,20 +20,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/cookies",
   ];
 
+  const hubPriority: Record<string, number> = {
+    "/": 1,
+    "/solutions": 0.9,
+    "/industries": 0.9,
+    "/ai-automation": 0.85,
+    "/contact": 0.85,
+    "/about": 0.8,
+    "/blog": 0.75,
+  };
+
   const pages: MetadataRoute.Sitemap = staticPaths.map((path) => ({
     url: new URL(path, site.url).toString(),
     lastModified,
-    changeFrequency: path === "/" ? "weekly" : "monthly",
-    priority: path === "/" ? 1 : 0.7,
+    changeFrequency: path === "/" || path === "/blog" ? "weekly" : "monthly",
+    priority: hubPriority[path] ?? 0.65,
   }));
+
+  const moneySolutions = new Set([
+    "web-development",
+    "business-software",
+    "whatsapp-automation",
+    "ai-agents",
+    "mobile-applications",
+  ]);
+  const moneyIndustries = new Set(["schools", "hotels", "healthcare", "manufacturing", "education"]);
 
   try {
     for (const page of details.filter((item) => item.kind === "solution")) {
       pages.push({
         url: new URL(`/solutions/${page.slug}`, site.url).toString(),
         lastModified,
-        changeFrequency: "monthly",
-        priority: 0.7,
+        changeFrequency: "weekly",
+        priority: moneySolutions.has(page.slug) ? 0.9 : 0.75,
       });
     }
 
@@ -41,8 +60,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       pages.push({
         url: new URL(`/industries/${page.slug}`, site.url).toString(),
         lastModified,
-        changeFrequency: "monthly",
-        priority: 0.7,
+        changeFrequency: "weekly",
+        priority: moneyIndustries.has(page.slug) ? 0.9 : 0.75,
       });
     }
 
@@ -51,7 +70,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: new URL(`/blog/${post.slug}`, site.url).toString(),
         lastModified: new Date(`${post.date}T00:00:00.000Z`),
         changeFrequency: "monthly",
-        priority: 0.6,
+        priority: 0.7,
       });
     }
 

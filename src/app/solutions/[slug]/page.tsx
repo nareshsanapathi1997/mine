@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { DetailTemplate } from "@/components/detail/detail-template";
 import { getCms, getDetailPage, listDetailPages } from "@/lib/cms";
+import { detailSearch } from "@/content/seo";
 import { createMetadata } from "@/lib/seo";
 import { serviceJsonLd } from "@/lib/structured-data";
 
@@ -14,9 +15,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const page = await getDetailPage("solution", slug);
   if (!page) return {};
+  const search = detailSearch[page.slug];
   return createMetadata({
-    title: page.name,
-    description: page.intro,
+    title: search?.title ?? page.heading,
+    description: search?.description ?? page.intro,
     path: `/solutions/${page.slug}`,
     keywords: [
       `${page.name} Visakhapatnam`,

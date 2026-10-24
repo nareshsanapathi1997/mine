@@ -9,14 +9,14 @@ import { HomeSteps, HomeWhy } from "@/components/home/why";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getCms } from "@/lib/cms";
+import { homeSearch } from "@/content/seo";
 import { createMetadata } from "@/lib/seo";
 import { faqJsonLd, servicesJsonLd } from "@/lib/structured-data";
 
 export async function generateMetadata() {
-  const { site } = await getCms();
   return createMetadata({
-    title: "AI, Software & Business Automation Visakhapatnam",
-    description: site.description,
+    title: homeSearch.title,
+    description: homeSearch.description,
     path: "/",
   });
 }

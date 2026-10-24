@@ -127,7 +127,18 @@ export function websiteJsonLd(site: SiteConfig) {
   };
 }
 
-export function organizationJsonLd(site: SiteConfig) {
+function founderEntities(founders: { name: string; role: string }[]) {
+  return founders
+    .filter((person) => person.name.trim())
+    .map((person) => ({
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+    }));
+}
+
+export function organizationJsonLd(site: SiteConfig, founders: { name: string; role: string }[] = []) {
+  const people = founderEntities(founders);
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -138,6 +149,7 @@ export function organizationJsonLd(site: SiteConfig) {
     address: postalAddress(),
     areaServed: areaServedPlaces(),
     sameAs: sameAsLinks(site),
+    ...(people.length ? { founder: people } : {}),
     logo: new URL("/varasena-brand-pack/varasena-logo-dark.png", site.url).toString(),
     description: site.description,
     knowsLanguage: ["en", "en-IN"],
@@ -149,7 +161,8 @@ function sameAsLinks(site: SiteConfig) {
 }
 
 /** Local / GEO schema for Visakhapatnam-based software services. */
-export function localBusinessJsonLd(site: SiteConfig) {
+export function localBusinessJsonLd(site: SiteConfig, founders: { name: string; role: string }[] = []) {
+  const people = founderEntities(founders);
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -172,11 +185,29 @@ export function localBusinessJsonLd(site: SiteConfig) {
       closes: "18:30",
     },
     sameAs: sameAsLinks(site),
+    ...(people.length ? { founder: people } : {}),
     knowsLanguage: ["en", "en-IN"],
     knowsAbout: [
-      "Web development",
+      "Software company Visakhapatnam",
+      "Software company Vizag",
+      "Website development Visakhapatnam",
+      "Website development Vizag",
+      "Mobile app development Vizag",
+      "Custom software Visakhapatnam",
+      "School management software",
+      "School ERP Vizag",
+      "Hotel booking software Vizag",
+      "Clinic appointment software",
+      "Factory order tracking",
+      "WhatsApp automation Vizag",
+      "AI chatbot for business",
+      "AI assistants",
+      "GST invoice software",
+    ],
+    serviceType: [
+      "Website development",
       "Mobile app development",
-      "Business software",
+      "Custom business software",
       "WhatsApp automation",
       "AI assistants",
       "Cloud hosting",

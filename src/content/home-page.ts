@@ -64,7 +64,7 @@ export const homeServices: HomeService[] = [
   {
     icon: "globe",
     title: "Websites and mobile apps",
-    body: "Fast websites that bring enquiries, and apps for parents, guests, staff or customers.",
+    body: "Website development and apps from our Vizag team — school sites, hotel booking sites and apps for parents, guests or staff.",
     examples: ["School website with online admission form", "Hotel booking site", "Staff attendance app"],
     href: "/solutions/web-development",
     photo: newImages["web-development"],
@@ -72,7 +72,7 @@ export const homeServices: HomeService[] = [
   {
     icon: "blocks",
     title: "Software for your daily work",
-    body: "Simple software built around how your team already works, instead of a heavy package you have to adjust to.",
+    body: "Custom software in Visakhapatnam built around how your team already works, instead of a heavy package you have to adjust to.",
     examples: ["Student, fee and exam management", "Order and stock tracking", "Owner's dashboard"],
     href: "/solutions/business-software",
     photo: newImages["business-software"],
@@ -80,7 +80,7 @@ export const homeServices: HomeService[] = [
   {
     icon: "message",
     title: "WhatsApp and automatic reminders",
-    body: "Replies, reminders and updates go out on their own, from the details already in your software.",
+    body: "WhatsApp automation in Vizag for fee dues, bookings and appointments, from your official Business number.",
     examples: ["Fee and payment reminders", "Booking confirmations", "Order and dispatch updates"],
     href: "/solutions/whatsapp-automation",
     photo: newImages["whatsapp-automation"],
@@ -88,7 +88,7 @@ export const homeServices: HomeService[] = [
   {
     icon: "bot",
     title: "AI assistants",
-    body: "A helper on WhatsApp, your website or phone that answers common questions from your own information, and passes anything important to a person.",
+    body: "AI chatbots for WhatsApp and websites in Visakhapatnam that answer common questions and hand the rest to your staff.",
     examples: ["Course and fee questions", "Room availability", "Appointment booking"],
     href: "/ai-automation",
     photo: newImages["ai-agents"],
@@ -96,7 +96,7 @@ export const homeServices: HomeService[] = [
   {
     icon: "cloud",
     title: "Hosting, security and support",
-    body: "We put your software online, keep backups, watch for problems and keep improving it after launch.",
+    body: "Cloud hosting and support in Vizag: we put your software online, keep backups and watch for problems after launch.",
     examples: ["Secure cloud hosting", "Regular backups", "Ongoing support"],
     href: "/solutions/cloud-devops",
     photo: newImages["cloud-devops"],
@@ -264,19 +264,31 @@ export const homeSafety: { icon: UiIconName; label: string }[] = [
 export const homeFaq = [
   {
     q: `What does ${siteConfig.name} do?`,
-    a: "We are a Visakhapatnam (Vizag) software company. We build websites, apps and business software for schools, coaching centres, hotels, factories, clinics, CAs, consultants and small businesses across India. We also set up WhatsApp replies, reminders and AI assistants that work with your software.",
+    a: "VARASENA Technologies is a Visakhapatnam (Vizag) software company. We build websites, mobile apps, business software, WhatsApp automation and AI assistants for schools, hotels, factories, clinics and small businesses in Vizag and across India.",
+  },
+  {
+    q: "Is there a software company in Vizag that builds websites and apps?",
+    a: "Yes. VARASENA Technologies is a software company in Visakhapatnam (Vizag). We create business websites, school and hotel websites, mobile apps, custom software, WhatsApp bots and AI chat assistants.",
+  },
+  {
+    q: "Do you create websites in Visakhapatnam?",
+    a: "Yes. We design and develop company websites, school websites, hotel booking sites and clinic sites in Visakhapatnam, with enquiry forms and WhatsApp so leads reach your team quickly.",
+  },
+  {
+    q: "Can you build school ERP, hotel software or clinic booking software?",
+    a: "Yes. We build school management and fee software, hotel booking tools, factory order tracking, clinic OPD booking on WhatsApp, and GST invoice tools for small businesses.",
   },
   {
     q: "Where are you based?",
-    a: "Our team is in Visakhapatnam, Andhra Pradesh. We work with businesses in Vizag and remotely across India.",
+    a: "Our team is in Visakhapatnam, Andhra Pradesh. We work with businesses in Vizag, Anakapalli, Chodavaram and remotely across India.",
   },
   {
     q: "We already use Excel, Tally or another software. Do we have to stop?",
     a: "No. We usually connect to what you already use. Replacing a tool is your choice, and only if it really helps.",
   },
   {
-    q: "What is an AI assistant, in simple words?",
-    a: "It is a helper that replies to common questions on WhatsApp, your website or phone, using your own information like fees, timings or room rates. When a question needs a person, it passes it to your staff.",
+    q: "What is an AI assistant or AI chatbot, in simple words?",
+    a: "It is a helper on WhatsApp, your website or phone that answers common questions using your fees, timings or room rates. When a question needs a person, it passes the chat to your staff.",
   },
   {
     q: "Will the AI take decisions on its own?",
@@ -287,8 +299,8 @@ export const homeFaq = [
     a: "Yes. Reminders and confirmations can go out automatically on WhatsApp, SMS or email, based on the dates in your software.",
   },
   {
-    q: "How much does it cost and how long does it take?",
-    a: "It depends on what you need. After a short call we send a written plan with the cost and timeline for the first piece of work.",
+    q: "How much does a website or software project cost in Vizag?",
+    a: "A simple business website costs less than a full school ERP or hotel booking system. After a short call we send a written plan with the cost and timeline for the first piece of work.",
   },
   {
     q: "Is our data safe?",

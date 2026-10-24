@@ -10,7 +10,7 @@ import { Splash } from "@/components/layout/splash";
 import { RevealObserver } from "@/components/layout/reveal-observer";
 import { MotionStage } from "@/components/motion/stage";
 import { JsonLd } from "@/components/seo/json-ld";
-import { geoMetaTags, keywordsForPath } from "@/content/seo";
+import { geoMetaTags, homeSearch, keywordsForPath } from "@/content/seo";
 import { getCms } from "@/lib/cms";
 import { localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import { themeBootScript } from "@/lib/theme";
@@ -32,7 +32,7 @@ export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getCms();
-  const title = `${site.name} | AI, Software & Business Automation Visakhapatnam`;
+  const title = homeSearch.title;
   return {
     metadataBase: new URL(site.url),
     title: {
@@ -49,13 +49,13 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: site.locale,
       siteName: site.name,
       title,
-      description: site.description,
+      description: homeSearch.description,
       url: site.url,
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description: site.description,
+      description: homeSearch.description,
     },
     robots: {
       index: true,
@@ -100,8 +100,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <PublicChrome>
           <Splash />
         </PublicChrome>
-        <JsonLd data={organizationJsonLd(site)} />
-        <JsonLd data={localBusinessJsonLd(site)} />
+        <JsonLd data={organizationJsonLd(site, cms.about.team.people)} />
+        <JsonLd data={localBusinessJsonLd(site, cms.about.team.people)} />
         <JsonLd data={websiteJsonLd(site)} />
         <noscript>
           <style>

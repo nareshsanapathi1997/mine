@@ -35,13 +35,20 @@ export function HomeHero({ content, positioning }: { content: HomeHeroContent; p
             <p className="xh-position">{positioning}</p>
           </div>
           <h1 id="hero-heading" className="xh-title xh-r" style={{ ["--d" as string]: "90ms" }}>
-            {content.titleBefore}
-            <span className="xh-grad">{content.titleHighlight}</span>
-            {content.titleAfter}
+            <span className="xh-title-lead">
+              {content.titleBefore}
+              <span className="xh-grad">{content.titleHighlight}</span>
+            </span>
+            {content.titleAfter ? <span className="xh-title-rest">{content.titleAfter.trim()}</span> : null}
           </h1>
           <p className="xh-sub xh-r" style={{ ["--d" as string]: "180ms" }}>
             {content.subtitle}
           </p>
+          {content.lede ? (
+            <p className="xh-lede xh-r" style={{ ["--d" as string]: "220ms" }}>
+              {content.lede}
+            </p>
+          ) : null}
           <div className="xh-ctas xh-r" style={{ ["--d" as string]: "270ms" }}>
             <Button asChild size="lg" arrow className="xh-primary w-full sm:w-auto">
               <Link href={content.primaryHref}>{content.primaryLabel}</Link>

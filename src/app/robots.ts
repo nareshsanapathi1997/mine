@@ -4,11 +4,18 @@ import { getSite } from "@/lib/cms";
 export default async function robots(): Promise<MetadataRoute.Robots> {
   const site = await getSite();
   return {
-    rules: {
-      userAgent: "*",
-      allow: ["/", "/llms.txt"],
-      disallow: ["/api/", "/admin", "/admin/"],
-    },
+    rules: [
+      {
+        userAgent: "*",
+        allow: ["/", "/llms.txt"],
+        disallow: ["/api/", "/admin", "/admin/"],
+      },
+      {
+        userAgent: ["GPTBot", "ChatGPT-User", "ClaudeBot", "PerplexityBot", "Google-Extended", "Applebot-Extended", "Bingbot"],
+        allow: ["/", "/llms.txt"],
+        disallow: ["/api/", "/admin", "/admin/"],
+      },
+    ],
     sitemap: new URL("/sitemap.xml", site.url).toString(),
     host: site.url,
   };

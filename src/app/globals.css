@@ -3581,12 +3581,16 @@ html[data-theme="light"] .hv-chat { border-color: rgba(13, 22, 38, 0.1); }
 .xh-title {
   margin-top: 1.15rem;
   font-family: var(--font-display, inherit);
-  font-size: clamp(1.85rem, 1.1rem + 2.7vw, 3.4rem);
-  line-height: 1.04;
-  letter-spacing: -0.038em;
+  font-size: clamp(1.75rem, 1.05rem + 1.7vw, 2.55rem);
+  line-height: 1.12;
+  letter-spacing: -0.034em;
   font-weight: 600;
   color: #ffffff;
-  text-wrap: balance;
+  text-wrap: pretty;
+}
+.xh-title-lead,
+.xh-title-rest {
+  display: block;
 }
 .xh-grad {
   background-image: linear-gradient(100deg, #7AF0FF 0%, #00D4E8 28%, #6fb6ff 52%, #0B6BFF 78%, #7AF0FF 100%);
@@ -3599,8 +3603,15 @@ html[data-theme="light"] .hv-chat { border-color: rgba(13, 22, 38, 0.1); }
 }
 .xh-sub {
   margin-top: 0.85rem;
-  max-width: 34rem;
-  font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.125rem);
+  max-width: 36rem;
+  font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.25rem);
+  line-height: 1.45;
+  color: #f2f6fb;
+}
+.xh-lede {
+  margin-top: 0.7rem;
+  max-width: 38rem;
+  font-size: clamp(0.92rem, 0.88rem + 0.2vw, 1.05rem);
   line-height: 1.6;
   color: #d5dce8;
 }

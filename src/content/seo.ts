@@ -39,6 +39,106 @@ export const siteGeo = {
   ],
 } as const;
 
+/** Search title and description. Titles stay within 60 characters, descriptions within 160. */
+export const homeSearch = {
+  title: "Software Company in Vizag | AI & WhatsApp Automation",
+  description:
+    "Visakhapatnam (Vizag) software company building websites, apps, WhatsApp automation and AI assistants for schools, hotels, clinics and factories.",
+} as const;
+
+export const detailSearch: Record<string, { title: string; description: string }> = {
+  "web-development": {
+    title: "Website Development Company in Vizag",
+    description:
+      "VARASENA builds school, hotel, clinic and business websites in Visakhapatnam (Vizag), with forms and WhatsApp that send every enquiry to your team.",
+  },
+  "mobile-applications": {
+    title: "Mobile App Development Company in Vizag",
+    description:
+      "VARASENA builds Android and iPhone apps in Visakhapatnam for parents, guests, factory staff and sales teams.",
+  },
+  "business-software": {
+    title: "Custom Software Company in Vizag",
+    description:
+      "Custom software in Visakhapatnam for school ERP, hotel bookings, factory orders, clinic OPD and GST invoices.",
+  },
+  "ai-agents": {
+    title: "AI Chatbot Company in Vizag",
+    description:
+      "AI chatbots for WhatsApp and websites in Visakhapatnam that answer from your fees, timings and stock, then hand hard chats to staff.",
+  },
+  "voice-ai": {
+    title: "AI Phone Assistant in Vizag",
+    description:
+      "AI voice assistant in Visakhapatnam (Vizag) for appointment calls, timings and status checks, with hand-over to your team.",
+  },
+  "whatsapp-automation": {
+    title: "WhatsApp Automation Company in Vizag",
+    description:
+      "WhatsApp Business automation in Visakhapatnam for school fees, hotel bookings, clinic appointments and order updates.",
+  },
+  "business-automation": {
+    title: "Business Automation Company in Vizag",
+    description:
+      "Business automation in Visakhapatnam for enquiries, GST invoices, approvals and daily reports your team still does by hand.",
+  },
+  "cloud-devops": {
+    title: "Website Hosting and Support in Vizag",
+    description:
+      "Cloud hosting, backups and support for websites and software, looked after by a Visakhapatnam (Vizag) team.",
+  },
+  education: {
+    title: "Education Software in Vizag",
+    description:
+      "Education software in Visakhapatnam for school, college and coaching admissions, fees and parent WhatsApp updates.",
+  },
+  schools: {
+    title: "School ERP Software in Vizag",
+    description:
+      "School management software in Visakhapatnam for admissions, fee reminders on WhatsApp, attendance and parent updates.",
+  },
+  colleges: {
+    title: "College ERP Software in Vizag",
+    description:
+      "College admission and department software in Visakhapatnam, from enquiries to attendance, exams and student requests.",
+  },
+  coaching: {
+    title: "Coaching Centre Software in Vizag",
+    description:
+      "Enquiry, batch and fee software for coaching centres in Visakhapatnam (Vizag), with WhatsApp follow-up.",
+  },
+  hospitality: {
+    title: "Hotel and Restaurant Software in Vizag",
+    description:
+      "Booking and guest-message software for hotels, resorts and restaurants in Visakhapatnam (Vizag).",
+  },
+  hotels: {
+    title: "Hotel Booking Software in Vizag",
+    description:
+      "Hotel booking software for Vizag front desks: WhatsApp replies, room availability and guest messages in one place.",
+  },
+  manufacturing: {
+    title: "Factory Order Tracking Software in Vizag",
+    description:
+      "Factory order tracking in Visakhapatnam for stock, production stages and dispatch updates across Andhra Pradesh.",
+  },
+  healthcare: {
+    title: "Clinic and Hospital Software in Vizag",
+    description:
+      "Clinic appointment software and OPD WhatsApp booking for hospitals and clinics in Visakhapatnam (Vizag).",
+  },
+  "corporate-smes": {
+    title: "GST Invoice Software in Vizag",
+    description:
+      "GST invoices, quotations and lead follow-up for small businesses in Visakhapatnam (Vizag).",
+  },
+  "professional-services": {
+    title: "Software for CAs and Consultants in Vizag",
+    description:
+      "Lead, client-file and billing software for consultants, CAs and agencies in Visakhapatnam (Vizag).",
+  },
+};
+
 /** Brand + high-intent service keywords shared across the site. */
 export const coreKeywords = [
   "VARASENA Technologies",
