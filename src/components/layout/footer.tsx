@@ -60,6 +60,12 @@ export async function Footer() {
               <UiIcon name="pin" className="size-3.5" />
               {site.location}
             </span>
+            {site.hours ? (
+              <span className="inline-flex items-center gap-2 text-mist">
+                <UiIcon name="clock" className="size-3.5" />
+                {site.hours}
+              </span>
+            ) : null}
           </p>
         </div>
 

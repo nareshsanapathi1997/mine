@@ -44,12 +44,15 @@ export const siteConfig: SiteConfig = {
   phoneDisplay: "+91 88863 62977",
   phoneHref: "tel:+918886362977",
   whatsappHref: "https://wa.me/918886362977",
-  /** Placeholder until the public office address is confirmed. */
-  location: "Visakhapatnam, India",
-  hours: "",
+  /**
+   * City-level location until a street address and pincode are confirmed.
+   * Do not invent a street or pincode — local SEO needs this to match Google Business Profile.
+   */
+  location: "Visakhapatnam (Vizag), Andhra Pradesh, India",
+  hours: "Mon–Sat 9:30 AM – 6:30 PM",
   url: (process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://varasena.com"),
   description:
-    "VARASENA Technologies — Visakhapatnam / Vizag software company for website development, mobile apps, business software, WhatsApp automation, AI assistants and cloud hosting for schools, hotels, factories, clinics and SMEs across Andhra Pradesh and India.",
+    "Visakhapatnam (Vizag) software company building websites, apps, WhatsApp automation and AI assistants for schools, hotels, clinics and factories.",
   positioning: "Websites · Apps · Software · AI · Automation",
   /** Brand promise shown in the about story. */
   nameMeaning: "Ideas · Innovation · Impact",

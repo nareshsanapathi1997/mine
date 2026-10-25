@@ -7,7 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "next dev --port 6001",
+    "dev": "next dev --port 6001 --webpack",
     "build": "node --max-old-space-size=2048 ./node_modules/next/dist/bin/next build --webpack",
     "start": "next start --hostname 0.0.0.0",
     "lint": "eslint",
@@ -28,7 +28,7 @@
     "mysql2": "^3.24.6",
     "next": "16.4.2",
     "next-mdx-remote": "^6.0.0",
-    "nodemailer": "^10.0.14",
+    "nodemailer": "^10.2.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tailwind-merge": "^3.7.0"
@@ -43,5 +43,8 @@
     "eslint-config-next": "16.4.2",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "zod": "^4.6.7"
   }
 }

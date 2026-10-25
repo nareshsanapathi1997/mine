@@ -80,6 +80,8 @@ export type HomeHeroContent = {
   titleHighlight: string;
   titleAfter: string;
   subtitle: string;
+  /** Quotable sentence under the subheading. AI answers and crawlers read this. */
+  lede?: string;
   primaryLabel: string;
   primaryHref: string;
   secondaryLabel: string;

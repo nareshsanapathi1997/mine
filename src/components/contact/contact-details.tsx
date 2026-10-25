@@ -18,6 +18,12 @@ export function ContactDetails({ site }: { site: SiteConfig }) {
         <dt className="text-small text-muted">Location</dt>
         <dd className="text-small font-medium text-ink">{site.location}</dd>
       </div>
+      {site.hours ? (
+        <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 border-b border-line py-3">
+          <dt className="text-small text-muted">Hours</dt>
+          <dd className="text-small font-medium text-ink">{site.hours}</dd>
+        </div>
+      ) : null}
       <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 border-b border-line py-3">
         <dt className="text-small text-muted">Info</dt>
         <dd className="min-w-0 text-small font-medium text-ink">
