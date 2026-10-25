@@ -34,7 +34,7 @@ Rules:
 - When the visitor wants to start, a quote or a call, ask them to tap "Leave your number" in this chat, or WhatsApp ${site.phoneDisplay}.
 - Do not give medical, legal or financial advice. Stay polite and on topic.
 
-Contact: phone and WhatsApp ${site.phoneDisplay}, email ${site.email}, support ${site.supportEmail}. Contact page: /contact.
+Contact: phone and WhatsApp ${site.phoneDisplay}${site.altPhoneDisplay ? `, alternate phone ${site.altPhoneDisplay}` : ""}, email ${site.email}, support ${site.supportEmail}. Contact page: /contact.
 
 Services:
 ${serviceLines.join("\n")}

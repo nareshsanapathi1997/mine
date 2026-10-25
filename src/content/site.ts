@@ -22,6 +22,9 @@ export type SiteConfig = {
   supportEmail: string;
   phoneDisplay: string;
   phoneHref: string;
+  /** Alternate number. Leave empty to hide it. */
+  altPhoneDisplay: string;
+  altPhoneHref: string;
   whatsappHref: string;
   location: string;
   hours: string;
@@ -41,9 +44,11 @@ export const siteConfig: SiteConfig = {
   email: "info@varasena.com",
   /** Support inbox — shown alongside info on contact surfaces. */
   supportEmail: "support@varasena.com",
-  phoneDisplay: "+91 88863 62977",
-  phoneHref: "tel:+918886362977",
-  whatsappHref: "https://wa.me/918886362977",
+  phoneDisplay: "+91 73375 03431",
+  phoneHref: "tel:+917337503431",
+  altPhoneDisplay: "+91 88863 62977",
+  altPhoneHref: "tel:+918886362977",
+  whatsappHref: "https://wa.me/917337503431",
   /**
    * City-level location until a street address and pincode are confirmed.
    * Do not invent a street or pincode — local SEO needs this to match Google Business Profile.

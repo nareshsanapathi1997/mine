@@ -120,6 +120,8 @@ export function BrandForm({ initial }: { initial: SiteConfig }) {
           <Field label="Support email" value={site.supportEmail} onChange={(value) => setField("supportEmail", value)} />
           <Field label="Phone display" value={site.phoneDisplay} onChange={(value) => setField("phoneDisplay", value)} />
           <Field label="Phone link" value={site.phoneHref} onChange={(value) => setField("phoneHref", value)} />
+          <Field label="Alternate phone display" value={site.altPhoneDisplay ?? ""} onChange={(value) => setField("altPhoneDisplay", value)} />
+          <Field label="Alternate phone link" value={site.altPhoneHref ?? ""} onChange={(value) => setField("altPhoneHref", value)} />
           <Field label="WhatsApp link" value={site.whatsappHref} onChange={(value) => setField("whatsappHref", value)} />
           <Field label="Location" value={site.location} onChange={(value) => setField("location", value)} />
           <Field label="Hours" value={site.hours} onChange={(value) => setField("hours", value)} />

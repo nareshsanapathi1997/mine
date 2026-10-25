@@ -43,30 +43,45 @@ export async function Footer() {
             <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-glow">{site.positioning}</p>
             <p className="mt-2 text-sm leading-snug text-mist">{site.tagline}</p>
           </div>
-          <p className="flex flex-col gap-1.5 text-sm lg:items-end">
-            <a href={site.phoneHref} className="footer-link inline-flex w-fit items-center gap-2">
-              <UiIcon name="phone" className="size-3.5" />
-              {site.phoneDisplay}
-            </a>
-            <a href={`mailto:${site.email}`} className="footer-link inline-flex w-fit items-center gap-2 break-all">
-              <UiIcon name="mail" className="size-3.5" />
-              {site.email}
-            </a>
-            <a href={`mailto:${site.supportEmail}`} className="footer-link inline-flex w-fit items-center gap-2 break-all">
-              <UiIcon name="mail" className="size-3.5" />
-              {site.supportEmail}
-            </a>
-            <span className="inline-flex items-center gap-2 text-mist">
-              <UiIcon name="pin" className="size-3.5" />
-              {site.location}
-            </span>
-            {site.hours ? (
-              <span className="inline-flex items-center gap-2 text-mist">
-                <UiIcon name="clock" className="size-3.5" />
-                {site.hours}
-              </span>
-            ) : null}
-          </p>
+          <div className="flex flex-col gap-1.5 text-sm lg:items-end">
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <UiIcon name="phone" className="size-3.5 shrink-0" />
+              <a href={site.phoneHref} className="footer-link">
+                {site.phoneDisplay}
+              </a>
+              {site.altPhoneDisplay ? (
+                <>
+                  <span className="text-mist" aria-hidden="true">·</span>
+                  <a
+                    href={site.altPhoneHref || `tel:${site.altPhoneDisplay.replace(/[^\d+]/g, "")}`}
+                    className="footer-link"
+                  >
+                    {site.altPhoneDisplay}
+                  </a>
+                </>
+              ) : null}
+            </p>
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <UiIcon name="mail" className="size-3.5 shrink-0" />
+              <a href={`mailto:${site.email}`} className="footer-link break-all">
+                {site.email}
+              </a>
+              <span className="text-mist" aria-hidden="true">·</span>
+              <a href={`mailto:${site.supportEmail}`} className="footer-link break-all">
+                {site.supportEmail}
+              </a>
+            </p>
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-mist">
+              <UiIcon name="pin" className="size-3.5 shrink-0" />
+              <span>{site.location.split(",")[0]}</span>
+              {site.hours ? (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>{site.hours}</span>
+                </>
+              ) : null}
+            </p>
+          </div>
         </div>
 
         <div className="grid gap-6 pt-6 sm:grid-cols-2 lg:grid-cols-5">

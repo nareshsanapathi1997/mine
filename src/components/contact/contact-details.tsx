@@ -14,6 +14,19 @@ export function ContactDetails({ site }: { site: SiteConfig }) {
           </a>
         </dd>
       </div>
+      {site.altPhoneDisplay ? (
+        <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 border-b border-line py-3">
+          <dt className="text-small text-muted">Alternate</dt>
+          <dd className="min-w-0 text-small font-medium text-ink">
+            <a
+              href={site.altPhoneHref || `tel:${site.altPhoneDisplay.replace(/[^\d+]/g, "")}`}
+              className="inline-flex min-h-11 min-w-0 items-center break-all text-ink underline decoration-line underline-offset-4"
+            >
+              {site.altPhoneDisplay}
+            </a>
+          </dd>
+        </div>
+      ) : null}
       <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 border-b border-line py-3">
         <dt className="text-small text-muted">Location</dt>
         <dd className="text-small font-medium text-ink">{site.location}</dd>

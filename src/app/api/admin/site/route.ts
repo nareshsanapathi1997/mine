@@ -69,6 +69,8 @@ export async function PUT(request: Request) {
     supportEmail: text(row.supportEmail) || cms.site.supportEmail,
     phoneDisplay: text(row.phoneDisplay) || cms.site.phoneDisplay,
     phoneHref: text(row.phoneHref) || cms.site.phoneHref,
+    altPhoneDisplay: text(row.altPhoneDisplay),
+    altPhoneHref: text(row.altPhoneHref),
     whatsappHref: text(row.whatsappHref) || cms.site.whatsappHref,
     location: text(row.location),
     hours: text(row.hours),
