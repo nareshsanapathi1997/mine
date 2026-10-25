@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { DetailCard } from "@/components/detail/detail-card";
 import { HomeFaq } from "@/components/home/faq";
+import { PromoReel } from "@/components/home/promo-reel";
 import { HomeSampleFlow } from "@/components/home/sample-flow";
+import { ReelSection } from "@/components/reel/reel-section";
 import { UiIcon } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
@@ -41,6 +43,15 @@ export default async function AIAutomationPage() {
           <Link href="/contact?need=AI%20assistant">{chrome.header.ctaLabel}</Link>
         </Button>
       </PageHeader>
+
+      <ReelSection
+        id="ai-reel"
+        eyebrow="Watch in 22 seconds"
+        title="One WhatsApp enquiry, answered at 9 PM"
+        intro="A sample of how an AI assistant replies instantly, saves the enquiry and tells your team, while your people stay in charge."
+      >
+        <PromoReel className="xh-reel" variant="automation" />
+      </ReelSection>
 
       <section className="section h-section" aria-labelledby="can-heading">
         <Container>

@@ -6,6 +6,8 @@ import { UiIcon } from "@/components/icons";
 import { Breadcrumbs, type Crumb } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
+import { DetailReel } from "@/components/reel/detail-reel";
+import { ReelSection } from "@/components/reel/reel-section";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
@@ -47,6 +49,22 @@ export async function DetailTemplate({
           </a>
         </Button>
       </PageHeader>
+
+      <ReelSection
+        id="d-reel"
+        eyebrow="Watch in 22 seconds"
+        title={page.kind === "industry" ? `How we help ${page.name.toLowerCase()}` : `${page.name}, in short`}
+        intro="The common problems, what changes, and what we build. A short sample, so you know what to expect before the first call."
+      >
+        <DetailReel
+          className="xh-reel"
+          name={page.name}
+          forIndustry={page.kind === "industry"}
+          problems={page.problems}
+          builds={page.builds}
+          ctaTitle={page.cta.title}
+        />
+      </ReelSection>
 
       <section className="section h-section" aria-labelledby="d-problems">
         <Container>

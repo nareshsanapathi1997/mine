@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
+import { PromoReel } from "@/components/home/promo-reel";
 import { Button } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import type { HomeHeroContent } from "@/lib/cms/types";
 
-export function HomeHero({ content, positioning }: { content: HomeHeroContent; positioning: string }) {
+export function HomeHero({ content, siteName }: { content: HomeHeroContent; siteName: string }) {
   return (
     <section className="xh band-dark relative isolate overflow-hidden lg:-mt-[5rem]" aria-labelledby="hero-heading">
       <div className="xh-glow" aria-hidden="true" />
@@ -21,18 +21,15 @@ export function HomeHero({ content, positioning }: { content: HomeHeroContent; p
       </div>
       <div className="xh-shade" aria-hidden="true" />
 
-      <div className="xh-inner mx-auto w-full max-w-[1200px] px-5 sm:px-8">
+      <div className="xh-inner xh-grid mx-auto w-full max-w-[1200px] px-5 sm:px-8">
         <div className="xh-copy">
           <div className="xh-mark-row xh-r" style={{ ["--d" as string]: "0ms" }}>
-            <Image
-              src={content.markSrc}
-              alt=""
-              width={512}
-              height={512}
-              priority
-              className="xh-mark"
-            />
-            <p className="xh-position">{positioning}</p>
+            <p className="xh-badge">
+              <span className="xh-badge-dot" aria-hidden="true" />
+              {siteName}
+              <span className="xh-badge-sep" aria-hidden="true" />
+              <span className="xh-badge-place">Visakhapatnam</span>
+            </p>
           </div>
           <h1 id="hero-heading" className="xh-title xh-r" style={{ ["--d" as string]: "90ms" }}>
             {content.titleBefore}
@@ -50,7 +47,18 @@ export function HomeHero({ content, positioning }: { content: HomeHeroContent; p
               {content.secondaryLabel}
             </Link>
           </div>
+          <ul className="xh-trust xh-r" style={{ ["--d" as string]: "340ms" }}>
+            {["Free first call", "Written plan with cost", "Support after launch"].map((item) => (
+              <li key={item}>
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
+        <PromoReel className="xh-reel xh-r" />
       </div>
     </section>
   );

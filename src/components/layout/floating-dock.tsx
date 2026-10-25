@@ -1,5 +1,6 @@
 "use client";
 
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { Glyph } from "@/components/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -57,6 +58,7 @@ export function FloatingDock() {
             <Glyph name="arrow-up" className="size-5" />
           </button>
         ) : null}
+        <ChatWidget />
         <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" aria-label={chrome.dock.whatsappLabel} className="wa-fab">
           <WhatsAppGlyph />
         </a>

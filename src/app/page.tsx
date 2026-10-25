@@ -29,7 +29,7 @@ export default async function HomePage() {
     <>
       <JsonLd data={servicesJsonLd(site, services)} />
       {home.faq.items.length ? <JsonLd data={faqJsonLd(home.faq.items)} /> : null}
-      <HomeHero content={home.hero} positioning={site.positioning} />
+      <HomeHero content={home.hero} siteName={site.name} />
       <StatsStrip stats={stats} />
       <HomeProblems content={home.problems} fixLabel={chrome.detail.fixLabel} />
       <HomeServices content={home.services} />

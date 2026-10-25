@@ -19,16 +19,20 @@ export function clientIp(request: Request) {
   return "unknown";
 }
 
-export function rateLimit(ip: string): { ok: true } | { ok: false; retryAfter: number } {
+export function rateLimit(
+  ip: string,
+  { scope = "contact", max = MAX_ATTEMPTS, windowMs = WINDOW_MS } = {},
+): { ok: true } | { ok: false; retryAfter: number } {
   const now = Date.now();
-  const current = buckets.get(ip);
+  const key = `${scope}:${ip}`;
+  const current = buckets.get(key);
 
   if (!current || current.resetAt <= now) {
-    buckets.set(ip, { count: 1, resetAt: now + WINDOW_MS });
+    buckets.set(key, { count: 1, resetAt: now + windowMs });
     return { ok: true };
   }
 
-  if (current.count >= MAX_ATTEMPTS) {
+  if (current.count >= max) {
     return { ok: false, retryAfter: Math.max(1, Math.ceil((current.resetAt - now) / 1000)) };
   }
 
