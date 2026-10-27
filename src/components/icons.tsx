@@ -153,18 +153,6 @@ export function UiIcon({ name, className = "size-4 shrink-0" }: { name: UiIconNa
   return <Glyph name={name} className={className} />;
 }
 
-export function EyebrowMark() {
-  return (
-    <span className="icon-chip icon-chip-sm" aria-hidden="true">
-      <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-        <path d="M4.5 3v10" />
-        <path d="M4.5 8 12 4.2" />
-        <path d="M4.5 8 12 11.8" />
-      </svg>
-    </span>
-  );
-}
-
 const glyphProps = {
   viewBox: "0 0 24 24",
   fill: "none",

@@ -1,5 +1,4 @@
 import { Photo } from "@/components/ui/photo";
-import { EyebrowMark } from "@/components/icons";
 import { Container } from "@/components/layout/container";
 import type { SectionPhoto } from "@/content/section-photos";
 import { cn } from "@/lib/cn";
@@ -35,10 +34,7 @@ export function PageHeader({
         )}
       >
         <div className={cn("page-hero-copy", photo ? "lg:col-span-7" : "lg:col-span-8")}>
-          <p className="eyebrow">
-            <EyebrowMark />
-            {eyebrow}
-          </p>
+          <p className="eyebrow">{eyebrow}</p>
           <h1 className="text-h1 cluster text-balance text-ink">{title}</h1>
           <p className="text-body cluster max-w-[60ch] text-muted">{description}</p>
           {points?.length ? (
