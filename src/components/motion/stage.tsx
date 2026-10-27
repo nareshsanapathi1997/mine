@@ -27,10 +27,11 @@ export function MotionStage() {
           activeGroup = group;
         }
         const cards = group ? group.querySelectorAll<HTMLElement>(":scope > .card, :scope > .spot, :scope > .lift-card, :scope > li > .card, :scope > li > .spot") : [spot];
-        cards.forEach((card) => {
-          const rect = card.getBoundingClientRect();
-          card.style.setProperty("--mx", `${point!.clientX - rect.left}px`);
-          card.style.setProperty("--my", `${point!.clientY - rect.top}px`);
+        // Read every rect first, then write, so the loop forces one layout instead of one per card.
+        const rects = Array.from(cards, (card) => card.getBoundingClientRect());
+        cards.forEach((card, index) => {
+          card.style.setProperty("--mx", `${point!.clientX - rects[index].left}px`);
+          card.style.setProperty("--my", `${point!.clientY - rects[index].top}px`);
         });
       } else if (activeGroup) {
         activeGroup.classList.remove("glow-group");

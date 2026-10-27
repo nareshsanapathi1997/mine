@@ -3096,7 +3096,50 @@ html[data-theme="light"] .text-gradient {
   box-shadow: 0 0 0 0 rgba(31, 143, 78, 0.55);
   pointer-events: none;
 }
-.dock { transition: bottom 200ms ease; }
+.dock { transition: bottom 200ms ease, opacity 200ms ease, transform 200ms ease, visibility 200ms; }
+/* An open chat panel lives inside the dock; lift it above the sticky header (z-50) so its top and Close button stay visible. */
+.dock:has(.chat-panel) { z-index: 60; }
+/*
+ * Phones and tablets: the dock waits until the visitor scrolls past the first
+ * screen, so it never covers the hero's own buttons. visibility also takes the
+ * buttons out of the tab order. An open chat panel keeps it visible.
+ */
+@media (width < 64rem) {
+  .dock-idle:not(:has(.chat-panel)) {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.75rem);
+  }
+}
+@media (width < 64rem) {
+  /*
+   * Phones and tablets: chat and WhatsApp are a compact row of 44px icons
+   * instead of a tall floating column, and back-to-top is dropped (phones
+   * have their own scroll-to-top). Once the bottom "Talk to us" bar shows,
+   * the row sits inside it, so nothing floats over the page.
+   */
+  .dock {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .dock .dock-top { display: none; }
+  .dock :is(.chat-fab, .wa-fab) {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .dock-bar {
+    bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  }
+  .dock-bar :is(.chat-fab, .wa-fab) { box-shadow: none; }
+  .dock-bar .wa-fab::after { animation: none; }
+  .dock-bar-shell { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px)); }
+}
+.dock-idle-all:not(:has(.chat-panel)) {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.75rem);
+}
 @media (prefers-reduced-motion: no-preference) {
   .wa-fab::after { animation: wa-pulse 2.8s ease-out 1.5s infinite; }
   @keyframes wa-pulse {
@@ -3112,7 +3155,7 @@ html[data-theme="light"] .text-gradient {
 @media (prefers-reduced-motion: reduce) {
   .dock, .wa-fab { transition: none; }
 }
-@media (max-width: 1023px) { .site-footer { padding-bottom: 5.5rem; } }
+@media (width < 64rem) { .site-footer { padding-bottom: 5.5rem; } }
 .c-timeline { position: relative; display: grid; gap: 1.25rem; }
 .c-timeline-item { position: relative; display: grid; grid-template-columns: 2rem 1fr; column-gap: 0.875rem; align-items: start; }
 .c-timeline-item:not(:last-child)::before {

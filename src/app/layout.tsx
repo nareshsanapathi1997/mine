@@ -11,10 +11,13 @@ import { RevealObserver } from "@/components/layout/reveal-observer";
 import { MotionStage } from "@/components/motion/stage";
 import { JsonLd } from "@/components/seo/json-ld";
 import { geoMetaTags, homeSearch, keywordsForPath } from "@/content/seo";
+import { publishedProjects, withProjectsLink } from "@/content/projects";
 import { getCms } from "@/lib/cms";
 import { localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import { themeBootScript } from "@/lib/theme";
 import "./globals.css";
+// The site palette: must stay after globals.css (its rules win by order).
+import "./palette.css";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -28,7 +31,8 @@ const inter = Inter({
   display: "swap",
 });
 
-export const revalidate = 60;
+// Admin saves call revalidatePath, so edits show at once. This is only a safety net.
+export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getCms();
@@ -78,7 +82,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#070b14",
+  themeColor: "#fbfcfe",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
@@ -89,7 +93,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      data-theme="dark"
+      data-theme="light"
       data-scroll-behavior="smooth"
       className={`${manrope.variable} ${inter.variable} h-full antialiased`}
     >
@@ -122,7 +126,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
                 siteName={site.name}
                 brand={site.brand}
                 chrome={chrome}
-                primaryNav={cms.navigation.primary}
+                primaryNav={withProjectsLink(cms.navigation.primary, publishedProjects(cms.projects.items).length > 0, cms.projects.navLabel)}
                 solutionGroups={cms.solutionGroups}
                 services={cms.services}
                 industries={cms.industries}

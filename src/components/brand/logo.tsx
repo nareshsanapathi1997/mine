@@ -18,13 +18,14 @@ export function Logo({
   name,
   brand,
   variant = "default",
-  priority = false,
+  preload = false,
   compact = false,
 }: {
   name: string;
   brand?: Partial<SiteBrand>;
   variant?: "default" | "inverse" | "ink";
-  priority?: boolean;
+  /** Preload only when this is the one visible logo, e.g. the admin login. Hidden variants stay lazy. */
+  preload?: boolean;
   compact?: boolean;
 }) {
   const assets = { ...fallbackBrand, ...brand };
@@ -36,7 +37,7 @@ export function Logo({
         alt={alt}
         width={240}
         height={240}
-        priority={priority}
+        preload={preload}
         className="size-11"
       />
     );
@@ -50,7 +51,7 @@ export function Logo({
         width={1400}
         height={332}
         sizes="280px"
-        priority={priority}
+        preload={preload}
         className={frameLight}
       />
     );
@@ -64,7 +65,7 @@ export function Logo({
         width={856}
         height={272}
         sizes="280px"
-        priority={priority}
+        preload={preload}
         className={frameDark}
       />
     );
@@ -78,7 +79,7 @@ export function Logo({
         width={1400}
         height={332}
         sizes="220px"
-        priority={priority}
+        preload={preload}
         className={cn(frameLight, "dark:hidden")}
       />
       <Image
@@ -88,7 +89,7 @@ export function Logo({
         height={272}
         sizes="280px"
         aria-hidden
-        priority={priority}
+        preload={preload}
         className={cn(frameDark, "hidden dark:block")}
       />
     </>

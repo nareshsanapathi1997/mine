@@ -13,7 +13,7 @@ export function HomeHero({ content, siteName }: { content: HomeHeroContent; site
           src={content.photo.src}
           alt=""
           fill
-          priority
+          preload
           sizes="(max-width: 1023px) 100vw, 58vw"
           className="xh-img"
         />

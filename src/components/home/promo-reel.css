@@ -167,7 +167,7 @@
 .promo-reel-b small {
   display: block;
   font-size: 1.2cqw;
-  opacity: 0.6;
+  opacity: 0.85;
   margin-top: 0.4cqw;
 }
 
@@ -249,7 +249,8 @@
   width: 3.6cqw;
   height: 3.6cqw;
   border-radius: 50%;
-  background: #017df5;
+  /* Brand blue dark enough for white text (6.9:1); #017df5 was 3.7:1. */
+  background: #0053c7;
   display: grid;
   place-items: center;
   font-style: normal;

@@ -9,6 +9,7 @@ export const CONTENT_KEYS = [
   "solutionsHub",
   "industriesHub",
   "caseStudies",
+  "projects",
   "aiAutomation",
   "insights",
   "blog",
@@ -37,6 +38,7 @@ export const CONTENT_SECTIONS: {
   { key: "solutionsHub", title: "Solutions listing", body: "Title, intro and banner for /solutions.", preview: "/solutions" },
   { key: "industriesHub", title: "Industries listing", body: "Title, intro and banner for /industries.", preview: "/industries" },
   { key: "caseStudies", title: "Examples", body: "Sample stories with photos, before and after.", preview: "/case-studies" },
+  { key: "projects", title: "Projects", body: "Real client projects: add one, upload photos, then tick Published.", preview: "/projects" },
   { key: "aiAutomation", title: "AI & Automation", body: "What we can and cannot do, plus a sample flow.", preview: "/ai-automation" },
   { key: "insights", title: "Safety and quality", body: "Stages, checklist and FAQs.", preview: "/insights" },
   { key: "blog", title: "Blog listing", body: "Header photo and empty-state copy.", preview: "/blog" },
@@ -214,6 +216,31 @@ export function newItem(cmsKey: ContentKey, path: string[], current: unknown[]):
       built: [""],
       after: [""],
     };
+  }
+  if (cmsKey === "projects" && path[0] === "items" && path.length === 1) {
+    return {
+      slug: "new-project",
+      published: false,
+      title: "New project",
+      client: "",
+      industry: "",
+      location: "Visakhapatnam",
+      year: String(new Date().getFullYear()),
+      summary: "",
+      photo: { ...PHOTO },
+      gallery: [],
+      challenge: [""],
+      built: [""],
+      results: [""],
+      tech: [""],
+      link: "",
+    };
+  }
+  if (cmsKey === "projects" && path[path.length - 1] === "gallery") {
+    return { ...PHOTO };
+  }
+  if (cmsKey === "about" && path[0] === "team" && path[1] === "people") {
+    return { name: "", role: "", bio: "", photo: { src: "", alt: "", width: 800, height: 800 }, linkedin: "" };
   }
   if (current[0] !== undefined) return emptyFrom(current[0]);
   return "";

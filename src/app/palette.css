@@ -1,0 +1,792 @@
+/*
+ * Site palette: "Refined Blue".
+ *
+ * One royal blue taken from the logo (#0B6BFF, deepened to #0A5CE6 so white
+ * text passes AA), cool blue-slate neutrals anchored on the logo navy #071B45
+ * and ivory #F4F8FF, cyan only as a small signal, one navy-tinted elevation
+ * scale. Layout, radii and type are untouched.
+ *
+ * Imported in src/app/layout.tsx right after globals.css: rules here win over
+ * globals.css by source order, so plain selectors are enough. Chat and reel
+ * rules carry an `html` prefix because their own CSS loads later, with their
+ * components. To change a colour site-wide, change the tokens in section 1.
+ */
+
+/* ---------- 1. Theme tokens ---------- */
+html[data-theme="light"] {
+  color-scheme: light;
+  --color-navy: #071b45;
+  --color-navy-mid: #0b2457;
+  --color-ink: #0b1a3a;
+  --color-ink-soft: #2a3a5c;
+  --color-canvas: #fbfcfe;
+  --color-surface: #f3f6fb;
+  --color-surface-muted: #e9eef6;
+  --color-slate-50: #f8fafd;
+  --color-slate-100: #f1f4f9;
+  --color-slate-200: #e3e8f1;
+  --color-slate-300: #cbd3e1;
+  --color-slate-400: #7c88a0;
+  --color-slate-500: #64708a;
+  --color-slate-600: #64708a;
+  --color-slate-700: #3a4866;
+  --color-slate-800: #22304f;
+  --color-slate-900: #0b1a3a;
+  --color-line: rgba(11, 26, 58, 0.09);
+  --color-line-strong: rgba(11, 26, 58, 0.17);
+  --color-muted: #4a5872;
+  --color-mist: #5b6782;
+  --color-accent: #0a5ce6;
+  --color-accent-strong: #0843a8;
+  --color-accent-ink: #0a55d1;
+  --color-accent-soft: rgba(10, 92, 230, 0.07);
+  --color-accent-glow: #0a5ce6;
+  --color-ai: #0a5ce6;
+  --color-ai-strong: #0843a8;
+  --color-ai-soft: rgba(10, 92, 230, 0.07);
+  --color-ai-glow: #0a5ce6;
+  --color-danger: #b42318;
+  --color-danger-soft: rgba(180, 35, 24, 0.06);
+  --color-success: #047857;
+  --color-success-soft: rgba(4, 120, 87, 0.07);
+  --color-brand-navy: #071b45;
+  --color-brand-ivory: #f4f8ff;
+  --color-brand-blue: #0b6bff;
+  --color-brand-cyan: #00d4e8;
+  --color-header: rgba(251, 252, 254, 0.97);
+  --page-ink: #0b1a3a;
+  --page-muted: #4a5872;
+  --page-mist: #5b6782;
+  --page-accent-ink: #0a55d1;
+  --page-accent-glow: #0a5ce6;
+  --page-surface: #ffffff;
+  --page-surface-muted: #f3f6fb;
+  --page-canvas: #fbfcfe;
+  --page-line: rgba(11, 26, 58, 0.09);
+  --page-line-strong: rgba(11, 26, 58, 0.17);
+  /* elevation: one shadow hue (brand navy), three steps */
+  --rb-shadow: 11 26 58;
+  --rb-elev-1: 0 1px 2px rgb(var(--rb-shadow) / 0.05), 0 1px 1px rgb(var(--rb-shadow) / 0.03);
+  --rb-elev-2: 0 1px 2px rgb(var(--rb-shadow) / 0.05), 0 12px 28px -18px rgb(var(--rb-shadow) / 0.22);
+  --rb-elev-3: 0 2px 4px rgb(var(--rb-shadow) / 0.05), 0 24px 48px -28px rgb(var(--rb-shadow) / 0.30);
+  --rb-field-border: #7c88a0;
+  --rb-placeholder: #64708a;
+  --rb-field-bg: #ffffff;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --color-navy: #070f24;
+  --color-navy-mid: #0d1a33;
+  --color-ink: #f4f8ff;
+  --color-ink-soft: #c9d4e8;
+  --color-canvas: #070f24;
+  --color-surface: #0d1a33;
+  --color-surface-muted: #13223f;
+  --color-slate-50: #0a1429;
+  --color-slate-100: #0d1a33;
+  --color-slate-200: #172744;
+  --color-slate-300: #24365a;
+  --color-slate-400: #5e6f93;
+  --color-slate-500: #8392b0;
+  --color-slate-600: #8392b0;
+  --color-slate-700: #aebad0;
+  --color-slate-800: #c9d4e8;
+  --color-slate-900: #f4f8ff;
+  --color-line: rgba(196, 214, 255, 0.09);
+  --color-line-strong: rgba(196, 214, 255, 0.17);
+  --color-muted: #9ba9c3;
+  --color-mist: #aebad0;
+  --color-accent: #0a5ce6;
+  --color-accent-strong: #4c93ff;
+  --color-accent-ink: #7db2ff;
+  --color-accent-soft: rgba(76, 147, 255, 0.12);
+  --color-accent-glow: #00d4e8;
+  --color-ai: #0a5ce6;
+  --color-ai-strong: #4c93ff;
+  --color-ai-soft: rgba(76, 147, 255, 0.12);
+  --color-ai-glow: #00d4e8;
+  --color-danger: #ff9b94;
+  --color-danger-soft: rgba(255, 110, 100, 0.10);
+  --color-success: #6ee7b7;
+  --color-success-soft: rgba(52, 211, 153, 0.10);
+  --color-header: rgba(7, 15, 36, 0.86);
+  --page-ink: #f4f8ff;
+  --page-muted: #9ba9c3;
+  --page-mist: #aebad0;
+  --page-accent-ink: #7db2ff;
+  --page-accent-glow: #00d4e8;
+  --page-surface: #0d1a33;
+  --page-surface-muted: #13223f;
+  --page-canvas: #070f24;
+  --page-line: rgba(196, 214, 255, 0.09);
+  --page-line-strong: rgba(196, 214, 255, 0.17);
+  --rb-shadow: 0 4 16;
+  --rb-elev-1: 0 1px 2px rgb(var(--rb-shadow) / 0.40);
+  --rb-elev-2: 0 1px 2px rgb(var(--rb-shadow) / 0.40), 0 16px 32px -20px rgb(var(--rb-shadow) / 0.70);
+  --rb-elev-3: 0 2px 4px rgb(var(--rb-shadow) / 0.40), 0 28px 56px -30px rgb(var(--rb-shadow) / 0.85);
+  --rb-field-border: #5e6f93;
+  --rb-placeholder: #8392b0;
+  --rb-field-bg: #0a1429;
+}
+
+/* ---------- 2. Always-dark bands: identical in both themes ---------- */
+html[data-theme] .band-dark,
+html[data-theme] .band-ai,
+html[data-theme="light"] :is(.band-dark, .band-ai, .bg-navy, .dark-island, .panel, .product-window, .system-board, .float-card) {
+  color-scheme: dark;
+  --color-ink: #f4f8ff;
+  --color-ink-soft: #c9d4e8;
+  --color-canvas: #050d22;
+  --color-navy: #050d22;
+  --color-surface: #0d1a33;
+  --color-surface-muted: #13223f;
+  --color-muted: #a9b6ce;
+  --color-mist: #bcc7da;
+  --color-line: rgba(196, 214, 255, 0.10);
+  --color-line-strong: rgba(196, 214, 255, 0.20);
+  --color-accent: #0a5ce6;
+  --color-accent-strong: #4c93ff;
+  --color-accent-ink: #8dbbff;
+  --color-accent-soft: rgba(76, 147, 255, 0.13);
+  --color-accent-glow: #00d4e8;
+  --color-ai-strong: #4c93ff;
+  --color-ai-soft: rgba(76, 147, 255, 0.13);
+  --color-danger: #ff9b94;
+  --color-success: #6ee7b7;
+  --rb-shadow: 0 4 16;
+  --rb-elev-1: 0 1px 2px rgb(0 4 16 / 0.40);
+  --rb-elev-2: 0 1px 2px rgb(0 4 16 / 0.40), 0 16px 32px -20px rgb(0 4 16 / 0.70);
+  --rb-elev-3: 0 2px 4px rgb(0 4 16 / 0.40), 0 28px 56px -30px rgb(0 4 16 / 0.85);
+  --rb-field-border: #5e6f93;
+  --rb-placeholder: #8392b0;
+  --rb-field-bg: #0a1429;
+  color: var(--color-ink);
+}
+
+.band-dark,
+.band-ai {
+  background-color: #050d22;
+  color: #f4f8ff;
+}
+
+html[data-theme="dark"] .band-dark,
+html[data-theme="dark"] .band-ai {
+  box-shadow: inset 0 1px 0 rgba(196, 214, 255, 0.06);
+}
+
+/* Quieter atmosphere: one blue bloom, a faint cyan hint */
+.band-dark::before,
+.band-ai::before {
+  background:
+    radial-gradient(ellipse at 82% 0%, rgba(11, 107, 255, 0.16), transparent 46%),
+    radial-gradient(ellipse at 14% 90%, rgba(0, 212, 232, 0.05), transparent 44%);
+}
+
+.band-dark::after,
+.band-ai::after {
+  opacity: 0.05;
+}
+
+/* Footer sits a step deeper than the CTA band so they read as two blocks */
+footer.band-dark,
+.site-footer.band-dark {
+  background-color: #030a1b;
+  /* hairline in the logo's own blue-to-cyan stops */
+  border-image: linear-gradient(90deg, transparent, rgba(11, 107, 255, 0.6), rgba(0, 212, 232, 0.45), transparent) 1;
+}
+
+/* The contact band is lifted a step above the footer so the two read as separate blocks */
+section.band-dark[aria-labelledby="cta-heading"] {
+  background-color: #071634;
+  background-image:
+    linear-gradient(rgba(196, 214, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196, 214, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, #0a1e4a, #071634);
+  background-size: 44px 44px, 44px 44px, 100% 100%;
+  background-repeat: repeat, repeat, no-repeat;
+}
+
+/* The enquiry card on the contact band sits a step above the band, not below it */
+section.band-dark[aria-labelledby="cta-heading"] .system-board {
+  --color-surface: #102654;
+  --rb-field-bg: #081633;
+  --rb-field-border: #6a7da6;
+  background: linear-gradient(180deg, #112a5c, #0c1d42);
+  border-color: rgba(196, 214, 255, 0.16);
+}
+
+/* Dark islands inside light mode use the band surface */
+html[data-theme="light"] :is(.panel, .product-window, .system-board, .float-card) {
+  background-color: #0d1a33;
+}
+
+.system-board,
+.product-window {
+  box-shadow: var(--rb-elev-3);
+}
+
+html[data-theme="dark"] .system-board,
+html[data-theme="dark"] .product-window {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(76, 147, 255, 0.08), transparent 58%),
+    var(--color-surface);
+  box-shadow: var(--rb-elev-3);
+}
+
+.panel {
+  background-color: #0d1a33;
+  border-color: rgba(196, 214, 255, 0.12);
+}
+
+/* ---------- 3. Header ---------- */
+.site-header,
+.site-header.is-scrolled {
+  background-color: var(--color-header);
+  border-bottom-color: var(--color-line);
+}
+
+.site-header.is-compact {
+  box-shadow: var(--rb-elev-2);
+}
+
+html[data-theme="dark"] .site-header .nav-shell,
+html[data-theme="dark"] .site-header .mobile-panel {
+  --color-ink: #f4f8ff;
+  --color-muted: #c9d4e8;
+  --color-mist: #aebad0;
+  --color-line: rgba(196, 214, 255, 0.16);
+  --color-line-strong: rgba(196, 214, 255, 0.28);
+  color: #f4f8ff;
+}
+
+html[data-theme="dark"] .site-header.is-menu-open,
+html[data-theme="dark"] .mobile-panel.is-open {
+  background-color: #070f24;
+}
+
+.mobile-backdrop {
+  background: rgba(5, 13, 34, 0.55);
+}
+
+/* ---------- 4. Base text, selection, focus ---------- */
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: #0a5ce6;
+  color: #ffffff;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent-ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-accent) 22%, transparent);
+}
+
+.skip-link {
+  box-shadow: var(--rb-elev-3);
+}
+
+.prose-block {
+  border-color: var(--color-accent);
+}
+
+/* ---------- 5. Eyebrows and accent text ---------- */
+.eyebrow {
+  color: var(--color-accent-ink);
+  letter-spacing: 0.12em;
+}
+
+.band-dark .eyebrow,
+.band-ai .eyebrow {
+  border-color: transparent;
+  background: none;
+  padding: 0;
+  color: #8dbbff;
+}
+
+.text-link {
+  color: var(--color-accent-ink);
+}
+
+@media (hover: hover) {
+  .text-link:hover {
+    color: var(--color-accent-strong);
+  }
+}
+
+html[data-theme="dark"] .text-link:hover,
+html[data-theme] .band-dark .text-link:hover {
+  color: #b3d0ff;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+/* ---------- 6. Buttons: one blue, depth instead of hue jumps ---------- */
+.btn-primary,
+html[data-theme="dark"] .btn-primary,
+.btn-ai {
+  background-color: #0a5ce6;
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 1px 2px rgb(7 27 69 / 0.20),
+    0 8px 20px -12px rgb(10 92 230 / 0.55);
+}
+
+@media (hover: hover) {
+  .btn-primary:hover:not(:disabled),
+  html[data-theme="dark"] .btn-primary:hover:not(:disabled),
+  .btn-ai:hover:not(:disabled) {
+    background-color: #084dc2;
+    color: #ffffff;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 1px 2px rgb(7 27 69 / 0.24),
+      0 12px 26px -14px rgb(10 92 230 / 0.65);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-line-strong));
+    background: var(--color-accent-soft);
+  }
+
+  .btn-quiet:hover:not(:disabled) {
+    background: #e8f0ff;
+    color: #071b45;
+  }
+
+  .btn-dark:hover:not(:disabled) {
+    border-color: rgba(196, 214, 255, 0.45);
+    background: rgba(196, 214, 255, 0.08);
+  }
+}
+
+.btn-secondary {
+  border-color: var(--color-line-strong);
+}
+
+.btn-ghost {
+  color: var(--color-accent-ink);
+}
+
+.btn-quiet {
+  background: #ffffff;
+  color: #071b45;
+  box-shadow: 0 1px 2px rgb(0 4 16 / 0.25);
+}
+
+.btn-dark {
+  border-color: rgba(196, 214, 255, 0.26);
+  background: rgba(196, 214, 255, 0.04);
+  color: #f4f8ff;
+}
+
+/* ---------- 7. Cards: crisp white on cool canvas, calm hover ---------- */
+.card {
+  box-shadow: var(--rb-elev-2);
+}
+
+html[data-theme="dark"] :is(.card, .lift-card, .soft-card) {
+  box-shadow: var(--rb-elev-2);
+}
+
+html[data-theme="light"] :is(.card, .soft-card, .lift-card, .flow-card):not(:is(.band-dark, .band-ai, .bg-navy, .dark-island, .panel, .product-window, .system-board, .float-card) *) {
+  background-color: #ffffff;
+  border-color: var(--color-line);
+  box-shadow: var(--rb-elev-2);
+}
+
+.card::after,
+.spot::after {
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(11, 107, 255, 0.06),
+    transparent 42%
+  );
+}
+
+html[data-theme="dark"] :is(.card, .spot)::after,
+.band-dark :is(.card, .spot)::after {
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(76, 147, 255, 0.08),
+    transparent 42%
+  );
+}
+
+.card-accent::before {
+  background: linear-gradient(90deg, #0a5ce6, #4c93ff);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .lift-card:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 28%, var(--color-line));
+    box-shadow: var(--rb-elev-3);
+  }
+
+  html[data-theme="light"] :is(.card, .lift-card):hover:not(:is(.band-dark, .band-ai, .bg-navy, .dark-island, .panel, .product-window, .system-board, .float-card) *) {
+    box-shadow:
+      var(--rb-elev-3),
+      0 0 0 1px rgb(10 92 230 / 0.04);
+  }
+}
+
+/* Groups no longer look permanently lit */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-group > .card::after,
+  .glow-group > li > .card::after,
+  .glow-group > .spot::after { opacity: 0.2; }
+  .glow-group > .card:hover::after,
+  .glow-group > li > .card:hover::after { opacity: 1; }
+}
+
+.h-band-soft {
+  background:
+    radial-gradient(60% 50% at 100% 0%, rgba(10, 92, 230, 0.04), transparent 70%),
+    var(--color-surface);
+}
+
+html[data-theme="dark"] .h-band-soft {
+  background:
+    radial-gradient(60% 50% at 100% 0%, rgba(76, 147, 255, 0.06), transparent 70%),
+    var(--color-surface);
+}
+
+.page-hero-glow {
+  background:
+    radial-gradient(38% 46% at 82% 18%, rgba(11, 107, 255, 0.26), transparent 70%),
+    radial-gradient(30% 38% at 12% 82%, rgba(0, 212, 232, 0.08), transparent 70%);
+}
+
+html[data-theme="light"] .page-hero-glow {
+  opacity: 0.35;
+}
+
+.page-hero-photo {
+  box-shadow:
+    0 0 0 1px var(--color-line),
+    var(--rb-elev-3);
+}
+
+.photo-frame,
+html[data-theme="light"] .photo-frame {
+  box-shadow: var(--rb-elev-3);
+}
+
+/* Hero grid lines visible (but faint) on the light canvas */
+html[data-theme="light"] .hero-grid {
+  background-image:
+    linear-gradient(rgba(11, 26, 58, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 26, 58, 0.04) 1px, transparent 1px);
+}
+
+/* Progress bars: the track stays quiet, the fill is blue with a cyan tip */
+.dash-fill > span,
+.h-flow-bar > span {
+  background: linear-gradient(90deg, #0a5ce6 0%, #4c93ff 80%, #00d4e8 100%);
+}
+
+.h-flow-bar {
+  background: rgba(196, 214, 255, 0.14);
+}
+
+/* ---------- 8. Icons (.ki): blue duotone, cyan dot only on dark ---------- */
+.ki { --ki-tint: var(--color-accent-strong); --ki-dot: var(--color-accent-ink); }
+html[data-theme="light"] .ki { --ki-tint: #0a5ce6; --ki-dot: #0843a8; }
+html[data-theme="light"] .ki .ki-t { opacity: 0.14; }
+html[data-theme="dark"] .ki { --ki-tint: #4c93ff; --ki-dot: #7db2ff; }
+html[data-theme] :is(.band-dark, .band-ai, .bg-navy, .dark-island, .panel, .product-window, .site-footer) .ki { --ki-tint: #4c93ff; --ki-dot: #00d4e8; }
+html[data-theme="light"] .ia .ia-a { fill: #0a5ce6; }
+
+/* ---------- 9. Form fields ---------- */
+.field {
+  border-color: var(--rb-field-border);
+  background: var(--rb-field-bg);
+}
+
+.field::placeholder {
+  color: var(--rb-placeholder);
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .field:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 55%, var(--rb-field-border));
+  }
+}
+
+.field:focus-visible {
+  border-color: var(--color-accent);
+  outline: 2px solid var(--color-accent-ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+.field[aria-invalid="true"]:focus-visible {
+  outline-color: var(--color-danger);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-danger) 22%, transparent);
+}
+
+.form-success {
+  border-color: color-mix(in srgb, var(--color-success) 40%, transparent);
+}
+
+/* ---------- 10. Home hero (.xh): brand navy, restrained gradient ---------- */
+.xh {
+  --xh-navy: #040b1f;
+  --xh-blue: #0b6bff;
+  --xh-cyan: #00d4e8;
+  background: var(--xh-navy);
+  color: #f4f8ff;
+}
+
+.xh-glow {
+  background:
+    radial-gradient(42% 48% at 12% 38%, rgba(11, 107, 255, 0.20), transparent 70%),
+    radial-gradient(30% 36% at 88% 12%, rgba(0, 212, 232, 0.06), transparent 70%);
+}
+
+.xh-title { color: #f4f8ff; }
+.xh-lede { color: #d3dceb; }
+
+/* three stops, ivory to logo blue to logo cyan; no shimmer loop */
+.xh-grad {
+  background-image: linear-gradient(100deg, #f4f8ff 0%, #9cc5ff 48%, #7af0ff 100%);
+  background-size: 100% 100%;
+  animation: none;
+}
+
+.xh-primary {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 12px 30px -16px rgba(11, 107, 255, 0.70);
+}
+
+.xh-ghost {
+  color: #f4f8ff;
+  border-color: rgba(196, 214, 255, 0.34);
+  background: rgba(196, 214, 255, 0.05);
+}
+
+.xh-ghost:hover {
+  background: rgba(196, 214, 255, 0.10);
+  border-color: rgba(196, 214, 255, 0.60);
+}
+
+.xh-ghost:focus-visible { outline: 2px solid #8dbbff; outline-offset: 3px; }
+
+/* ---------- 11. WhatsApp: AA-safe green ---------- */
+.wa-fab {
+  background: #15803d;
+  color: #ffffff;
+  box-shadow: 0 12px 28px -14px rgba(10, 60, 30, 0.75);
+}
+@media (hover: hover) {
+  .wa-fab:hover { background: #166534; }
+}
+.wa-fab::after { box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.45); }
+
+/* ---------- 12. Chat widget (html prefix beats chat-widget.css load order) ---------- */
+html .chat-fab {
+  color: #ffffff;
+  background: linear-gradient(135deg, #0a5ce6, #0843a8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 14px 30px -14px rgba(10, 92, 230, 0.70);
+}
+
+html .chat-panel {
+  box-shadow: var(--rb-elev-3), 0 40px 80px -40px rgb(0 4 16 / 0.45);
+}
+
+html .chat-head {
+  color: #ffffff;
+  background:
+    radial-gradient(14rem 8rem at 100% 0%, rgba(0, 212, 232, 0.12), transparent 70%),
+    linear-gradient(135deg, #071b45 0%, #0a3e9e 60%, #0a5ce6 100%);
+}
+
+html .chat-head::after {
+  background: linear-gradient(90deg, transparent, rgba(141, 187, 255, 0.5), transparent);
+}
+
+html .chat-avatar {
+  color: #071b45;
+  background: linear-gradient(135deg, #ffffff, #dbe8ff);
+}
+
+html .chat-online-dot {
+  border-color: #0a3e9e;
+}
+
+/* widget bubbles win over the global .chat-user rule */
+html .chat-panel .chat-user,
+html .chat-list .chat-user {
+  color: #ffffff;
+  background: #0a5ce6;
+}
+
+html .chat-bot {
+  background: var(--color-surface-muted);
+  color: var(--color-ink);
+}
+
+html .chat-error {
+  color: var(--color-danger);
+}
+
+html .chat-send {
+  color: #ffffff;
+  background: #0a5ce6;
+}
+
+@media (hover: hover) {
+  html .chat-send:hover:not(:disabled) { background: #084dc2; }
+}
+
+/* ---------- 13. Promo reel: brand palette ---------- */
+html .promo-reel {
+  --pr-ink: #f4f8ff;
+  --pr-muted: #a3b2cf;
+  --pr-line: #22345a;
+  --pr-panel: #0d1a33;
+  --pr-in: #172744;
+  --pr-out: #0a3e9e;
+  --pr-accent: #7af0ff;
+  --pr-blue: #7db2ff;
+  --pr-chip: #13223f;
+}
+
+html .promo-reel-cta {
+  background: #0a5ce6;
+  color: #ffffff;
+}
+
+/* ---------- 14. Leftover cyan / blue literals ---------- */
+.hero-particle,
+.signal-dot,
+.system-link::after {
+  background-color: #00d4e8;
+}
+
+.h-chat-avatar {
+  background: linear-gradient(135deg, #0a5ce6, #4c93ff);
+  color: #ffffff;
+}
+
+.iw-tab.is-active {
+  box-shadow: 0 10px 24px -16px rgba(10, 92, 230, 0.55);
+}
+
+.iw-panel {
+  box-shadow: var(--rb-elev-3);
+}
+
+html[data-theme="light"] .text-gradient {
+  background-image: linear-gradient(115deg, #0843a8 0%, #0a5ce6 60%, #0a55d1 100%);
+}
+
+/* ---------- 15. Old colours the token swap does not reach ---------- */
+
+/* Sample walkthrough: the active step uses the action blue, not the old cyan */
+.h-flow-step-btn {
+  background: rgba(196, 214, 255, 0.03);
+}
+.h-flow-step.is-active .h-flow-step-btn {
+  border-color: rgba(76, 147, 255, 0.55);
+  background: rgba(76, 147, 255, 0.10);
+}
+.h-flow-step.is-active .h-flow-dot {
+  border-color: #0a5ce6;
+  background: #0a5ce6;
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 212, 232, 0.22);
+}
+.h-flow-step.is-done .h-flow-dot {
+  border-color: #0a5ce6;
+  background: #0a5ce6;
+  color: #ffffff;
+}
+
+/* Footer labels match the eyebrows on other dark bands; cyan stays a small signal */
+.site-footer .text-accent-glow {
+  color: #8dbbff;
+}
+
+/* Photo caption pill in "Who we work with" */
+.iw-media::after {
+  background: linear-gradient(180deg, transparent, rgba(7, 15, 36, 0.55));
+}
+.iw-caption {
+  background: rgba(7, 22, 52, 0.74);
+  color: #f4f8ff;
+  border-color: rgba(196, 214, 255, 0.2);
+}
+.iw-caption-art {
+  background: rgba(76, 147, 255, 0.18);
+  color: #7db2ff;
+}
+
+/* "Sample" badge on case-study photos: readable on light and dark photos alike */
+.sample-tag.absolute {
+  background: rgba(7, 15, 36, 0.78);
+  border-color: rgba(125, 178, 255, 0.45);
+  color: #d6e6ff;
+  padding: 0.15rem 0.55rem;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* Featured post card corner tint */
+.post-list > li:first-child .card {
+  background-image: radial-gradient(ellipse at 100% 0%, rgba(10, 92, 230, 0.06), transparent 46%);
+}
+html[data-theme="dark"] .post-list > li:first-child .card {
+  background-image: radial-gradient(ellipse at 100% 0%, rgba(76, 147, 255, 0.10), transparent 46%);
+}
+
+/* Promo reels: navy frame and stage, blue progress, dark native slider track */
+html .xh-reel {
+  color-scheme: dark;
+  background: linear-gradient(180deg, #0d1a33, #070f24);
+  border-color: rgba(125, 178, 255, 0.16);
+  box-shadow:
+    0 0 0 1px rgba(196, 214, 255, 0.04) inset,
+    0 28px 56px -30px rgb(11 26 58 / 0.45);
+}
+html .promo-reel-stage {
+  background:
+    radial-gradient(60cqw 40cqw at 85% 110%, rgba(10, 92, 230, 0.2), transparent),
+    radial-gradient(40cqw 30cqw at 5% -10%, rgba(76, 147, 255, 0.1), transparent),
+    #070f24;
+}
+html .promo-reel-bar {
+  background: linear-gradient(90deg, #0a5ce6 0%, #4c93ff 80%, #00d4e8 100%);
+}
+html .promo-reel-ctl input[type="range"] {
+  accent-color: #4c93ff;
+  color-scheme: dark;
+}
+@media (hover: hover) {
+  html .xh-reel .promo-reel-ctl button:hover {
+    color: #ffffff;
+    border-color: rgba(125, 178, 255, 0.6);
+  }
+}
+
+/* Admin sign-in background glow (its own class so Tailwind sizes it) */
+.admin-login-glow {
+  background: radial-gradient(closest-side, rgba(10, 92, 230, 0.28), rgba(10, 92, 230, 0.08) 60%, transparent);
+}

@@ -75,7 +75,7 @@ export async function DetailTemplate({
             </div>
             <p className="text-body text-muted">{ui.problems.intro}</p>
           </div>
-          <ul className="stack grid gap-3 md:grid-cols-3" data-reveal-stagger>
+          <ul className="stack grid gap-3 md:grid-cols-3" data-reveal-stagger suppressHydrationWarning>
             {page.problems.map((item, index) => (
               <li key={item.problem} className="card h-problem" data-reveal-child>
                 <span className="h-step-num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
@@ -102,7 +102,7 @@ export async function DetailTemplate({
             </div>
             <p className="text-body text-muted">{ui.builds.intro}</p>
           </div>
-          <ul className="stack grid gap-3 sm:grid-cols-2" data-reveal-stagger>
+          <ul className="stack grid gap-3 sm:grid-cols-2" data-reveal-stagger suppressHydrationWarning>
             {page.builds.map((item) => (
               <li key={item.title} className="card d-build" data-reveal-child>
                 <span className="icon-chip icon-chip-sm shrink-0">

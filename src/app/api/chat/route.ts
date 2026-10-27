@@ -89,17 +89,8 @@ async function complete(system: string, messages: ChatMessage[], siteUrl: string
 }
 
 export async function POST(request: Request) {
-  const origin = request.headers.get("origin");
-  const host = request.headers.get("host");
-  if (origin && host) {
-    try {
-      if (new URL(origin).host !== host) return json({ ok: false, message: "Invalid origin." }, 403);
-    } catch {
-      return json({ ok: false, message: "Invalid origin." }, 403);
-    }
-  }
-
-  const limit = rateLimit(clientIp(request), { scope: "chat", max: 30 });
+  // Same-origin (CSRF) checks for every /api route run in src/proxy.ts.
+  const limit = await rateLimit(clientIp(request), { scope: "chat", max: 30 });
   if (!limit.ok) {
     return json(
       { ok: false, message: "Too many messages. Please wait a few minutes, or WhatsApp us." },

@@ -38,7 +38,7 @@ export default async function BlogTagPage({ params }: { params: Promise<{ tag: s
       />
       <section className="section bg-canvas">
         <Container>
-          <ul className="grid gap-[var(--gutter)]" data-reveal-stagger>
+          <ul className="grid gap-[var(--gutter)]" data-reveal-stagger suppressHydrationWarning>
             {posts.map((post) => (
               <li key={post.slug} data-reveal-child>
                 <article className="card card-accent">

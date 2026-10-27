@@ -33,7 +33,8 @@ export type Enquiry = Record<EnquiryField, string>;
 
 export type FieldErrors = Partial<Record<EnquiryField, string>>;
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/** Conservative on purpose: the address goes into mail headers and mailto: links. */
+const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
 const namePattern = /^[\p{L}\p{M}][\p{L}\p{M}\s.'’-]{1,79}$/u;
 const companyPattern = /^[\p{L}\p{M}0-9][\p{L}\p{M}0-9\s.&,'’()-]{1,119}$/u;
 

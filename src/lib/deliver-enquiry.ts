@@ -2,6 +2,14 @@ import nodemailer from "nodemailer";
 import { getSite } from "@/lib/cms";
 import { enquiryAckHtml, enquiryAckText, enquiryHtml, enquiryText } from "@/lib/email/enquiry-mail";
 import type { Enquiry } from "@/lib/enquiry";
+import { rateLimit } from "@/lib/rate-limit";
+
+/**
+ * Confirmation mails go to an address nobody has verified, so they carry no
+ * visitor-written text and are capped per day across the whole site. That keeps
+ * the form from being used to send mail to strangers through our SMTP account.
+ */
+const ACK_DAILY_MAX = 150;
 
 const SMTP_KEYS = [
   "SMTP_HOST",
@@ -95,6 +103,8 @@ export async function deliverEnquiry(enquiry: Enquiry): Promise<DeliveryResult> 
       });
 
       try {
+        const ackBudget = await rateLimit("all", { scope: "contact-ack", max: ACK_DAILY_MAX, windowMs: 24 * 60 * 60 * 1000 });
+        if (!ackBudget.ok) throw new Error("Daily confirmation-mail cap reached; skipped.");
         await transporter.sendMail({
           from,
           to: enquiry.email,

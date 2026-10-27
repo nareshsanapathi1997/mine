@@ -1,5 +1,6 @@
 import type { UiIconName } from "@/components/icons";
 import type { CaseStudy } from "@/content/case-studies";
+import type { Project } from "@/content/projects";
 import type { DetailPage } from "@/content/details";
 import type {
   HomeIndustry,
@@ -107,6 +108,15 @@ export type HomeContent = {
   cta: { title: string; description: string; primaryLabel: string };
 };
 
+/** A person on the About page. Photo, bio and LinkedIn are optional. */
+export type TeamMember = {
+  name: string;
+  role: string;
+  bio: string;
+  photo: PhotoRef;
+  linkedin: string;
+};
+
 export type AboutContent = {
   metaTitle: string;
   metaDescription: string;
@@ -118,7 +128,7 @@ export type AboutContent = {
     eyebrow: string;
     title: string;
     photo: PhotoRef;
-    people: { name: string; role: string }[];
+    people: TeamMember[];
     expectTitle: string;
     promises: string[];
     contactLead: string;
@@ -159,6 +169,19 @@ export type CaseStudiesContent = HubContent & {
   builtLabel: string;
   sampleTag: string;
   items: CaseStudy[];
+};
+
+export type ProjectsContent = HubContent & {
+  /** Label shown on cards and in the menu. */
+  navLabel: string;
+  clientLabel: string;
+  challengeLabel: string;
+  builtLabel: string;
+  resultsLabel: string;
+  techLabel: string;
+  visitLabel: string;
+  moreLabel: string;
+  items: Project[];
 };
 
 export type AiAutomationContent = HubContent & {
@@ -226,6 +249,7 @@ export type CmsBundle = {
   solutionsHub: HubContent;
   industriesHub: HubContent;
   caseStudies: CaseStudiesContent;
+  projects: ProjectsContent;
   aiAutomation: AiAutomationContent;
   insights: InsightsContent;
   blog: BlogListingContent;

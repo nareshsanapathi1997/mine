@@ -67,16 +67,24 @@ async function main() {
       ) default character set utf8mb4 collate utf8mb4_unicode_ci
     `);
 
+    // Only fills in sections that do not exist yet, so edits made in /admin
+    // survive. Pass --force to reset every section to the code defaults.
+    const force = process.argv.includes("--force");
+    let written = 0;
     for (const key of keys) {
       const payload = JSON.stringify(bundle[key]);
-      await pool.query(
-        `insert into cms_content (content_key, payload) values (?, ?)
-         on duplicate key update payload = values(payload)`,
+      const [result] = await pool.query(
+        force
+          ? `insert into cms_content (content_key, payload) values (?, ?)
+             on duplicate key update payload = values(payload)`
+          : "insert ignore into cms_content (content_key, payload) values (?, ?)",
         [key, payload],
       );
-      console.log(`Saved cms_content.${key}`);
+      const changed = Number((result as { affectedRows?: number }).affectedRows ?? 0) > 0;
+      if (changed) written += 1;
+      console.log(`${changed ? "Saved" : "Kept existing"} cms_content.${key}`);
     }
-    console.log(`CMS seeded (${keys.length} documents).`);
+    console.log(`CMS seeded: ${written} of ${keys.length} sections written${force ? " (--force: all reset to defaults)" : ""}.`);
   } finally {
     await pool.end();
   }

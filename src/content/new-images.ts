@@ -1,43 +1,74 @@
 /**
  * Photos for page banners and the home hero.
- * The site uses optimised WebP copies in public/newImages/optimized (max 1600px
- * wide) with 640 / 960 / 1280 responsive variants.
+ * Real photos (sources and licences in photos/credits.json), built by
+ * `npm run photos` into public/newImages/optimized at 1600px wide with
+ * 640 / 960 / 1280 responsive variants.
  */
+import credits from "../../photos/credits.json";
+import legacyAlts from "@/content/legacy-photo-alts.json";
+import { currentPhotoSrc } from "@/lib/photos";
+
 export type BannerImage = { src: string; alt: string; width: number; height: number };
 
-const img = (file: string, width: number, height: number, alt: string): BannerImage => ({
+/** Alt text lives next to each photo's source and licence in photos/credits.json. */
+const altFor = (file: string) => credits.find((entry) => entry.name === file)?.alt ?? "";
+
+/**
+ * Current alt text for a built-in photo URL (legacy names included), or null
+ * for any other image.
+ */
+export function builtInPhotoAlt(src: string) {
+  const match = currentPhotoSrc(src).match(/^\/newImages\/optimized\/([a-z0-9-]+)\.webp/);
+  return (match && altFor(match[1])) || null;
+}
+
+/** Descriptions the AI-generated photos had (from git history), never written by an admin. */
+const OLD_DEFAULT_ALTS = new Set<string>(legacyAlts);
+
+/**
+ * Alt text to show for a stored {src, alt}. Built-in photos were replaced
+ * under the same file names, so an empty or old default description is swapped
+ * for the current one from photos/credits.json. Anything an admin wrote is kept.
+ */
+export function currentAltFor(src: string, storedAlt: string) {
+  const fresh = builtInPhotoAlt(src);
+  if (!fresh) return storedAlt;
+  return !storedAlt.trim() || OLD_DEFAULT_ALTS.has(storedAlt.trim()) ? fresh : storedAlt;
+}
+
+const img = (file: string, width: number, height: number): BannerImage => ({
   src: `/newImages/optimized/${file}.webp`,
-  alt,
+  alt: altFor(file),
   width,
   height,
 });
 
 export const newImages = {
-  home: img("visakhapatnam-software-automation", 1280, 720, "A professional in a glass office overlooking a city skyline at dusk, holding a tablet"),
-  about: img("varasena-team-office", 1280, 720, "A small team collaborating around laptops in a bright modern office"),
-  aboutStory: img("desk-before-software", 1280, 720, "A quiet desk with a notebook, laptop and phone, suggesting the manual work software replaces"),
-  aboutTeam: img("varasena-founders", 1280, 720, "Two founders standing together in a bright modern office"),
-  caseStudies: img("software-project-review", 1280, 720, "A professional reviewing project results on a large monitor"),
-  blog: img("business-reading-desk", 1280, 720, "A desk with a notebook, glasses and tablet ready for reading"),
-  insights: img("secure-software-office", 1280, 720, "Hands typing on a laptop in a secure, softly lit office"),
-  industries: img("business-industries-lobby", 1280, 720, "A modern business lobby with professionals walking through"),
-  contact: img("customer-support-desk", 1280, 720, "A support executive wearing a headset, smiling while working on a laptop"),
-  "ai-agents": img("ai-assistant-support", 1280, 720, "A support specialist at a desk with a laptop and phone showing a customer chat"),
-  "voice-ai": img("voice-ai-phone-assistant", 1280, 720, "A professional on a headset call in a modern office"),
-  "whatsapp-automation": img("whatsapp-business-automation", 1280, 720, "A smartphone showing a business chat beside a laptop on a desk"),
-  "business-automation": img("business-workflow-automation", 1280, 720, "An operations manager reviewing a workflow board on a laptop"),
-  "web-development": img("website-development-desk", 1280, 720, "A desk with desktop, laptop and phone showing the same website layout"),
-  "mobile-applications": img("mobile-app-development", 1280, 720, "Two smartphones on a desk showing mobile app screens"),
-  "business-software": img("business-software-dashboard", 1280, 720, "A business owner reviewing a sales dashboard on a large monitor"),
-  "cloud-devops": img("cloud-hosting-servers", 1280, 720, "A modern server room corridor with soft blue lighting"),
-  education: img("school-admission-whatsapp", 1280, 720, "A school counsellor at a desk with a laptop and admission forms"),
-  hospitality: img("hotel-front-desk-booking", 1280, 720, "A hotel receptionist welcoming a guest at the front desk"),
-  manufacturing: img("factory-order-tracking", 1280, 720, "An engineer in a safety helmet using a tablet on a factory floor"),
-  "corporate-smes": img("small-business-invoicing", 1280, 720, "A shop owner using a laptop at the counter while serving customers"),
-  "corporate-smes-alt": img("retail-shop-software", 1280, 720, "A retail counter with a phone stand and shelves in the background"),
-  healthcare: img("clinic-appointment-desk", 1280, 720, "A clinician at a clinic reception desk with a laptop"),
-  "healthcare-alt": img("clinic-waiting-area", 1280, 720, "A calm clinic waiting area with soft morning light"),
-  "professional-services": img("professional-services-meeting", 1280, 720, "Two professionals reviewing documents and a laptop in a meeting room"),
+  home: img("visakhapatnam-software-automation", 1280, 720),
+  about: img("varasena-team-office", 1280, 720),
+  aboutStory: img("desk-before-software", 1280, 720),
+  aboutTeam: img("varasena-founders", 1280, 720),
+  caseStudies: img("software-project-review", 1280, 720),
+  blog: img("business-reading-desk", 1280, 720),
+  insights: img("secure-software-office", 1280, 720),
+  industries: img("business-industries-lobby", 1280, 720),
+  contact: img("customer-support-desk", 1280, 720),
+  "ai-agents": img("ai-assistant-support", 1280, 720),
+  "voice-ai": img("voice-ai-phone-assistant", 1280, 720),
+  "whatsapp-automation": img("whatsapp-business-automation", 1280, 720),
+  "business-automation": img("business-workflow-automation", 1280, 720),
+  "web-development": img("website-development-desk", 1280, 720),
+  "mobile-applications": img("mobile-app-development", 1280, 720),
+  "business-software": img("business-software-dashboard", 1280, 720),
+  "cloud-devops": img("cloud-hosting-servers", 1280, 720),
+  education: img("school-admission-whatsapp", 1280, 720),
+  hospitality: img("hotel-front-desk-booking", 1280, 720),
+  manufacturing: img("factory-order-tracking", 1280, 720),
+  "corporate-smes": img("small-business-invoicing", 1280, 720),
+  "corporate-smes-alt": img("retail-shop-software", 1280, 720),
+  healthcare: img("clinic-appointment-desk", 1280, 720),
+  "healthcare-alt": img("clinic-waiting-area", 1280, 720),
+  "professional-services": img("professional-services-meeting", 1280, 720),
 } satisfies Record<string, BannerImage>;
 
 /** Industry sub-pages use their parent industry's image. */

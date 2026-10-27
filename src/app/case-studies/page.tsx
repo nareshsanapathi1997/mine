@@ -44,7 +44,7 @@ export default async function CaseStudiesPage() {
       />
       <section className="section h-section" aria-label="Sample projects">
         <Container>
-          <ul className="grid gap-5" data-reveal-stagger>
+          <ul className="grid gap-5" data-reveal-stagger suppressHydrationWarning>
             {caseStudies.items.map((study, index) => (
               <li key={study.slug} id={study.slug} className={index % 2 ? "card cs-card cs-flip" : "card cs-card"} data-reveal-child>
                 <div className="cs-photo is-banner relative" style={{ "--ratio": `${study.photo.width} / ${study.photo.height}` } as React.CSSProperties}>

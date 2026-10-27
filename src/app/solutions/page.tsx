@@ -34,7 +34,7 @@ export default async function SolutionsPage() {
               </div>
               <p className="text-body text-muted">{group.description}</p>
             </div>
-            <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+            <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger suppressHydrationWarning>
               {group.slugs.map((slug) => {
                 const page = details.find((item) => item.kind === "solution" && item.slug === slug);
                 return page ? <DetailCard key={slug} page={page} photo /> : null;

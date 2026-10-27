@@ -45,6 +45,7 @@ export function AccountForm() {
         <Input
           id="current-pass"
           type="password"
+          autoComplete="current-password"
           value={currentPassword}
           onChange={(event) => setCurrentPassword(event.target.value)}
           className="mt-1"
@@ -59,9 +60,14 @@ export function AccountForm() {
           value={nextPassword}
           onChange={(event) => setNextPassword(event.target.value)}
           className="mt-1"
-          minLength={6}
+          minLength={12}
+          maxLength={128}
+          autoComplete="new-password"
           required
         />
+        <p className="mt-1 text-xs text-muted">
+          At least 12 characters. Changing it signs out every other device.
+        </p>
       </div>
       {error ? <p className="text-sm font-medium text-danger">{error}</p> : null}
       {message ? <p className="text-sm font-medium text-success">{message}</p> : null}

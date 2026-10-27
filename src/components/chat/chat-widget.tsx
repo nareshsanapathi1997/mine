@@ -51,17 +51,33 @@ export function ChatWidget() {
   const openedAt = useRef(0);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const fabRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem(STORAGE_KEY);
-      if (saved) setMessages(JSON.parse(saved) as Message[]);
-    } catch {
-      /* ignore */
+  /** Closes the panel from inside it and gives focus back to the button that opened it. */
+  function closePanel() {
+    setOpen(false);
+    fabRef.current?.focus();
+  }
+
+  const restored = useRef(false);
+
+  /** Restores this tab's conversation the first time the panel opens. */
+  function toggleOpen() {
+    if (!restored.current) {
+      restored.current = true;
+      try {
+        const saved = sessionStorage.getItem(STORAGE_KEY);
+        if (saved) setMessages(JSON.parse(saved) as Message[]);
+      } catch {
+        /* ignore */
+      }
     }
-  }, []);
+    setOpen((value) => !value);
+  }
 
   useEffect(() => {
+    if (!restored.current) return;
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages.slice(-20)));
     } catch {
@@ -75,7 +91,8 @@ export function ChatWidget() {
     openedAt.current = openedAt.current || Date.now();
     inputRef.current?.focus();
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      // Only Escape pressed inside the chat closes it, not Escape meant for a menu or dialog.
+      if (event.key === "Escape" && panelRef.current?.contains(document.activeElement)) closePanel();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -159,11 +176,12 @@ export function ChatWidget() {
     <>
       <button
         type="button"
+        ref={fabRef}
         className="chat-fab"
         aria-label={open ? "Close chat assistant" : "Chat with our assistant"}
         aria-expanded={open}
         aria-controls="chat-panel"
-        onClick={() => setOpen((value) => !value)}
+        onClick={toggleOpen}
       >
         {open ? (
           <svg viewBox="0 0 24 24" aria-hidden="true" className="size-6" fill="none" stroke="currentColor" strokeWidth="2.2">
@@ -175,7 +193,7 @@ export function ChatWidget() {
       </button>
 
       {open ? (
-        <section id="chat-panel" className="chat-panel" role="dialog" aria-modal="false" aria-label="Chat assistant">
+        <section ref={panelRef} id="chat-panel" className="chat-panel" role="dialog" aria-modal="false" aria-label="Chat assistant">
           <header className="chat-head">
             <span className="chat-avatar" aria-hidden="true">
               V<b className="chat-online" />
@@ -187,7 +205,7 @@ export function ChatWidget() {
                 Online · Replies in seconds
               </p>
             </div>
-            <button type="button" className="chat-close" aria-label="Close chat" onClick={() => setOpen(false)}>
+            <button type="button" className="chat-close" aria-label="Close chat" onClick={closePanel}>
               <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.2">
                 <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
               </svg>

@@ -1,10 +1,15 @@
 import { siteConfig } from "@/content/site";
-import { getPost } from "@/lib/blog";
+import { getPost, getPosts } from "@/lib/blog";
 import { socialImage, socialImageContentType, socialImageSize } from "@/lib/social-image";
 
 export const alt = `${siteConfig.name} article`;
 export const size = socialImageSize;
 export const contentType = socialImageContentType;
+
+/** Render share images at build time instead of on every crawler request. */
+export function generateStaticParams() {
+  return getPosts().map((post) => ({ slug: post.slug }));
+}
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

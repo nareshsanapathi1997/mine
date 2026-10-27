@@ -1,0 +1,184 @@
+[
+  {
+    "name": "visakhapatnam-software-automation",
+    "source": "https://www.pexels.com/photo/man-in-gray-suit-jacket-sitting-in-front-of-a-computer-7580707/",
+    "photographer": "RDNE Stock project",
+    "license": "Pexels License",
+    "alt": "A businessman in a grey suit working at a computer in an open-plan office, with a colleague at a desk behind him"
+  },
+  {
+    "name": "varasena-team-office",
+    "source": "https://www.pexels.com/photo/aerial-view-of-scenic-coastal-area-5667923/",
+    "photographer": "Sayantan Das",
+    "license": "Pexels License",
+    "alt": "Aerial view of the Visakhapatnam coastline with green hills, a curving beach road and the Bay of Bengal",
+    "note": "Stand-in until a real team photo is added. Replace photos/source/varasena-team-office.jpg and update this entry."
+  },
+  {
+    "name": "varasena-founders",
+    "source": null,
+    "photographer": null,
+    "license": "Own photo",
+    "alt": "The VARASENA Technologies founders",
+    "note": "Add the real founders photo as photos/source/varasena-founders.jpg, then run npm run photos -- varasena-founders. The About page hides the team photo until the file exists."
+  },
+  {
+    "name": "desk-before-software",
+    "source": "https://www.pexels.com/photo/a-mug-of-coffee-in-the-middle-of-the-table-7681218/",
+    "photographer": "Karola G",
+    "license": "Pexels License",
+    "alt": "A desk with a ring binder of papers, a notebook, a smartphone, pencils, a cup of coffee and a laptop",
+    "position": "bottom"
+  },
+  {
+    "name": "software-project-review",
+    "source": "https://www.pexels.com/photo/4623331/",
+    "photographer": "Ketut Subiyanto",
+    "license": "Pexels License",
+    "alt": "Three young colleagues reviewing printed pages together at an office table"
+  },
+  {
+    "name": "business-reading-desk",
+    "source": "https://www.pexels.com/photo/notepad-on-silver-laptop-5951544/",
+    "photographer": "Arina Krasnikova",
+    "license": "Pexels License",
+    "alt": "An open notebook with glasses, a pen, a laptop, a phone and a coffee cup on a desk by a window"
+  },
+  {
+    "name": "secure-software-office",
+    "source": "https://www.pexels.com/photo/photo-of-a-person-typing-on-a-laptop-6279113/",
+    "photographer": "Artem Podrez",
+    "license": "Pexels License",
+    "alt": "Hands typing on a laptop in a dim room lit by a small lamp"
+  },
+  {
+    "name": "business-industries-lobby",
+    "source": "https://www.pexels.com/photo/luxurious-modern-office-lobby-interior-design-36286286/",
+    "photographer": "Arto Suraj",
+    "license": "Pexels License",
+    "alt": "A spacious modern office building lobby with a glossy floor, a glass-railed mezzanine and rows of ceiling lights"
+  },
+  {
+    "name": "customer-support-desk",
+    "source": "https://www.pexels.com/photo/pretty-woman-talking-on-a-headphones-8867478/",
+    "photographer": "Yan Krukau",
+    "license": "Pexels License",
+    "alt": "A smiling support executive wearing a headset holds a clipboard while colleagues with headsets work at computers behind her"
+  },
+  {
+    "name": "ai-assistant-support",
+    "source": "https://www.pexels.com/photo/13062478/",
+    "photographer": null,
+    "license": "Pexels License",
+    "alt": "A support agent wearing a headset at her desk in a busy contact centre, with colleagues on calls beside her"
+  },
+  {
+    "name": "voice-ai-phone-assistant",
+    "source": "https://www.pexels.com/photo/man-in-black-long-sleeve-shirt-sitting-on-a-chair-7581019/",
+    "photographer": "RDNE Stock project",
+    "license": "Pexels License",
+    "alt": "A smiling man in a black shirt talking on a desk phone at his office desk",
+    "position": "top"
+  },
+  {
+    "name": "whatsapp-business-automation",
+    "source": "https://www.pexels.com/photo/serious-ethnic-man-using-smartphone-and-working-on-laptop-7129012/",
+    "photographer": "Michael Burrows",
+    "license": "Pexels License",
+    "alt": "A young man checking his smartphone while writing in a notebook at his desk"
+  },
+  {
+    "name": "business-workflow-automation",
+    "source": "https://www.pexels.com/photo/people-in-a-meeting-while-standing-7581110/",
+    "photographer": "RDNE Stock project",
+    "license": "Pexels License",
+    "alt": "An office team gathered around a colleague presenting a task board with 'In progress' and 'Done' columns"
+  },
+  {
+    "name": "website-development-desk",
+    "source": "https://www.pexels.com/photo/developer-working-on-code-in-a-modern-office-36706460/",
+    "photographer": "Zayed Hossain",
+    "license": "Pexels License",
+    "alt": "A developer working at a desk with two monitors showing code and a web page"
+  },
+  {
+    "name": "mobile-app-development",
+    "source": "https://www.pexels.com/photo/person-using-a-smartphone-5053847/",
+    "photographer": "cottonbro studio",
+    "license": "Pexels License",
+    "alt": "Close-up of hands tapping an app on a smartphone lying on a countertop"
+  },
+  {
+    "name": "business-software-dashboard",
+    "source": "https://www.pexels.com/photo/charts-on-a-laptop-7947996/",
+    "photographer": "RDNE Stock project",
+    "license": "Pexels License",
+    "alt": "Over the shoulder of a man reviewing a bar-chart dashboard on a laptop, with printed charts beside him"
+  },
+  {
+    "name": "cloud-hosting-servers",
+    "source": "https://www.pexels.com/photo/server-racks-on-data-center-4508751/",
+    "photographer": "Brett Sayles",
+    "license": "Pexels License",
+    "alt": "A brightly lit data centre corridor lined with server racks",
+    "quality": 72
+  },
+  {
+    "name": "school-admission-whatsapp",
+    "source": "https://www.pexels.com/photo/woman-working-at-the-desk-in-office-8111853/",
+    "photographer": null,
+    "license": "Pexels License",
+    "alt": "An office administrator reading a document at her desk, with an open laptop and shelves of files behind her"
+  },
+  {
+    "name": "hotel-front-desk-booking",
+    "source": "https://www.pexels.com/photo/professional-receptionist-at-work-in-islamabad-hotel-36817019/",
+    "photographer": "Iram Shehzad",
+    "license": "Pexels License",
+    "alt": "A smiling hotel receptionist typing at a computer on the front desk, with lounge chairs behind her"
+  },
+  {
+    "name": "factory-order-tracking",
+    "source": "https://www.pexels.com/photo/construction-supervisor-28196491/",
+    "photographer": null,
+    "license": "Pexels License",
+    "alt": "A supervisor in a safety helmet and high-visibility vest writing on a clipboard inside an industrial facility"
+  },
+  {
+    "name": "small-business-invoicing",
+    "source": "https://www.pexels.com/photo/6949788/",
+    "photographer": null,
+    "license": "Pexels License",
+    "alt": "A smiling shop owner in a silk sari holding a scoop of grain in her store, with shelves of packaged goods behind her",
+    "position": "attention"
+  },
+  {
+    "name": "retail-shop-software",
+    "source": "https://www.pexels.com/photo/man-working-in-store-26861411/",
+    "photographer": null,
+    "license": "Pexels License",
+    "alt": "A shopkeeper behind the counter of a busy grocery store with shelves of packaged goods"
+  },
+  {
+    "name": "clinic-appointment-desk",
+    "source": "https://www.pexels.com/photo/14558557/",
+    "photographer": null,
+    "license": "Pexels License",
+    "alt": "A doctor with a stethoscope attending to a patient at his clinic desk"
+  },
+  {
+    "name": "clinic-waiting-area",
+    "source": "https://www.pexels.com/photo/waiting-room-in-a-hospital-8459996/",
+    "photographer": "Los Muertos Crew",
+    "license": "Pexels License",
+    "alt": "A bright, empty clinic waiting area with blue chairs, a coffee table with plants and a reception counter",
+    "position": "bottom"
+  },
+  {
+    "name": "professional-services-meeting",
+    "source": "https://www.pexels.com/photo/cheerful-young-indian-coworkers-with-laptop-discussing-project-in-office-4308091/",
+    "photographer": "Ketut Subiyanto",
+    "license": "Pexels License",
+    "alt": "A woman taking notes while a colleague works on a laptop beside her at a wooden office table"
+  }
+]

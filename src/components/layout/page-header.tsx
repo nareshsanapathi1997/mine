@@ -54,7 +54,7 @@ export function PageHeader({
             className={cn("photo-frame page-hero-photo relative", !photo.width && "aspect-[16/9] lg:aspect-[4/3]")}
             style={photo.width && photo.height ? { aspectRatio: `${photo.width} / ${photo.height}` } : undefined}
           >
-            <Photo src={photo.src} alt={photo.alt} fill sizes="(max-width: 1024px) 100vw, 46vw" priority className="object-cover" />
+            <Photo src={photo.src} alt={photo.alt} fill sizes="(max-width: 1024px) 100vw, 46vw" preload className="object-cover" />
           </figure>
           {art}
           </div>

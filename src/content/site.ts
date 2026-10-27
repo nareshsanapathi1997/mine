@@ -93,6 +93,15 @@ export const siteConfig: SiteConfig = {
   },
 };
 
+/** The alternate number to show, or null when it is empty or the same as the main number. */
+export function alternatePhone(site: Pick<SiteConfig, "phoneDisplay" | "altPhoneDisplay" | "altPhoneHref">) {
+  // Compare the last 10 digits so "+91 73375 03431", "073375 03431" and "7337503431" count as one number.
+  const digits = (value: string) => value.replace(/\D/g, "").slice(-10);
+  const display = site.altPhoneDisplay.trim();
+  if (!display || digits(display) === digits(site.phoneDisplay)) return null;
+  return { display, href: site.altPhoneHref || `tel:${display.replace(/[^\d+]/g, "")}` };
+}
+
 export function copyrightYear(date = new Date()) {
   return date.getFullYear();
 }

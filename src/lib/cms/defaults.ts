@@ -215,8 +215,8 @@ export function cmsDefaults(): CmsBundle {
         title: "Who you will work with",
         photo: newImages.aboutTeam,
         people: [
-          { name: "Naresh Sanapathi", role: "Founder" },
-          { name: "Nageswara Rao", role: "Co-founder" },
+          { name: "Naresh Sanapathi", role: "Founder", bio: "", photo: { src: "", alt: "", width: 800, height: 800 }, linkedin: "" },
+          { name: "Nageswara Rao", role: "Co-founder", bio: "", photo: { src: "", alt: "", width: 800, height: 800 }, linkedin: "" },
         ],
         expectTitle: "What you can expect",
         promises: [
@@ -348,6 +348,32 @@ export function cmsDefaults(): CmsBundle {
       cta: {
         title: "Does one of these sound like you?",
         description: "Tell us what your version looks like. Every business is a little different.",
+        primaryLabel: "Talk to us",
+      },
+    },
+    projects: {
+      metaTitle: "Projects by VARASENA Technologies",
+      metaDescription:
+        "Websites, apps, business software and automation VARASENA Technologies has built for schools, hotels, clinics and businesses in Visakhapatnam and across India.",
+      header: {
+        eyebrow: "Projects",
+        title: "Work we have built and launched.",
+        description: "Real projects for real clients: the problem they had, what we built, and what changed after launch.",
+        photo: newImages["web-development"],
+      },
+      navLabel: "Projects",
+      clientLabel: "Client",
+      challengeLabel: "The challenge",
+      builtLabel: "What we built",
+      resultsLabel: "What changed",
+      techLabel: "Built with",
+      visitLabel: "Visit the live project",
+      moreLabel: "View project",
+      // Add real projects from Admin → Content → Projects. Never add invented ones.
+      items: [],
+      cta: {
+        title: "Want something like this for your business?",
+        description: "Tell us how your team works today. We will suggest a simple first step and a written plan with cost.",
         primaryLabel: "Talk to us",
       },
     },

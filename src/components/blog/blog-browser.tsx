@@ -129,7 +129,7 @@ function FilterButton({
       onClick={onClick}
       className={cn(
         "min-h-11 shrink-0 rounded-full border px-3 text-sm font-semibold",
-        active ? "border-navy bg-navy text-white" : "border-line bg-surface text-ink",
+        active ? "border-accent bg-accent text-white hover:bg-[#084dc2]" : "border-line bg-surface text-ink",
       )}
     >
       {children}

@@ -1,7 +1,7 @@
 "use client";
 
-import { ChatWidget } from "@/components/chat/chat-widget";
 import { Glyph } from "@/components/icons";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
@@ -9,6 +9,11 @@ import { useConsent } from "@/components/consent/cookie-consent";
 import { useSite } from "@/components/cms/site-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
+
+// Own chunk, loaded after hydration: the assistant is not needed for first paint.
+const ChatWidget = dynamic(() => import("@/components/chat/chat-widget").then((mod) => mod.ChatWidget), {
+  ssr: false,
+});
 
 function WhatsAppGlyph() {
   return (
@@ -29,26 +34,46 @@ export function FloatingDock() {
   const { site, chrome } = useSite();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  /** False on the first screen of a scrollable page. Phones hide the dock until then (see .dock-idle). */
+  const [awake, setAwake] = useState(false);
   const mounted = useSyncExternalStore(noop, () => true, () => false);
   const consent = useConsent();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 420);
+    const onScroll = () => {
+      const past = window.scrollY > 420;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight > 420;
+      setScrolled(past);
+      setAwake(past || !scrollable);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
 
   if (!mounted || !consent) return null;
   const showBar = scrolled && pathname !== "/contact";
 
   return (
     <>
-      <div className={cn("dock fixed right-4 z-40 flex flex-col items-end gap-3 lg:right-6 lg:bottom-6", showBar ? "bottom-[5.25rem]" : "bottom-4")}>
+      <div
+        className={cn(
+          "dock fixed right-4 z-40 flex flex-col items-end gap-3 lg:right-6 lg:bottom-6",
+          // With the bar showing, phones dock chat and WhatsApp inside it (.dock-bar).
+          "bottom-4",
+          showBar && "dock-bar",
+          // /contact's own Send button sits under the dock on the first screen at every width.
+          !awake && (pathname === "/contact" ? "dock-idle dock-idle-all" : "dock-idle"),
+        )}
+      >
         {scrolled ? (
           <button
             type="button"
-            className="grid size-11 place-items-center rounded-full border border-line bg-surface text-ink shadow-[0_10px_30px_-16px_rgba(0,0,0,0.6)]"
+            className="dock-top grid size-11 place-items-center rounded-full border border-line bg-surface text-ink shadow-[0_10px_30px_-16px_rgba(0,0,0,0.6)]"
             aria-label={chrome.dock.backToTopLabel}
             onClick={() => {
               const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -64,7 +89,7 @@ export function FloatingDock() {
         </a>
       </div>
       {showBar ? (
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 py-3 pr-20 pl-4 backdrop-blur-md lg:hidden">
+        <div className="dock-bar-shell fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 pt-3 pr-[7.25rem] pl-4 backdrop-blur-md lg:hidden">
           <Button asChild arrow className="w-full">
             <Link href={chrome.header.ctaHref}>{chrome.dock.talkLabel}</Link>
           </Button>

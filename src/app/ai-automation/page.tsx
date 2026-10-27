@@ -62,7 +62,7 @@ export default async function AIAutomationPage() {
             </div>
             <p className="text-body text-muted">{aiAutomation.canIntro}</p>
           </div>
-          <div className="stack grid gap-3 md:grid-cols-2" data-reveal-stagger>
+          <div className="stack grid gap-3 md:grid-cols-2" data-reveal-stagger suppressHydrationWarning>
             <div className="card" data-reveal-child>
               <h3 className="flex items-center gap-2 text-lg font-semibold text-ink"><span className="icon-chip icon-chip-sm"><UiIcon name="check" /></span>{aiAutomation.canTitle}</h3>
               <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-ink">
@@ -88,7 +88,7 @@ export default async function AIAutomationPage() {
             </div>
             <p className="text-body text-muted">{aiAutomation.tools.intro}</p>
           </div>
-          <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+          <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger suppressHydrationWarning>
             {pages.map((page) => <DetailCard key={page.slug} page={page} photo />)}
           </ul>
         </Container>

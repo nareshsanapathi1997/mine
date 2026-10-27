@@ -159,9 +159,9 @@ try {
   } else if (command === "seed") {
     await seed();
   } else if (command === "setup") {
+    // Demo enquiries are not inserted here; run `npm run db:seed` for those.
     await createDatabase();
     await migrate();
-    await seed();
   } else {
     console.error("Usage: node scripts/db.mjs <create|migrate|seed|setup>");
     process.exitCode = 1;

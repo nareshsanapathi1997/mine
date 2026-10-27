@@ -1,8 +1,8 @@
 import { AccountForm } from "@/app/admin/(panel)/account/account-form";
-import { getAdminSession } from "@/lib/admin/session";
+import { requireAdmin } from "@/lib/admin/session";
 
 export default async function AdminAccountPage() {
-  const session = await getAdminSession();
+  const session = await requireAdmin();
   return (
     <div className="mx-auto max-w-3xl">
       <p className="eyebrow">Account</p>

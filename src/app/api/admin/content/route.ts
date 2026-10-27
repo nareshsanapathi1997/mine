@@ -14,6 +14,7 @@ const KEYS: (keyof CmsBundle)[] = [
   "solutionsHub",
   "industriesHub",
   "caseStudies",
+  "projects",
   "aiAutomation",
   "insights",
   "blog",

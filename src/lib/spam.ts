@@ -1,43 +1,47 @@
-const WINDOW_MS = 10 * 60 * 1000;
-const MAX_ATTEMPTS = 8;
+import { isIP } from "node:net";
+
+export { rateLimit, resetRateLimit } from "@/lib/rate-limit";
+
 const MIN_SUBMIT_MS = 3000;
 const MAX_AGE_MS = 12 * 60 * 60 * 1000;
 
-type Bucket = { count: number; resetAt: number };
-
-const buckets = new Map<string, Bucket>();
-
-/** First forwarded hop, then x-real-ip, otherwise a shared "unknown" bucket. In-memory and per process. */
-export function clientIp(request: Request) {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) {
-    const first = forwarded.split(",")[0]?.trim();
-    if (first) return first.slice(0, 64);
-  }
-  const real = request.headers.get("x-real-ip")?.trim();
-  if (real) return real.slice(0, 64);
-  return "unknown";
+function trustedHops() {
+  const value = Number(process.env.TRUSTED_PROXY_HOPS ?? "1");
+  return Number.isInteger(value) && value >= 0 ? value : 1;
 }
 
-export function rateLimit(
-  ip: string,
-  { scope = "contact", max = MAX_ATTEMPTS, windowMs = WINDOW_MS } = {},
-): { ok: true } | { ok: false; retryAfter: number } {
-  const now = Date.now();
-  const key = `${scope}:${ip}`;
-  const current = buckets.get(key);
+function validIp(value: string | undefined | null) {
+  const ip = value?.trim().replace(/^\[|\]$/g, "") ?? "";
+  return isIP(ip) ? ip : "";
+}
 
-  if (!current || current.resetAt <= now) {
-    buckets.set(key, { count: 1, resetAt: now + windowMs });
-    return { ok: true };
+/**
+ * Client IP for rate limiting. The leftmost X-Forwarded-For entry is set by the
+ * client and can be spoofed, so this reads from the right: with
+ * TRUSTED_PROXY_HOPS=1 (default) it takes the address the last proxy saw.
+ * CLIENT_IP_HEADER names a single-IP header set by a trusted edge
+ * (e.g. cf-connecting-ip behind Cloudflare). Falls back to a shared "unknown" bucket.
+ */
+export function clientIp(request: Request) {
+  const header = process.env.CLIENT_IP_HEADER?.trim().toLowerCase();
+  if (header) {
+    const ip = validIp(request.headers.get(header));
+    if (ip) return ip;
   }
 
-  if (current.count >= max) {
-    return { ok: false, retryAfter: Math.max(1, Math.ceil((current.resetAt - now) / 1000)) };
+  const hops = trustedHops();
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (hops > 0 && forwarded) {
+    const chain = forwarded.split(",").map((part) => part.trim()).filter(Boolean);
+    const ip = validIp(chain[Math.max(0, chain.length - hops)]);
+    if (ip) return ip;
   }
 
-  current.count += 1;
-  return { ok: true };
+  if (hops > 0) {
+    const real = validIp(request.headers.get("x-real-ip"));
+    if (real) return real;
+  }
+  return "unknown";
 }
 
 export function checkSubmitTiming(value: unknown): { ok: true } | { ok: false; message: string } {

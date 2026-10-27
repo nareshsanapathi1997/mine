@@ -1,6 +1,7 @@
-import type { SiteConfig } from "@/content/site";
+import { alternatePhone, type SiteConfig } from "@/content/site";
 
 export function ContactDetails({ site }: { site: SiteConfig }) {
+  const altPhone = alternatePhone(site);
   return (
     <dl className="mt-6 border-t border-line">
       <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 border-b border-line py-3">
@@ -14,15 +15,15 @@ export function ContactDetails({ site }: { site: SiteConfig }) {
           </a>
         </dd>
       </div>
-      {site.altPhoneDisplay ? (
+      {altPhone ? (
         <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 border-b border-line py-3">
           <dt className="text-small text-muted">Alternate</dt>
           <dd className="min-w-0 text-small font-medium text-ink">
             <a
-              href={site.altPhoneHref || `tel:${site.altPhoneDisplay.replace(/[^\d+]/g, "")}`}
+              href={altPhone.href}
               className="inline-flex min-h-11 min-w-0 items-center break-all text-ink underline decoration-line underline-offset-4"
             >
-              {site.altPhoneDisplay}
+              {altPhone.display}
             </a>
           </dd>
         </div>

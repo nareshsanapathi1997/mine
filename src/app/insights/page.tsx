@@ -38,7 +38,7 @@ export default async function InsightsPage() {
             </div>
             <p className="text-body text-muted">{insights.stages.intro}</p>
           </div>
-          <ol className="stack grid gap-3 lg:grid-cols-3" data-reveal-stagger>
+          <ol className="stack grid gap-3 lg:grid-cols-3" data-reveal-stagger suppressHydrationWarning>
             {insights.stages.items.map((stage, index) => (
               <li key={stage.title} className="card" data-reveal-child>
                 <div className="flex items-center gap-3">
@@ -64,7 +64,7 @@ export default async function InsightsPage() {
             <h2 id="checklist-heading" className="text-h2 mt-3 text-ink">{insights.checklist.title}</h2>
             <p className="text-body mt-4 text-muted">{insights.checklist.intro}</p>
           </div>
-          <ol className="grid gap-2.5 sm:grid-cols-2 lg:col-span-7" data-reveal-stagger>
+          <ol className="grid gap-2.5 sm:grid-cols-2 lg:col-span-7" data-reveal-stagger suppressHydrationWarning>
             {insights.checklist.items.map((item, index) => (
               <li key={item} className="panel flex items-start gap-3 rounded-xl p-4 text-sm font-medium text-ink" data-reveal-child>
                 <span className="h-step-num shrink-0" aria-hidden="true">{index + 1}</span>
@@ -85,7 +85,7 @@ export default async function InsightsPage() {
               {posts.map((post) => (
                 <li key={post.slug}>
                   <Link href={`/blog/${post.slug}`} className="card d-link block h-full">
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">{post.tags.map(tagLabel).join(" · ")}</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent-ink">{post.tags.map(tagLabel).join(" · ")}</p>
                     <span className="mt-2 block font-semibold text-ink">{post.title}</span>
                     <span className="mt-2 line-clamp-2 block text-sm text-muted">{post.description}</span>
                   </Link>

@@ -29,7 +29,7 @@ export default async function IndustriesPage() {
       />
       <section className="section h-section" aria-label="Industries">
         <Container>
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger suppressHydrationWarning>
             {main.map((page) => {
               const children = all.filter((item) => item.parent?.slug === page.slug);
               return (

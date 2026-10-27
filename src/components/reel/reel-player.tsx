@@ -103,8 +103,16 @@ export function ReelPlayer({
   children: (t: number) => ReactNode;
 }) {
   const reduce = usePrefersReducedMotion();
-  const [t, setT] = useState(0);
-  const [playing, setPlaying] = useState(!reduce);
+  // `time` stays null until the reel ticks or the visitor seeks, so reduced
+  // motion can show the still frame without setting state in an effect.
+  const [time, setT] = useState<number | null>(null);
+  const [playState, setPlaying] = useState(true);
+  // Reduced motion starts on a still frame; pressing Play is an explicit
+  // request to animate, so it overrides the preference for this reel.
+  const [userStarted, setUserStarted] = useState(false);
+  const animate = !reduce || userStarted;
+  const t = time ?? (reduce ? stillAt : 0);
+  const playing = playState && animate;
   const [voiceOn, setVoiceOn] = useState(false);
   const spoken = useRef(-1);
   const last = useRef(0);
@@ -112,8 +120,10 @@ export function ReelPlayer({
   const tRef = useRef(t);
   const voice = useRef<SpeechSynthesisVoice | null>(null);
 
-  playingRef.current = playing;
-  tRef.current = t;
+  useEffect(() => {
+    playingRef.current = playing;
+    tRef.current = t;
+  }, [playing, t]);
 
   useEffect(() => {
     if (!("speechSynthesis" in window)) return;
@@ -146,13 +156,12 @@ export function ReelPlayer({
     }
   };
 
+  const root = useRef<HTMLDivElement>(null);
+
+  // The loop re-renders every frame, so it only runs while the reel is on screen
+  // (a reel hidden by CSS or scrolled away costs nothing).
   useEffect(() => {
-    if (reduce) {
-      setPlaying(false);
-      setT(stillAt);
-      return;
-    }
-    last.current = performance.now();
+    if (!animate) return;
     let frame = 0;
     const tick = (now: number) => {
       if (playingRef.current) {
@@ -167,19 +176,38 @@ export function ReelPlayer({
       last.current = now;
       frame = requestAnimationFrame(tick);
     };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [reduce, duration, stillAt]);
+    const start = () => {
+      if (frame) return;
+      last.current = performance.now();
+      frame = requestAnimationFrame(tick);
+    };
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+    };
+
+    const node = root.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      start();
+      return stop;
+    }
+    const observer = new IntersectionObserver(([entry]) => (entry?.isIntersecting ? start() : stop()));
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      stop();
+    };
+  }, [animate, duration]);
 
   useEffect(() => {
-    if (!voiceOn || !playing || reduce) return;
+    if (!voiceOn || !playing) return;
     for (let i = 0; i < voiceLines.length; i++) {
       if (t >= voiceLines[i][0] && i > spoken.current) {
         spoken.current = i;
         say(voiceLines[i][1]);
       }
     }
-  }, [t, voiceOn, playing, reduce, say, voiceLines]);
+  }, [t, voiceOn, playing, say, voiceLines]);
 
   useEffect(() => hush, []);
 
@@ -198,7 +226,7 @@ export function ReelPlayer({
   };
 
   return (
-    <div className={cn("promo-reel", className)}>
+    <div ref={root} className={cn("promo-reel", className)}>
       <div className="promo-reel-chrome" aria-hidden="true">
         <span className="promo-reel-dots">
           <i />
@@ -221,6 +249,11 @@ export function ReelPlayer({
           type="button"
           onClick={() => {
             if (playing) hush();
+            if (!animate) {
+              setUserStarted(true);
+              setPlaying(true);
+              return;
+            }
             setPlaying(!playing);
           }}
           aria-label={playing ? "Pause promo" : "Play promo"}

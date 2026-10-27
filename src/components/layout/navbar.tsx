@@ -90,17 +90,17 @@ export function Navbar({
         "site-header sticky top-0 border-b bg-header",
         mobileOpen ? "is-menu-open z-[70]" : "z-50",
         (scrolled || menu || mobileOpen) &&
-          "is-scrolled shadow-[0_10px_30px_-24px_rgba(15,23,42,0.45)]",
+          "is-scrolled shadow-[0_10px_30px_-24px_rgba(11,26,58,0.45)]",
       )}
       onMouseLeave={() => setMenu(null)}
     >
       <Container className="nav-shell flex items-center justify-between gap-4">
         <Link href="/" aria-label={`${siteName} home`} className="inline-flex items-center overflow-visible rounded-md" onClick={closeAll}>
           <span className="sm:hidden">
-            <Logo name={siteName} brand={brand} compact priority />
+            <Logo name={siteName} brand={brand} compact />
           </span>
           <span className="hidden sm:inline-flex items-center overflow-visible">
-            <Logo name={siteName} brand={brand} priority />
+            <Logo name={siteName} brand={brand} />
           </span>
         </Link>
 
@@ -158,7 +158,7 @@ export function Navbar({
       </Container>
 
       {menu ? (
-      <div className="absolute inset-x-0 top-full hidden border-b border-line bg-surface shadow-[0_24px_40px_-32px_rgba(15,23,42,0.45)] lg:block">
+      <div className="absolute inset-x-0 top-full hidden border-b border-line bg-surface shadow-[0_24px_40px_-32px_rgba(11,26,58,0.45)] lg:block">
         {menu === "solutions" ? (
           <div id={solutionsId} className="py-8" onMouseEnter={() => setMenu("solutions")}>
             <Container className="grid grid-cols-12 gap-8">

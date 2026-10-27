@@ -3,6 +3,7 @@ import { getAdminSession } from "@/lib/admin/session";
 import { getCms } from "@/lib/cms";
 import { saveCmsKey } from "@/lib/cms/save";
 import type { SiteBrand, SiteConfig, SiteSocialLink } from "@/content/site";
+import { isHttpUrl, isSafeAssetSrc, isSafeHref } from "@/lib/security/urls";
 
 export const dynamic = "force-dynamic";
 
@@ -22,19 +23,32 @@ function socialList(value: unknown): SiteSocialLink[] | null {
       return { label, href };
     })
     .filter((item): item is SiteSocialLink => item !== null);
-  return items;
+  return items.every((item) => isSafeHref(item.href)) ? items : null;
+}
+
+function asset(value: unknown, fallback: string) {
+  const src = text(value);
+  return src && isSafeAssetSrc(src) ? src : fallback;
 }
 
 function brandFrom(value: unknown, current: SiteBrand): SiteBrand {
   const row = value && typeof value === "object" ? (value as Record<string, unknown>) : {};
   return {
-    logoLight: text(row.logoLight) || current.logoLight,
-    logoDark: text(row.logoDark) || current.logoDark,
-    icon: text(row.icon) || current.icon,
-    mark: text(row.mark) || current.mark,
-    favicon: text(row.favicon) || current.favicon,
+    logoLight: asset(row.logoLight, current.logoLight),
+    logoDark: asset(row.logoDark, current.logoDark),
+    icon: asset(row.icon, current.icon),
+    mark: asset(row.mark, current.mark),
+    favicon: asset(row.favicon, current.favicon),
   };
 }
+
+/** Field names whose value is rendered as a link, and the check each must pass. */
+const LINK_FIELDS = [
+  ["phoneHref", isSafeHref],
+  ["altPhoneHref", isSafeHref],
+  ["whatsappHref", isSafeHref],
+  ["url", isHttpUrl],
+] as const;
 
 export async function GET() {
   if (!(await getAdminSession())) {
@@ -59,7 +73,16 @@ export async function PUT(request: Request) {
   const cms = await getCms();
   const social = socialList(row.social);
   if (social === null) {
-    return NextResponse.json({ ok: false, message: "Social links must be a list of label and URL." }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, message: "Social links must be a list of label and http(s) URL." },
+      { status: 400 },
+    );
+  }
+  for (const [field, valid] of LINK_FIELDS) {
+    const value = text(row[field]);
+    if (value && !valid(value)) {
+      return NextResponse.json({ ok: false, message: `${field} is not a valid link.` }, { status: 400 });
+    }
   }
 
   const site: SiteConfig = {

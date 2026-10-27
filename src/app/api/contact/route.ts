@@ -14,18 +14,7 @@ function json(body: unknown, status = 200, extraHeaders?: Record<string, string>
 }
 
 export async function POST(request: Request) {
-  const origin = request.headers.get("origin");
-  const host = request.headers.get("host");
-  if (origin && host) {
-    try {
-      if (new URL(origin).host !== host) {
-        return json({ ok: false, message: "Invalid origin." }, 403);
-      }
-    } catch {
-      return json({ ok: false, message: "Invalid origin." }, 403);
-    }
-  }
-
+  // Same-origin (CSRF) checks for every /api route run in src/proxy.ts.
   let raw: string;
   try {
     raw = await request.text();
@@ -49,7 +38,7 @@ export async function POST(request: Request) {
     return json({ ok: true, delivered: true });
   }
 
-  const limit = rateLimit(clientIp(request));
+  const limit = await rateLimit(clientIp(request));
   if (!limit.ok) {
     return json(
       { ok: false, message: "Too many enquiries from this network. Please wait a few minutes and try again." },

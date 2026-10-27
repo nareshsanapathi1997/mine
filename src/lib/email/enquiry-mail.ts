@@ -57,10 +57,6 @@ export function enquiryAckText(enquiry: Enquiry, site: SiteConfig) {
     "",
     `We received your enquiry at ${site.name}. We will read it and reply to ${enquiry.email}.`,
     "",
-    `Need: ${dash(enquiry.need)}`,
-    "",
-    enquiry.message,
-    "",
     site.phoneDisplay ? `Phone: ${site.phoneDisplay}` : "",
     `Email: ${site.email}`,
     site.location ? site.location : "",
@@ -78,19 +74,19 @@ function shell(site: SiteConfig, inner: string) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${esc(site.name)}</title>
 </head>
-<body style="margin:0;padding:0;background:#070b14;color:#f9f5f2;font-family:Arial,Helvetica,sans-serif;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#070b14;padding:24px 12px;">
+<body style="margin:0;padding:0;background:#050d22;color:#f4f8ff;font-family:Arial,Helvetica,sans-serif;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050d22;padding:24px 12px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width:600px;width:100%;background:#101722;border:1px solid rgba(249,245,242,0.12);border-radius:16px;overflow:hidden;">
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width:600px;width:100%;background:#0d1a33;border:1px solid rgba(196,214,255,0.12);border-radius:16px;overflow:hidden;">
           <tr>
-            <td style="padding:28px 32px 20px;background:#071825;border-bottom:1px solid rgba(0,212,232,0.28);">
+            <td style="padding:28px 32px 20px;background:#071b45;border-bottom:1px solid rgba(0,212,232,0.28);">
               <img src="${esc(logoUrl(site))}" alt="${esc(site.name)}" width="180" style="display:block;max-width:180px;height:auto;border:0;" />
             </td>
           </tr>
           ${inner}
           <tr>
-            <td style="padding:18px 32px 28px;color:#8c8d90;font-size:12px;line-height:1.5;">
+            <td style="padding:18px 32px 28px;color:#9ba9c3;font-size:12px;line-height:1.5;">
               ${esc(site.name)}${site.location ? ` · ${esc(site.location)}` : ""}<br />
               ${esc(site.email)}${site.phoneDisplay ? ` · ${esc(site.phoneDisplay)}` : ""}<br />
               © ${year} ${esc(site.name)}
@@ -107,32 +103,32 @@ function shell(site: SiteConfig, inner: string) {
 function fieldRow(label: string, value: string, href?: string) {
   const display = esc(dash(value));
   const body = href && value.trim()
-    ? `<a href="${esc(href)}" style="color:#02f5fb;text-decoration:none;">${display}</a>`
+    ? `<a href="${esc(href)}" style="color:#7af0ff;text-decoration:none;">${display}</a>`
     : display;
   return `<tr>
-    <td style="padding:10px 0;border-bottom:1px solid rgba(249,245,242,0.08);width:120px;color:#a3a4a6;font-size:13px;vertical-align:top;">${esc(label)}</td>
-    <td style="padding:10px 0;border-bottom:1px solid rgba(249,245,242,0.08);color:#f9f5f2;font-size:14px;font-weight:600;vertical-align:top;">${body}</td>
+    <td style="padding:10px 0;border-bottom:1px solid rgba(196,214,255,0.08);width:120px;color:#a9b6ce;font-size:13px;vertical-align:top;">${esc(label)}</td>
+    <td style="padding:10px 0;border-bottom:1px solid rgba(196,214,255,0.08);color:#f4f8ff;font-size:14px;font-weight:600;vertical-align:top;">${body}</td>
   </tr>`;
 }
 
 function button(href: string, label: string, fill: boolean) {
   const bg = fill ? "#0B6BFF" : "transparent";
-  const color = fill ? "#ffffff" : "#02f5fb";
-  const border = fill ? "#0B6BFF" : "rgba(2,245,251,0.45)";
+  const color = fill ? "#ffffff" : "#7af0ff";
+  const border = fill ? "#0B6BFF" : "rgba(122,240,255,0.45)";
   return `<a href="${esc(href)}" style="display:inline-block;margin:0 8px 8px 0;padding:12px 18px;border-radius:10px;border:1px solid ${border};background:${bg};color:${color};font-size:13px;font-weight:700;text-decoration:none;">${esc(label)}</a>`;
 }
 
 export function enquiryHtml(enquiry: Enquiry, site: SiteConfig) {
-  const mail = `mailto:${enquiry.email}?subject=${encodeURIComponent(`Re: your enquiry to ${site.name}`)}`;
+  const mail = `mailto:${encodeURIComponent(enquiry.email)}?subject=${encodeURIComponent(`Re: your enquiry to ${site.name}`)}`;
   const digits = phoneDigits(enquiry.phone);
   const tel = enquiry.phone ? `tel:${enquiry.phone.replace(/\s/g, "")}` : "";
   const wa = digits ? `https://wa.me/${digits.startsWith("91") ? digits : `91${digits}`}` : site.whatsappHref;
 
   const inner = `<tr>
     <td style="padding:28px 32px 8px;">
-      <p style="margin:0 0 8px;color:#02f5fb;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">New enquiry</p>
-      <h1 style="margin:0 0 8px;color:#f9f5f2;font-size:24px;line-height:1.25;font-weight:700;">${esc(enquiry.name)}</h1>
-      <p style="margin:0;color:#a3a4a6;font-size:14px;line-height:1.5;">${esc(enquiry.need || "New website enquiry")}${enquiry.company ? ` · ${esc(enquiry.company)}` : ""}</p>
+      <p style="margin:0 0 8px;color:#7af0ff;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">New enquiry</p>
+      <h1 style="margin:0 0 8px;color:#f4f8ff;font-size:24px;line-height:1.25;font-weight:700;">${esc(enquiry.name)}</h1>
+      <p style="margin:0;color:#a9b6ce;font-size:14px;line-height:1.5;">${esc(enquiry.need || "New website enquiry")}${enquiry.company ? ` · ${esc(enquiry.company)}` : ""}</p>
     </td>
   </tr>
   <tr>
@@ -140,7 +136,7 @@ export function enquiryHtml(enquiry: Enquiry, site: SiteConfig) {
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
         ${fieldRow("Name", enquiry.name)}
         ${fieldRow("Company", enquiry.company)}
-        ${fieldRow("Email", enquiry.email, `mailto:${enquiry.email}`)}
+        ${fieldRow("Email", enquiry.email, `mailto:${encodeURIComponent(enquiry.email)}`)}
         ${fieldRow("Phone", enquiry.phone, tel || undefined)}
         ${fieldRow("Industry", enquiry.industry)}
         ${fieldRow("Need", enquiry.need)}
@@ -150,8 +146,8 @@ export function enquiryHtml(enquiry: Enquiry, site: SiteConfig) {
   </tr>
   <tr>
     <td style="padding:16px 32px 8px;">
-      <p style="margin:0 0 8px;color:#a3a4a6;font-size:13px;">Message</p>
-      <div style="padding:16px 18px;border-radius:12px;background:#161e2c;border:1px solid rgba(249,245,242,0.08);color:#f9f5f2;font-size:14px;line-height:1.65;white-space:pre-wrap;">${esc(enquiry.message)}</div>
+      <p style="margin:0 0 8px;color:#a9b6ce;font-size:13px;">Message</p>
+      <div style="padding:16px 18px;border-radius:12px;background:#13223f;border:1px solid rgba(196,214,255,0.08);color:#f4f8ff;font-size:14px;line-height:1.65;white-space:pre-wrap;">${esc(enquiry.message)}</div>
     </td>
   </tr>
   <tr>
@@ -167,16 +163,9 @@ export function enquiryHtml(enquiry: Enquiry, site: SiteConfig) {
 export function enquiryAckHtml(enquiry: Enquiry, site: SiteConfig) {
   const inner = `<tr>
     <td style="padding:28px 32px 8px;">
-      <p style="margin:0 0 8px;color:#02f5fb;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">Enquiry received</p>
-      <h1 style="margin:0 0 10px;color:#f9f5f2;font-size:24px;line-height:1.25;font-weight:700;">Thank you, ${esc(enquiry.name)}.</h1>
-      <p style="margin:0;color:#a3a4a6;font-size:14px;line-height:1.6;">We have your message. Someone from ${esc(site.name)} will reply to <a href="mailto:${esc(enquiry.email)}" style="color:#02f5fb;text-decoration:none;">${esc(enquiry.email)}</a>.</p>
-    </td>
-  </tr>
-  <tr>
-    <td style="padding:18px 32px 8px;">
-      <p style="margin:0 0 8px;color:#a3a4a6;font-size:13px;">What you sent</p>
-      <p style="margin:0 0 12px;color:#f9f5f2;font-size:14px;font-weight:600;">${esc(dash(enquiry.need))}</p>
-      <div style="padding:16px 18px;border-radius:12px;background:#161e2c;border:1px solid rgba(249,245,242,0.08);color:#f9f5f2;font-size:14px;line-height:1.65;white-space:pre-wrap;">${esc(enquiry.message)}</div>
+      <p style="margin:0 0 8px;color:#7af0ff;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">Enquiry received</p>
+      <h1 style="margin:0 0 10px;color:#f4f8ff;font-size:24px;line-height:1.25;font-weight:700;">Thank you, ${esc(enquiry.name)}.</h1>
+      <p style="margin:0;color:#a9b6ce;font-size:14px;line-height:1.6;">We have your message. Someone from ${esc(site.name)} will reply to <a href="mailto:${esc(encodeURIComponent(enquiry.email))}" style="color:#7af0ff;text-decoration:none;">${esc(enquiry.email)}</a>.</p>
     </td>
   </tr>
   <tr>

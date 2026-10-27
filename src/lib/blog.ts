@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { builtInPhotoAlt } from "@/content/new-images";
 
 const postsDirectory = path.join(process.cwd(), "src", "content", "blog");
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -54,7 +55,9 @@ function parseFile(fileName: string): Post | null {
     : [];
   const coverValue = asString(parsed.data.cover);
   const cover = coverValue.startsWith("/") ? coverValue : undefined;
-  const coverAlt = asString(parsed.data.coverAlt) || undefined;
+  // Built-in photos take their current description from photos/credits.json;
+  // frontmatter alt text was written for the old images.
+  const coverAlt = (cover ? builtInPhotoAlt(cover) : null) || asString(parsed.data.coverAlt) || undefined;
 
   if (!title || !description || !date || !author || tags.length === 0) {
     console.warn(`[blog] Skipping ${fileName}: frontmatter needs title, description, date, author and tags.`);

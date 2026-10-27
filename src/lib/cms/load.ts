@@ -1,6 +1,9 @@
 import { cache } from "react";
 import { getPool } from "@/lib/db/pool";
 import { cmsDefaults } from "@/lib/cms/defaults";
+import { mergeContent } from "@/lib/cms/merge";
+import { currentAltFor } from "@/content/new-images";
+import { normalizeProject } from "@/content/projects";
 import type { CmsBundle } from "@/lib/cms/types";
 import type { DetailKind } from "@/content/details";
 
@@ -13,6 +16,7 @@ const KEYS: (keyof CmsBundle)[] = [
   "solutionsHub",
   "industriesHub",
   "caseStudies",
+  "projects",
   "aiAutomation",
   "insights",
   "blog",
@@ -26,21 +30,41 @@ const KEYS: (keyof CmsBundle)[] = [
   "navigation",
 ];
 
-function isObject(value: unknown): value is Record<string, unknown> {
-  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+/**
+ * Stored rows keep the alt text a photo had when they were saved. Built-in
+ * photos were replaced under the same file names, so old default descriptions
+ * are refreshed from photos/credits.json. Descriptions an admin wrote are kept.
+ */
+function withCurrentPhotoAlts<T>(value: T): T {
+  if (Array.isArray(value)) return value.map(withCurrentPhotoAlts) as T;
+  if (!value || typeof value !== "object") return value;
+  const next: Record<string, unknown> = {};
+  for (const [key, item] of Object.entries(value)) next[key] = withCurrentPhotoAlts(item);
+  if (typeof next.src === "string" && typeof next.alt === "string") {
+    next.alt = currentAltFor(next.src, next.alt);
+  }
+  return next as T;
 }
 
-function merge<T>(base: T, overlay: unknown): T {
-  if (overlay === undefined || overlay === null) return base;
-  if (Array.isArray(base)) return (Array.isArray(overlay) ? overlay : base) as T;
-  if (isObject(base) && isObject(overlay)) {
-    const next = { ...base } as Record<string, unknown>;
-    for (const [key, value] of Object.entries(overlay)) {
-      next[key] = merge((base as Record<string, unknown>)[key], value);
-    }
-    return next as T;
-  }
-  return overlay as T;
+/**
+ * Rows saved before a field existed miss it, and arrays from the database
+ * replace the defaults whole. Fill those fields in so pages can rely on them
+ * and the admin editor shows every field (for example a team member's photo).
+ */
+function normalizeBundle(bundle: CmsBundle): CmsBundle {
+  const emptyPhoto = { src: "", alt: "", width: 800, height: 800 };
+  const people = (bundle.about.team.people ?? []).map((person) => ({
+    name: person?.name ?? "",
+    role: person?.role ?? "",
+    bio: person?.bio ?? "",
+    photo: person?.photo && typeof person.photo === "object" ? { ...emptyPhoto, ...person.photo } : { ...emptyPhoto },
+    linkedin: person?.linkedin ?? "",
+  }));
+  return {
+    ...bundle,
+    about: { ...bundle.about, team: { ...bundle.about.team, people } },
+    projects: { ...bundle.projects, items: (bundle.projects.items ?? []).map(normalizeProject) },
+  };
 }
 
 export const getCms = cache(async (): Promise<CmsBundle> => {
@@ -61,7 +85,7 @@ export const getCms = cache(async (): Promise<CmsBundle> => {
         console.error(`[cms] Invalid JSON for ${row.content_key}.`);
       }
     }
-    return merge(defaults, overlay);
+    return normalizeBundle(withCurrentPhotoAlts(mergeContent(defaults, overlay)));
   } catch (error) {
     console.error("[cms] Could not load content.", error instanceof Error ? error.message : "Unknown database error");
     return defaults;

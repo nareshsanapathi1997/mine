@@ -15,7 +15,7 @@ export function HomeSteps({ content }: { content: HomeContent["steps"] }) {
           </div>
           <p className="text-body text-muted">{content.intro}</p>
         </div>
-        <ol className="h-steps mt-8 lg:mt-10" data-reveal-stagger>
+        <ol className="h-steps mt-8 lg:mt-10" data-reveal-stagger suppressHydrationWarning>
           {content.items.map((step, index) => (
             <li key={step.title} className="h-step" data-reveal-child>
               <span className="h-step-num" aria-hidden="true">
@@ -44,7 +44,7 @@ export function HomeWhy({ content }: { content: HomeContent["why"] }) {
           </div>
           <p className="text-body text-muted">{content.intro}</p>
         </div>
-        <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+        <ul className="stack grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger suppressHydrationWarning>
           {content.items.map((item) => (
             <li key={item.title} className="card h-reason" data-reveal-child>
               <span className="icon-chip">

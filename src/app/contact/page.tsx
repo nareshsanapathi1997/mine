@@ -11,18 +11,6 @@ export async function generateMetadata() {
   });
 }
 
-export default async function ContactPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const params = await searchParams;
-  const raw = params.need;
-  const need = (Array.isArray(raw) ? raw[0] : raw) ?? "";
-
-  return (
-    <>
-      <ContactSection defaultNeed={need} />
-    </>
-  );
+export default function ContactPage() {
+  return <ContactSection needFromQuery />;
 }

@@ -15,7 +15,7 @@ export function HomeProblems({ content, fixLabel }: { content: HomeContent["prob
           </div>
           <p className="text-body text-muted">{content.intro}</p>
         </div>
-        <ul className="stack grid gap-3 sm:grid-cols-2 xl:grid-cols-3" data-reveal-stagger>
+        <ul className="stack grid gap-3 sm:grid-cols-2 xl:grid-cols-3" data-reveal-stagger suppressHydrationWarning>
           {content.items.map((item) => (
             <li key={item.who} className="card h-problem" data-reveal-child>
               <div className="flex items-center gap-2.5">

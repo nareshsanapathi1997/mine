@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { getCms } from "@/lib/cms";
 import { getPosts, getTags } from "@/lib/blog";
+import { publishedProjects } from "@/content/projects";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { site, details } = await getCms();
+  const { site, details, projects } = await getCms();
   const lastModified = new Date();
   const staticPaths = [
     "/",
@@ -45,6 +46,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "mobile-applications",
   ]);
   const moneyIndustries = new Set(["schools", "hotels", "healthcare", "manufacturing", "education"]);
+
+  const shownProjects = publishedProjects(projects.items);
+  if (shownProjects.length) {
+    pages.push({ url: new URL("/projects", site.url).toString(), lastModified, changeFrequency: "monthly", priority: 0.8 });
+    for (const project of shownProjects) {
+      pages.push({ url: new URL(`/projects/${project.slug}`, site.url).toString(), lastModified, changeFrequency: "monthly", priority: 0.7 });
+    }
+  }
 
   try {
     for (const page of details.filter((item) => item.kind === "solution")) {

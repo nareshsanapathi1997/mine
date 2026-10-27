@@ -77,7 +77,7 @@ export function BrandForm({ initial }: { initial: SiteConfig }) {
     <form onSubmit={onSubmit} className="space-y-10">
       <section>
         <h2 className="text-h3 text-ink">Logos</h2>
-        <p className="mt-1 text-sm text-muted">PNG, JPG, WebP, SVG or ICO, up to 2 MB.</p>
+        <p className="mt-1 text-sm text-muted">PNG, JPG, WebP or ICO, up to 2 MB. SVG is not accepted for security reasons.</p>
         <ul className="mt-4 grid gap-4 sm:grid-cols-2">
           {SLOTS.map((slot) => (
             <li key={slot.key} className="card p-4">
@@ -92,7 +92,7 @@ export function BrandForm({ initial }: { initial: SiteConfig }) {
               <Input
                 id={`file-${slot.key}`}
                 type="file"
-                accept="image/png,image/jpeg,image/webp,image/svg+xml,image/x-icon"
+                accept="image/png,image/jpeg,image/webp,image/x-icon"
                 className="mt-1 h-auto py-2"
                 onChange={async (event) => {
                   const file = event.target.files?.[0];

@@ -103,7 +103,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <h2 id="more-notes" className="text-h2 text-ink">
               Related articles
             </h2>
-            <ul className="mt-5 grid gap-4" data-reveal-stagger>
+            <ul className="mt-5 grid gap-4" data-reveal-stagger suppressHydrationWarning>
               {others.map((item) => (
                 <li key={item.slug} data-reveal-child className="card card-accent">
                   <TextLink href={`/blog/${item.slug}`}>{item.title}</TextLink>

@@ -17,7 +17,7 @@ export function HomeServices({ content }: { content: HomeContent["services"] }) 
           </div>
           <p className="text-body text-muted">{content.intro}</p>
         </div>
-        <ul className="stack h-bento" data-reveal-stagger>
+        <ul className="stack h-bento" data-reveal-stagger suppressHydrationWarning>
           {content.items.map((service, index) => (
             <li key={service.title} className={index === 0 ? "card h-service h-service-lead overflow-hidden p-0" : "card h-service overflow-hidden p-0"} data-reveal-child>
               <div className="h-service-media relative">

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { CONTENT_SECTIONS } from "@/lib/admin/content-meta";
+import { requireAdmin } from "@/lib/admin/session";
 
-export default function AdminContentPage() {
+export default async function AdminContentPage() {
+  await requireAdmin();
   return (
     <div className="mx-auto max-w-5xl">
       <p className="eyebrow">Content</p>

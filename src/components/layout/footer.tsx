@@ -4,7 +4,8 @@ import { SocialGlyph, UiIcon } from "@/components/icons";
 import { CookieSettingsButton } from "@/components/consent/cookie-consent";
 import { Container } from "@/components/layout/container";
 import { getCms } from "@/lib/cms";
-import { copyrightYear } from "@/content/site";
+import { publishedProjects, withProjectsLink } from "@/content/projects";
+import { alternatePhone, copyrightYear } from "@/content/site";
 
 function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -26,7 +27,9 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
 }
 
 export async function Footer() {
-  const { site, chrome, navigation, services, industries } = await getCms();
+  const { site, chrome, navigation, services, industries, projects } = await getCms();
+  const companyLinks = withProjectsLink(navigation.company, publishedProjects(projects.items).length > 0, projects.navLabel);
+  const altPhone = alternatePhone(site);
   const year = copyrightYear();
   const footerServices = navigation.footerServiceSlugs.flatMap((slug) => {
     const service = services.find((item) => item.slug === slug && item.showInFooter);
@@ -49,14 +52,11 @@ export async function Footer() {
               <a href={site.phoneHref} className="footer-link">
                 {site.phoneDisplay}
               </a>
-              {site.altPhoneDisplay ? (
+              {altPhone ? (
                 <>
                   <span className="text-mist" aria-hidden="true">·</span>
-                  <a
-                    href={site.altPhoneHref || `tel:${site.altPhoneDisplay.replace(/[^\d+]/g, "")}`}
-                    className="footer-link"
-                  >
-                    {site.altPhoneDisplay}
+                  <a href={altPhone.href} className="footer-link">
+                    {altPhone.display}
                   </a>
                 </>
               ) : null}
@@ -102,7 +102,7 @@ export async function Footer() {
             ))}
           </FooterColumn>
           <FooterColumn title={chrome.footer.companyTitle}>
-            {navigation.company.map((item) => (
+            {companyLinks.map((item) => (
               <FooterLink key={item.href} href={item.href}>
                 {item.label}
               </FooterLink>

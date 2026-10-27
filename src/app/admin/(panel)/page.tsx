@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { getCms } from "@/lib/cms";
 import { getPool } from "@/lib/db/pool";
+import { requireAdmin } from "@/lib/admin/session";
 
 export default async function AdminHomePage() {
+  await requireAdmin();
   const { site } = await getCms();
   const pool = getPool();
   let enquiryCount = 0;

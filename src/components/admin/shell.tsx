@@ -35,7 +35,7 @@ export function AdminShell({
     <div className="flex min-h-full">
       <aside className="hidden w-60 shrink-0 border-r border-line bg-surface p-4 sm:block">
         <Link href="/admin" className="block px-1">
-          <Logo name={site.name} brand={site.brand} variant="inverse" />
+          <Logo name={site.name} brand={site.brand} />
         </Link>
         <p className="mt-4 px-3 text-xs font-semibold uppercase tracking-[0.14em] text-accent-glow">Admin</p>
         <nav className="mt-4 flex flex-col gap-1" aria-label="Admin">

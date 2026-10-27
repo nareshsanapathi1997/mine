@@ -1,7 +1,9 @@
 import { BrandForm } from "@/app/admin/(panel)/brand/brand-form";
 import { getCms } from "@/lib/cms";
+import { requireAdmin } from "@/lib/admin/session";
 
 export default async function AdminBrandPage() {
+  await requireAdmin();
   const { site } = await getCms();
   return (
     <div className="mx-auto max-w-3xl">

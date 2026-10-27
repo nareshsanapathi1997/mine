@@ -1,4 +1,5 @@
 import { getPool } from "@/lib/db/pool";
+import { requireAdmin } from "@/lib/admin/session";
 
 type Row = {
   id: string;
@@ -15,6 +16,7 @@ type Row = {
 };
 
 export default async function AdminEnquiriesPage() {
+  await requireAdmin();
   const pool = getPool();
   let rows: Row[] = [];
   if (pool) {

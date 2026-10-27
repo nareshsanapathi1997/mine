@@ -12,7 +12,7 @@ export function Splash() {
       <div id="kq-splash" aria-hidden="true">
         {/* eslint-disable-next-line @next/next/no-img-element -- splash must paint before hydration */}
         <img
-          src="/varasena-brand-pack/varasena-v-mark.png"
+          src="/varasena-brand-pack/varasena-v-mark-192.webp"
           alt=""
           width={96}
           height={96}

@@ -79,10 +79,22 @@ export function RevealObserver() {
       );
 
       watch();
-      mutations = new MutationObserver(schedule);
+      /*
+       * Scrolling is handled by the IntersectionObserver alone. The mutation
+       * observer only rescans when added nodes contain reveal targets, so
+       * chat messages, menus and reel frames do not trigger layout reads.
+       */
+      mutations = new MutationObserver((records) => {
+        for (const record of records) {
+          for (const node of record.addedNodes) {
+            if (node instanceof Element && (node.matches(selector) || node.querySelector(selector))) {
+              schedule();
+              return;
+            }
+          }
+        }
+      });
       mutations.observe(document.body, { childList: true, subtree: true });
-      window.addEventListener("scroll", schedule, { passive: true });
-      window.addEventListener("resize", schedule);
     });
 
     return () => {
@@ -90,8 +102,6 @@ export function RevealObserver() {
       if (frame) window.cancelAnimationFrame(frame);
       observer?.disconnect();
       mutations?.disconnect();
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
     };
   }, [pathname]);
 

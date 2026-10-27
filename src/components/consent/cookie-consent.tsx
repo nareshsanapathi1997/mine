@@ -157,7 +157,7 @@ function CookieBanner({ onPreferences }: { onPreferences: () => void }) {
       <div
         role="region"
         aria-label="Cookie consent"
-        className="mx-auto flex max-w-3xl flex-col gap-4 rounded-2xl border border-line bg-surface p-4 shadow-[0_16px_40px_-24px_rgba(15,23,42,0.5)] sm:p-5"
+        className="mx-auto flex max-w-3xl flex-col gap-4 rounded-2xl border border-line bg-surface p-4 shadow-[0_16px_40px_-24px_rgba(11,26,58,0.5)] sm:p-5"
       >
         <p className="text-sm leading-relaxed text-ink">
           We store this choice in your browser. Analytics cookies run only if you allow them and a measurement ID is
